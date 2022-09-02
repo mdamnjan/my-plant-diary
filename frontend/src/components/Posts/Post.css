@@ -1,0 +1,27 @@
+.post-container {
+    background-color: white;
+    display: inline-block;
+}
+
+.post-list {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    width: 20%;
+    height: 20%;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.username {
+    /* display: inline-block; */
+    /* vertical-align: middle; */
+}
+
+.user-profile {
+    vertical-align: middle;
+    display: inline-block;
+}
