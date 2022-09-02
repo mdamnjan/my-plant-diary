@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions, generics
 from .serializers import UserSerializer, GroupSerializer, PlantSerializer, PostSerializer
 from .models import Plant, Post
+from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 
@@ -15,10 +15,28 @@ def index(request):
 class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializer
     queryset = Plant.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly]
+                      
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
