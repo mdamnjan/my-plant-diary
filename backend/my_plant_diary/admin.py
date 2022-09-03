@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Plant, Post
+from .models import Plant, Note
 
 # Register your models here.
 
@@ -9,4 +9,4 @@ class Admin(admin.ModelAdmin):
 
 
 admin.site.register(Plant, Admin)
-admin.site.register(Post, Admin)
+admin.site.register(Note, Admin)

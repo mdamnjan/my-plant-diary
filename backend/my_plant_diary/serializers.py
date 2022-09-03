@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Plant, Post
+from .models import Plant, Note
 
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -8,19 +8,19 @@ class PlantSerializer(serializers.ModelSerializer):
         model = Plant
         fields = ('id', 'name', 'owner')
 
-class PostSerializer(serializers.ModelSerializer):
+class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
-        model = Post
+        model = Note
         fields = ('id', 'text', 'plant', 'owner')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    posts = serializers.PrimaryKeyRelatedField(many=True, queryset=Post.objects.all())
+    notes = serializers.PrimaryKeyRelatedField(many=True, queryset=Note.objects.all())
     plants = serializers.PrimaryKeyRelatedField(many=True, queryset=Plant.objects.all())
 
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups', 'posts', 'plants']
+        fields = ['url', 'username', 'email', 'groups', 'notes', 'plants']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

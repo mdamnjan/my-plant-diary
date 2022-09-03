@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Post from "./Post";
-import "./Post.css"
+import Note from "./Note";
+import "./Note.css"
 import { Divider } from "@mui/material";
 
-const postList = [
+const noteList = [
   {
     id: 1,
     text: "I love this plant so much!",
@@ -19,12 +19,12 @@ const postList = [
   },
 ];
 
-const PostPage = () => {
-  // const [postList, setPostList] = useState([]);
+const NotePage = () => {
+  // const [noteList, setNoteList] = useState([]);
   // useEffect(() => {
-  //   axios.get("/api/posts/").then((response) => setPostList(response.data));
+  //   axios.get("/api/notes/").then((response) => setNoteList(response.data));
   // }, []);
-  let posts = postList.map((post) => <><Post key={post.id} post={post} /><Divider/></>);
-  return <div className="post-list">{posts}</div>;
+  let notes = noteList.map((note) => <><Note key={note.id} note={note} /><Divider/></>);
+  return <div className="note-list">{notes}</div>;
 };
-export default PostPage;
+export default NotePage;

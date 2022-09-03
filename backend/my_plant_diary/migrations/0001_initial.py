@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name="Post",
+            name="Note",
             fields=[
                 (
                     "id",
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                     "owner",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="posts",
+                        related_name="notes",
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),

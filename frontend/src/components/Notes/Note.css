@@ -1,9 +1,9 @@
-.post-container {
+.note-container {
     background-color: white;
     display: inline-block;
 }
 
-.post-list {
+.note-list {
     width: 200px;
     display: flex;
     flex-direction: column;
