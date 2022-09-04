@@ -1,0 +1,14 @@
+.navbar {
+    background-color: white;
+    /* position: absolute; */
+    display: block;
+    border: 1px solid rgb(226, 225, 225);
+    width:20%;
+}
+
+.navbar-item {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 10%;
+}
