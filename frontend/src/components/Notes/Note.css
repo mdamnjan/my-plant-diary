@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-img {
+.user-profile>img {
     width: 20%;
     height: 20%;
     background-color: gray;

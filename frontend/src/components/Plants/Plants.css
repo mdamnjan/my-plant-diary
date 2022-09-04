@@ -1,0 +1,46 @@
+.plant-page-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.plant-card {
+    width: 40%;
+    min-height: 200px;
+    max-height: 300px;
+    display: flex;
+    background-color: white;
+    position: relative;
+    min-width: 250px;
+}
+
+.image-gallery > img {
+    background-color: gray;
+    width: 100%;
+    border-radius: 20px;
+    max-height: 100%;
+    object-fit: cover;
+    min-width: 100px;
+}
+
+.image-gallery {
+    width: 40%;
+    float: left;
+    margin: 5%;
+    position: relative;
+}
+
+.plant-info-section {
+    max-width: 60%;
+    margin-right: 3%;
+    overflow-y: auto
+}
+
+.alerts {
+    border-radius: 20px;
+    background-color: #ff0808;
+    display: inline-block;
+    padding: 5px;
+    color: white;
+    box-shadow: 0px 1px #700101;
+}
