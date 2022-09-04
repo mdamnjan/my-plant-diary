@@ -40,7 +40,11 @@
     border-radius: 20px;
     background-color: #ff0808;
     display: inline-block;
-    padding: 5px;
+    padding: 5px 13px 5px 5px;
     color: white;
     box-shadow: 0px 1px #700101;
+}
+
+.alerts-icon {
+    vertical-align: bottom;
 }
