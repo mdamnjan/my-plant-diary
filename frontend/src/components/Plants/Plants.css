@@ -4,8 +4,33 @@
     flex-direction: column;
 }
 
-.plant-card {
+.plant-list {
+    display: flex;
+    flex-direction: column;
     width: 40%;
+}
+
+.search-field {
+    width: 30%;
+    background-color: white;
+    /* border-radius: 20px; */
+    margin-bottom: 1%;
+}
+
+.plus-icon {
+    position: fixed;
+    scale: 3;
+    bottom: 11%;
+    left: 65%;
+    color: rgb(71, 71, 72);
+}
+
+.icon2 {
+    color: white
+}
+
+
+.plant-card {
     min-height: 200px;
     max-height: 300px;
     display: flex;
