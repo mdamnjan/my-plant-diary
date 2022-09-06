@@ -27,7 +27,7 @@ class PlantDetailViewSet(generics.RetrieveAPIView):
 
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
-    queryset = Note.objects.all()
+    queryset = Note.objects.all().order_by('-updated')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly]
 
@@ -40,7 +40,7 @@ class NoteDetailViewSet(generics.RetrieveAPIView):
 
 class WateringViewSet(viewsets.ModelViewSet):
     serializer_class = WateringEntrySerializer
-    queryset = WateringEntry.objects.all()
+    queryset = WateringEntry.objects.all().order_by('-watered_on')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly]
 
