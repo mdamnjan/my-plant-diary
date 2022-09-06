@@ -13,7 +13,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Might not be the proper way to do this
         # for checking perms of watering entries
-        if obj.plant:
+        if hasattr(obj, 'plant'):
             return obj.plant.owner == request.user
 
         # Write permissions are only allowed to the owner of the snippet.

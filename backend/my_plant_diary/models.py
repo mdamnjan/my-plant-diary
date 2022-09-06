@@ -10,6 +10,7 @@ class Plant(models.Model):
     # watering_frequency
     # last_watered
     # watering_entries
+    # notes
     
 class Note(models.Model):
     owner = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)

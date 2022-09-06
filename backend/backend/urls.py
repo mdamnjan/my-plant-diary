@@ -33,5 +33,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
-    path('plants/<int:pk>/<int:pk2>', views.UserDetail.as_view())
 ]

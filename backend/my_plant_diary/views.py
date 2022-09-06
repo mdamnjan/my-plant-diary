@@ -21,6 +21,10 @@ class PlantViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class PlantDetailViewSet(generics.RetrieveAPIView):
+    queryset = Plant.objects.all()
+    serializer_class = PlantSerializer
+
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
@@ -30,14 +34,19 @@ class NoteViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class NoteDetailViewSet(generics.RetrieveAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+
 class WateringViewSet(viewsets.ModelViewSet):
     serializer_class = WateringEntrySerializer
     queryset = WateringEntry.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+class WateringDetailViewSet(generics.RetrieveAPIView):
+    queryset = WateringEntry.objects.all()
+    serializer_class = WateringEntrySerializer
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
