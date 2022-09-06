@@ -23,6 +23,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'plants', views.PlantViewSet)
 router.register(r'notes', views.NoteViewSet)
+router.register(r'watering', views.WateringViewSet)
 
 
 urlpatterns = [
@@ -31,5 +32,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
     path('users/', views.UserList.as_view()),
-    path('users/<int:pk>/', views.UserDetail.as_view())
+    path('users/<int:pk>/', views.UserDetail.as_view()),
+    path('plants/<int:pk>/<int:pk2>', views.UserDetail.as_view())
 ]

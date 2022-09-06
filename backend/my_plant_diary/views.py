@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, generics
-from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer
-from .models import Plant, Note
+from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer
+from .models import Plant, Note, WateringEntry
 from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
@@ -29,6 +29,15 @@ class NoteViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+class WateringViewSet(viewsets.ModelViewSet):
+    serializer_class = WateringEntrySerializer
+    queryset = WateringEntry.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly]
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
