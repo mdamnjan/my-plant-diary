@@ -3,23 +3,16 @@ import PlantCard from "./PlantCard";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Divider } from "@mui/material";
-import { useState } from "react";
-import NewPlantForm from "./NewPlantForm"
+import { useState, useEffect } from "react";
+import axios from "axios"
 
+import NewPlantForm from "./NewPlantForm"
 import AddIcon from "./AddButton";
 
-const plantList = [
-  { id: 1, name: "Calathea Orbifolia" },
-  { id: 2, name: "String of Hearts" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-  { id: 3, name: "Peperomia Obtusifolia" },
-];
-
 const PlantPage = () => {
+  const [open, setOpen] = useState(false);
+  const [plantList, setPlantList] = useState([])
+
   const plants = plantList.map((plant) => (
     <>
       <PlantCard plant={plant} />
@@ -27,7 +20,10 @@ const PlantPage = () => {
     </>
   ));
 
-  const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    axios.get('/plants', {auth: {username: 'admin', password: 'admin'}}).then((response) => setPlantList(response.data))
+  }, [])
 
   return (
     <div className="plant-page-container">
