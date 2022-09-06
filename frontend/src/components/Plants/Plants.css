@@ -17,16 +17,22 @@
     margin-bottom: 1%;
 }
 
-.plus-icon {
-    position: fixed;
-    scale: 3;
+.plus-button {
+    position: fixed !important;
     bottom: 11%;
     left: 65%;
+    background-color: white !important;
+}
+
+.plus-icon {
     color: rgb(71, 71, 72);
+    scale: 3;
 }
 
 .icon2 {
-    color: white
+    position: absolute;
+    color: white;
+    scale: 3;
 }
 
 
