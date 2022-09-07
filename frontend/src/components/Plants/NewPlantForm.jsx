@@ -21,12 +21,17 @@ const NewPlantForm = ({ open, onClose }) => {
   const defaultWatering = "Every week";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
+  const [imageURL, setImageURL] = useState("../../Calathea_orbifolia.jpg");
 
   const handleSubmit = (e) => {
-    axios.post("/plants/", { name: name, watering_frequency: wateringFreq },
-      {
-        auth: { username: "admin", password: "admin" },
-      })
+    axios
+      .post(
+        "/plants/",
+        { name: name, watering_frequency: wateringFreq },
+        {
+          auth: { username: "admin", password: "admin" },
+        }
+      )
       .then((response) => console.log(response));
   };
 
@@ -36,7 +41,15 @@ const NewPlantForm = ({ open, onClose }) => {
         onSubmit={(e) => handleSubmit(e)}
         className="new-plant-form-container"
       >
-        <img className="plant-profile-img" src="../../Calathea_orbifolia.jpg"></img>
+        <img id="pic" className="plant-profile-img" src={imageURL}></img>
+        <input
+        className="choose-image"
+          type="file"
+          onChange={(e) => {
+            // TODO: this is probably not secure 
+            setImageURL(window.URL.createObjectURL(e.target.files[0]));
+          }}
+        />
         <TextField
           onChange={(e) => setName(e.target.value)}
           className="plant-name-field"
