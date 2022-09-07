@@ -10,7 +10,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
     <div
       className="plant-card"
       onClick={() =>
-        navigate(`/plants/${plant.id}`, { replace: true, state: plant })
+        navigate(`/plants/${plant.id}/`, { replace: true, state: plant })
       }
     >
       <div className="image-gallery">
