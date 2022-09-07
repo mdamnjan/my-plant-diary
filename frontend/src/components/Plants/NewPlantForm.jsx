@@ -7,8 +7,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 
 const FreqChoices = {
   EOD: "Every Other Day",
@@ -17,43 +16,61 @@ const FreqChoices = {
   OAM: "Once a Month",
 };
 
-const NewPlantForm = ({ open, onClose }) => {
-  const defaultWatering = "Every week";
+const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
+  const defaultWatering = "OAW";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
 
-  const handleSubmit = (e) => {
-    axios.post("/plants/", { name: name, watering_frequency: wateringFreq },
-      {
-        auth: { username: "admin", password: "admin" },
-      })
-      .then((response) => console.log(response));
+  const clearFields = () => {
+    setName("");
+    setWateringFreq(FreqChoices[defaultWatering]);
   };
+
+  useEffect(() => {
+    if (plant) {
+      setName(plant.name);
+      setWateringFreq(plant.watering_frequency);
+    }
+    if (!isEditing) {
+      clearFields();
+    }
+  }, [isEditing]);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <form
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          clearFields();
+          handleSubmit(e, name, wateringFreq, plant.id);
+        }}
         className="new-plant-form-container"
       >
-        <img className="plant-profile-img" src="../../Calathea_orbifolia.jpg"></img>
+        <img
+          className="plant-profile-img"
+          src="../../Calathea_orbifolia.jpg"
+        ></img>
         <TextField
           onChange={(e) => setName(e.target.value)}
           className="plant-name-field"
           InputLabelProps={{ shrink: true }}
           label="Name"
+          value={name}
         />
         <FormControl sx={{ width: "100%" }}>
           <InputLabel id="water-freq-field">Needs Water</InputLabel>
           <Select
-            onChange={(e) => setWateringFreq(e.target.value)}
+            onChange={(e) => {
+              setWateringFreq(e.target.value);
+            }}
             defaultValue={defaultWatering}
             labelId="water-freq-field"
             className="watering-field"
             label="Needs Water"
+            value={wateringFreq}
           >
             {["EOD", "OAW", "ETW", "OAM"].map((freq) => (
-              <MenuItem value={freq}>{FreqChoices[freq]}</MenuItem>
+              <MenuItem value={FreqChoices[freq]}>{FreqChoices[freq]}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -62,7 +79,7 @@ const NewPlantForm = ({ open, onClose }) => {
           className="confirm-add-button"
           variant="contained"
         >
-          Add Plant
+          {isEditing ? "Update Plant" : "Add Plant"}
         </Button>{" "}
       </form>
     </Dialog>

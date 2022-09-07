@@ -9,21 +9,61 @@ import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
 
+// temporary basic auth for admin
+let tempAuth = { auth: { username: "admin", password: "admin" } };
+
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+
+  const getPlantList = () => {
+    axios
+      .get("/plants", tempAuth)
+      .then((response) => setPlantList(response.data));
+  };
+
+  const handleEdit = (plant) => {
+    setIsEditing(true);
+    setOpen(true);
+    setPlant(plant);
+  };
+
+  const handleSubmit = (e, name, wateringFreq, plantID) => {
+    const updatePage = () => {
+      setOpen(false);
+      getPlantList();
+      setIsEditing(false);
+    };
+
+    const body = { name: name, watering_frequency: wateringFreq };
+    const auth = tempAuth;
+
+    if (isEditing) {
+      axios.put(`/plants/${plantID}/`, body, auth).then(() => updatePage());
+    } else {
+      axios.post("/plants/", body, auth).then(() => updatePage());
+    }
+  };
+
+  const handleDelete = (plant) => {
+    axios.delete(`/plants/${plant.id}/`, tempAuth).then(() => getPlantList());
+  };
 
   const plants = plantList.map((plant) => (
     <>
-      <PlantCard plant={plant} />
+      <PlantCard
+        plant={plant}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
       <Divider />
     </>
   ));
 
   useEffect(() => {
-    axios
-      .get("/plants", { auth: { username: "admin", password: "admin" } })
-      .then((response) => setPlantList(response.data));
+    getPlantList();
   }, []);
 
   return (
@@ -37,19 +77,28 @@ const PlantPage = () => {
       <div className="plant-list">
         {plants}
         <Tooltip placement="top" title="Add a plant">
-        <Fab
-          className="plus-button"
-          onClick={() => {
-            setOpen(true);
-          }}
-          color="primary"
-          aria-label="add"
-        >
-          <AddIcon />
-        </Fab>
+          <Fab
+            className="plus-button"
+            onClick={() => {
+              setOpen(true);
+              setIsEditing(false);
+            }}
+            color="primary"
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
         </Tooltip>
       </div>
-      <NewPlantForm onClose={() => setOpen(false)} open={open} />
+      <NewPlantForm
+        handleSubmit={handleSubmit}
+        isEditing={isEditing}
+        plant={plant}
+        onClose={() => {
+          setOpen(false);
+        }}
+        open={open}
+      />
     </div>
   );
 };
