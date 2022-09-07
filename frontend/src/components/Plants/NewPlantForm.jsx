@@ -1,20 +1,70 @@
 import Dialog from "@mui/material/Dialog";
-import { TextField, Button, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
+
+const FreqChoices = {
+  EOD: "Every Other Day",
+  OAW: "Once a Week",
+  ETW: "Every 2 Weeks",
+  OAM: "Once a Month",
+};
+
 const NewPlantForm = ({ open, onClose }) => {
+  const defaultWatering = "Every week";
+  const [name, setName] = useState("");
+  const [wateringFreq, setWateringFreq] = useState(defaultWatering);
+
+  const handleSubmit = (e) => {
+    axios.post("/plants/", { name: name, watering_frequency: wateringFreq },
+      {
+        auth: { username: "admin", password: "admin" },
+      })
+      .then((response) => console.log(response));
+  };
+
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className="new-plant-form-container">
-        <TextField className="plant-name-field" InputLabelProps={{shrink: true}} label="Name" />
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="new-plant-form-container"
+      >
+        <img className="plant-profile-img" src="../../Calathea_orbifolia.jpg"></img>
+        <TextField
+          onChange={(e) => setName(e.target.value)}
+          className="plant-name-field"
+          InputLabelProps={{ shrink: true }}
+          label="Name"
+        />
         <FormControl sx={{ width: "100%" }}>
-        <InputLabel id="water-frequency-field">Needs Water</InputLabel>
-        <Select defaultValue={"Every week"} labelId="water-frequency-field" className="watering-field" label="Needs Water" >
-          <MenuItem value={"Every week"}>Every week</MenuItem>
-          <MenuItem value={"Every 2 weeks"}>Every 2 weeks</MenuItem>
-          <MenuItem value={"Once a month"}>Once a month</MenuItem>
-        </Select>
+          <InputLabel id="water-freq-field">Needs Water</InputLabel>
+          <Select
+            onChange={(e) => setWateringFreq(e.target.value)}
+            defaultValue={defaultWatering}
+            labelId="water-freq-field"
+            className="watering-field"
+            label="Needs Water"
+          >
+            {["EOD", "OAW", "ETW", "OAM"].map((freq) => (
+              <MenuItem value={freq}>{FreqChoices[freq]}</MenuItem>
+            ))}
+          </Select>
         </FormControl>
-        <Button className="confirm-add-button" variant="contained">Add Plant</Button>{" "}
-      </div>
+        <Button
+          type="submit"
+          className="confirm-add-button"
+          variant="contained"
+        >
+          Add Plant
+        </Button>{" "}
+      </form>
     </Dialog>
   );
 };
