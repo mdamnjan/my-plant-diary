@@ -54,6 +54,7 @@ const PlantPage = () => {
 
     setOpen(false);
     getPlantList();
+    setIsEditing(false)
   };
 
   const handleDelete = (plant) => {

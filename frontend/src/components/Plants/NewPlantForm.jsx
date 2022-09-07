@@ -23,19 +23,29 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
   const [imageURL, setImageURL] = useState("../../Calathea_orbifolia.jpg");
 
+  console.log("IS EDITING", isEditing);
+
   useEffect(() => {
     if (plant) {
       setName(plant.name);
       setWateringFreq(plant.watering_frequency);
     }
-  }, [plant]);
+    if (!isEditing) {
+      // clear the fields
+      setName("");
+      setWateringFreq(FreqChoices[defaultWatering]);
+    }
+  }, [isEditing]);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          handleSubmit(e, name, wateringFreq, plant.id)}}
+          e.preventDefault();
+          setName("");
+          setWateringFreq(FreqChoices[defaultWatering]);
+          handleSubmit(e, name, wateringFreq, plant.id);
+        }}
         className="new-plant-form-container"
       >
         <img
@@ -71,7 +81,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
           className="confirm-add-button"
           variant="contained"
         >
-          {isEditing? "Update Plant": "Add Plant"}
+          {isEditing ? "Update Plant" : "Add Plant"}
         </Button>{" "}
       </form>
     </Dialog>
