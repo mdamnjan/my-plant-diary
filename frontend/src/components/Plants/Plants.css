@@ -103,7 +103,7 @@
     overflow-x: hidden;
 }
 
-.plant-name-field {
+.plant-name-field, .date-picker {
     display: block !important;
     margin-bottom: 20px !important
 }

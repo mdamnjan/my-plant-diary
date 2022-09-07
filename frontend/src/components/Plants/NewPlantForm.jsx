@@ -9,6 +9,11 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 
+import { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 const FreqChoices = {
   EOD: "Every Other Day",
   OAW: "Once a Week",
@@ -25,6 +30,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
     setName("");
     setWateringFreq(FreqChoices[defaultWatering]);
   };
+  const [lastWatered, setLastWatered] = useState(null);
 
   useEffect(() => {
     if (plant) {
@@ -57,6 +63,19 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
           label="Name"
           value={name}
         />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            className="date-picker"
+            label="Last Watered"
+            value={lastWatered}
+            onChange={(newValue) => {
+              setLastWatered(newValue);
+            }}
+            renderInput={(params) => (
+              <TextField InputLabelProps={{ shrink: true }} {...params} />
+            )}
+          />
+        </LocalizationProvider>
         <FormControl sx={{ width: "100%" }}>
           <InputLabel id="water-freq-field">Needs Water</InputLabel>
           <Select
