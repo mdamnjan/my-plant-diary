@@ -125,13 +125,13 @@
     margin-bottom: 20px;
 }
 
-.plant-actions {
+.actions {
     display: block;
     float: right;
     margin-top: 3%;
 }
 
-.plant-action-button {
+.action-button {
     margin: -3px !important;
 }
 
