@@ -21,15 +21,18 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
 
+  const clearFields = () => {
+    setName("");
+    setWateringFreq(FreqChoices[defaultWatering]);
+  };
+
   useEffect(() => {
     if (plant) {
       setName(plant.name);
       setWateringFreq(plant.watering_frequency);
     }
     if (!isEditing) {
-      // clear the fields
-      setName("");
-      setWateringFreq(FreqChoices[defaultWatering]);
+      clearFields();
     }
   }, [isEditing]);
 
@@ -38,8 +41,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setName("");
-          setWateringFreq(FreqChoices[defaultWatering]);
+          clearFields();
           handleSubmit(e, name, wateringFreq, plant.id);
         }}
         className="new-plant-form-container"
