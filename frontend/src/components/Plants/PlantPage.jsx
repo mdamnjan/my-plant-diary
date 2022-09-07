@@ -2,16 +2,16 @@ import "./Plants.css";
 import PlantCard from "./PlantCard";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { Divider } from "@mui/material";
+import { Divider, Fab, Tooltip } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 
-import NewPlantForm from "./NewPlantForm"
-import AddIcon from "./AddButton";
+import NewPlantForm from "./NewPlantForm";
 
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
-  const [plantList, setPlantList] = useState([])
+  const [plantList, setPlantList] = useState([]);
 
   const plants = plantList.map((plant) => (
     <>
@@ -20,10 +20,11 @@ const PlantPage = () => {
     </>
   ));
 
-
-  useEffect(()=>{
-    axios.get('/plants', {auth: {username: 'admin', password: 'admin'}}).then((response) => setPlantList(response.data))
-  }, [])
+  useEffect(() => {
+    axios
+      .get("/plants", { auth: { username: "admin", password: "admin" } })
+      .then((response) => setPlantList(response.data));
+  }, []);
 
   return (
     <div className="plant-page-container">
@@ -33,13 +34,21 @@ const PlantPage = () => {
         options={plantList.map((plant) => plant.name)}
         renderInput={(params) => <TextField {...params} label="Plant" />}
       />
-      <div className="plant-list">{plants}</div>
-      <AddIcon
-        onClick={() => {
-          console.log("This is working")
-          setOpen(true);
-        }}
-      />
+      <div className="plant-list">
+        {plants}
+        <Tooltip placement="top" title="Add a plant">
+        <Fab
+          className="plus-button"
+          onClick={() => {
+            setOpen(true);
+          }}
+          color="primary"
+          aria-label="add"
+        >
+          <AddIcon />
+        </Fab>
+        </Tooltip>
+      </div>
       <NewPlantForm onClose={() => setOpen(false)} open={open} />
     </div>
   );

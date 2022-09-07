@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     width: 40%;
+    position: relative;
 }
 
 .search-field {
@@ -18,10 +19,13 @@
 }
 
 .plus-button {
-    position: fixed !important;
+    position: sticky !important;
+    position: -webkit-sticky; /* Safari */
     bottom: 11%;
-    left: 65%;
-    background-color: white !important;
+    /* hack for MUI dialog causing scrollbar jump
+    https://github.com/creativetimofficial/ct-material-kit-pro-react/issues/81*/
+    left: 100%;
+    margin-right: 10% !important;
 }
 
 .plus-icon {
@@ -64,10 +68,9 @@
 .plant-info-section {
     max-width: 60%;
     margin-right: 3%;
-    overflow-y: auto
 }
 
-.alerts {
+.alert-status {
     border-radius: 20px;
     background-color: #ff0808;
     display: inline-block;
@@ -76,8 +79,21 @@
     box-shadow: 0px 1px #700101;
 }
 
-.alerts-icon {
-    vertical-align: bottom;
+.ok-status {
+    border-radius: 20px;
+    background-color: #0ed95c;
+    display: inline-block;
+    padding: 5px 13px 5px 5px;
+    color: white;
+    box-shadow: 0px 1px #149846;
+}
+
+.status-icon  {
+    vertical-align: text-top;
+}
+
+.ok-status-icon {
+    margin-right: 3px;
 }
 
 .new-plant-form-container {
