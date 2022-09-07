@@ -17,16 +17,27 @@ const FreqChoices = {
   OAM: "Once a Month",
 };
 
-const NewPlantForm = ({ open, onClose }) => {
+const NewPlantForm = ({ open, onClose, plant }) => {
   const defaultWatering = "Every week";
-  const [name, setName] = useState("");
-  const [wateringFreq, setWateringFreq] = useState(defaultWatering);
+  const [name, setName] = useState(plant.name);
+  const [wateringFreq, setWateringFreq] = useState(plant.watering_frequency);
+  const [imageURL, setImageURL] = useState("../../Calathea_orbifolia.jpg");
+
+  // if (plant) {
+  //   setName(plant.name)
+  //   setWateringFreq(plant.watering_frequency)
+  // }
 
   const handleSubmit = (e) => {
-    axios.post("/plants/", { name: name, watering_frequency: wateringFreq },
-      {
-        auth: { username: "admin", password: "admin" },
-      })
+    let url = plant? `/plants/${plant.id}/`: '/plants/'
+    axios
+      .post(
+        url,
+        { name: name, watering_frequency: wateringFreq },
+        {
+          auth: { username: "admin", password: "admin" },
+        }
+      )
       .then((response) => console.log(response));
   };
 

@@ -12,18 +12,52 @@ import NewPlantForm from "./NewPlantForm";
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
+  const [isEditing, setIsEditing] = useState(false)
+  const [plant, setPlant] = useState({name: "", watering_frequency: "OAW"});
+
+  const getPlantList = () => {
+    axios
+      .get("/plants", { auth: { username: "admin", password: "admin" } })
+      .then((response) => setPlantList(response.data));
+  };
+
+  const handleEdit = (plant) => {
+    setIsEditing(true)
+    setOpen(true)
+    console.log(plant)
+    setPlant(plant)
+  }
+
+  const handleEditSubmit = (plant) => {
+    axios
+      .post(
+        `/plants/${plant.id}/`,
+        { name: plant.name, watering_frequency: plant.watering_frequency },
+        {
+          auth: { username: "admin", password: "admin" },
+        }
+      )
+      .then((response) => console.log(response));
+  }
+
+  const handleDelete = (plant) => {
+    console.log("Did this work");
+    axios
+      .delete(`/plants/${plant.id}/`, {
+        auth: { username: "admin", password: "admin" },
+      })
+      .then(() => getPlantList());
+  };
 
   const plants = plantList.map((plant) => (
     <>
-      <PlantCard plant={plant} />
+      <PlantCard plant={plant} handleEdit={handleEdit} handleDelete={handleDelete} />
       <Divider />
     </>
   ));
 
   useEffect(() => {
-    axios
-      .get("/plants", { auth: { username: "admin", password: "admin" } })
-      .then((response) => setPlantList(response.data));
+    getPlantList();
   }, []);
 
   return (
@@ -37,19 +71,19 @@ const PlantPage = () => {
       <div className="plant-list">
         {plants}
         <Tooltip placement="top" title="Add a plant">
-        <Fab
-          className="plus-button"
-          onClick={() => {
-            setOpen(true);
-          }}
-          color="primary"
-          aria-label="add"
-        >
-          <AddIcon />
-        </Fab>
+          <Fab
+            className="plus-button"
+            onClick={() => {
+              setOpen(true);
+            }}
+            color="primary"
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
         </Tooltip>
       </div>
-      <NewPlantForm onClose={() => setOpen(false)} open={open} />
+      <NewPlantForm plant={plant} onClose={() => setOpen(false)} open={open} />
     </div>
   );
 };
