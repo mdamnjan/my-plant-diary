@@ -1,4 +1,8 @@
-const PlantDetailPage = ({ plant }) => {
+import { useLocation } from "react-router-dom";
+
+const PlantDetailPage = () => {
+  const location = useLocation();
+  const plant = location.state;
   return (
     <div className="plant-detail-container">
       <h1>{plant.name}</h1>

@@ -2,10 +2,17 @@ import StatusTag from "./StatusTag";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import { useNavigate } from "react-router-dom";
 
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
+  let navigate = useNavigate();
   return (
-    <div className="plant-card">
+    <div
+      className="plant-card"
+      onClick={() =>
+        navigate(`/plants/${plant.id}`, { replace: true, state: plant })
+      }
+    >
       <div className="image-gallery">
         <img src="../../Calathea_orbifolia.jpg"></img>
       </div>
