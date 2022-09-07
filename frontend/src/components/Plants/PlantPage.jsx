@@ -12,8 +12,8 @@ import NewPlantForm from "./NewPlantForm";
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
-  const [isEditing, setIsEditing] = useState(false)
-  const [plant, setPlant] = useState({name: "", watering_frequency: "OAW"});
+  const [isEditing, setIsEditing] = useState(false);
+  const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
 
   const getPlantList = () => {
     axios
@@ -22,23 +22,39 @@ const PlantPage = () => {
   };
 
   const handleEdit = (plant) => {
-    setIsEditing(true)
-    setOpen(true)
-    console.log(plant)
-    setPlant(plant)
-  }
+    setIsEditing(true);
+    setOpen(true);
+    setPlant(plant);
+  };
 
-  const handleEditSubmit = (plant) => {
-    axios
-      .post(
-        `/plants/${plant.id}/`,
-        { name: plant.name, watering_frequency: plant.watering_frequency },
-        {
-          auth: { username: "admin", password: "admin" },
-        }
-      )
-      .then((response) => console.log(response));
-  }
+  const handleSubmit = (e, name, wateringFreq, plantID) => {
+    let url = isEditing ? `/plants/${plantID}/` : "/plants/";
+
+    if (isEditing) {
+      axios
+        .put(
+          url,
+          { name: name, watering_frequency: wateringFreq },
+          {
+            auth: { username: "admin", password: "admin" },
+          }
+        )
+        .then((response) => console.log(response));
+    } else {
+      axios
+        .post(
+          url,
+          { name: name, watering_frequency: wateringFreq },
+          {
+            auth: { username: "admin", password: "admin" },
+          }
+        )
+        .then((response) => console.log(response));
+    }
+
+    setOpen(false);
+    getPlantList();
+  };
 
   const handleDelete = (plant) => {
     console.log("Did this work");
@@ -51,7 +67,11 @@ const PlantPage = () => {
 
   const plants = plantList.map((plant) => (
     <>
-      <PlantCard plant={plant} handleEdit={handleEdit} handleDelete={handleDelete} />
+      <PlantCard
+        plant={plant}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
       <Divider />
     </>
   ));
@@ -75,6 +95,7 @@ const PlantPage = () => {
             className="plus-button"
             onClick={() => {
               setOpen(true);
+              setIsEditing(false);
             }}
             color="primary"
             aria-label="add"
@@ -83,7 +104,15 @@ const PlantPage = () => {
           </Fab>
         </Tooltip>
       </div>
-      <NewPlantForm plant={plant} onClose={() => setOpen(false)} open={open} />
+      <NewPlantForm
+        handleSubmit={handleSubmit}
+        isEditing={isEditing}
+        plant={plant}
+        onClose={() => {
+          setOpen(false);
+        }}
+        open={open}
+      />
     </div>
   );
 };
