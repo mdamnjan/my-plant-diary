@@ -9,6 +9,9 @@ import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
 
+// temporary basic auth for admin
+let tempAuth = { auth: { username: "admin", password: "admin" } };
+
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
@@ -17,7 +20,7 @@ const PlantPage = () => {
 
   const getPlantList = () => {
     axios
-      .get("/plants", { auth: { username: "admin", password: "admin" } })
+      .get("/plants", tempAuth)
       .then((response) => setPlantList(response.data));
   };
 
@@ -28,42 +31,24 @@ const PlantPage = () => {
   };
 
   const handleSubmit = (e, name, wateringFreq, plantID) => {
-    let url = isEditing ? `/plants/${plantID}/` : "/plants/";
+    const updatePage = () => {
+      setOpen(false);
+      getPlantList();
+      setIsEditing(false);
+    };
+
+    const body = { name: name, watering_frequency: wateringFreq };
+    const auth = tempAuth;
 
     if (isEditing) {
-      axios
-        .put(
-          url,
-          { name: name, watering_frequency: wateringFreq },
-          {
-            auth: { username: "admin", password: "admin" },
-          }
-        )
-        .then((response) => console.log(response));
+      axios.put(`/plants/${plantID}/`, body, auth).then(() => updatePage());
     } else {
-      axios
-        .post(
-          url,
-          { name: name, watering_frequency: wateringFreq },
-          {
-            auth: { username: "admin", password: "admin" },
-          }
-        )
-        .then((response) => console.log(response));
+      axios.post("/plants/", body, auth).then(() => updatePage());
     }
-
-    setOpen(false);
-    getPlantList();
-    setIsEditing(false)
   };
 
   const handleDelete = (plant) => {
-    console.log("Did this work");
-    axios
-      .delete(`/plants/${plant.id}/`, {
-        auth: { username: "admin", password: "admin" },
-      })
-      .then(() => getPlantList());
+    axios.delete(`/plants/${plant.id}/`, tempAuth).then(() => getPlantList());
   };
 
   const plants = plantList.map((plant) => (

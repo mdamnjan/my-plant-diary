@@ -8,7 +8,6 @@ import {
   FormControl,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 const FreqChoices = {
   EOD: "Every Other Day",
@@ -21,9 +20,6 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const defaultWatering = "OAW";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
-  const [imageURL, setImageURL] = useState("../../Calathea_orbifolia.jpg");
-
-  console.log("IS EDITING", isEditing);
 
   useEffect(() => {
     if (plant) {

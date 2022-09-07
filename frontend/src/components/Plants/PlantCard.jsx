@@ -3,7 +3,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 
-
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   return (
     <div className="plant-card">
@@ -12,10 +11,17 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
       </div>
       <div className="plant-info-section">
         <div className="plant-actions">
-          <IconButton onClick={()=>handleEdit(plant)} className="plant-action-button" color="primary">
+          <IconButton
+            onClick={() => handleEdit(plant)}
+            className="plant-action-button"
+            color="primary"
+          >
             <EditIcon />
           </IconButton>
-          <IconButton onClick={()=>handleDelete(plant)} className="plant-action-button" >
+          <IconButton
+            onClick={() => handleDelete(plant)}
+            className="plant-action-button"
+          >
             <DeleteIcon />
           </IconButton>
         </div>
