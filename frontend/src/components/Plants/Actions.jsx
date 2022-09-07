@@ -6,14 +6,20 @@ const Actions = ({ subject, handleEdit, handleDelete }) => {
   return (
     <div className="actions">
       <IconButton
-        onClick={() => handleEdit(subject)}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleEdit(subject);
+        }}
         className="action-button"
         color="primary"
       >
         <EditIcon />
       </IconButton>
       <IconButton
-        onClick={() => handleDelete(subject)}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(subject);
+        }}
         className="action-button"
       >
         <DeleteIcon />
