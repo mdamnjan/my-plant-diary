@@ -11,6 +11,7 @@ class Plant(models.Model):
     status = models.CharField(max_length=2, choices=PLANT_STATUS_CHOICES, default='OK')
     WATERING_FREQUENCY_CHOICES=[('EOD', 'Every Other Day'), ('OAW', 'Once a Week'), ('ETW', 'Every 2 Weeks'), ('OAM', 'Once a Month')]
     watering_frequency=models.CharField(max_length=3, choices=WATERING_FREQUENCY_CHOICES, default='OAW')
+    last_watered=models.DateField(null=True)
     # watering_entries
     # notes
     
@@ -25,3 +26,9 @@ class WateringEntry(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     watered_on = models.DateField()
     created = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        super(WateringEntry, self).save(*args, **kwargs)
+        if self.plant.last_watered < self.watered_on:
+            self.plant.last_watered=self.watered_on
+            self.plant.save()
