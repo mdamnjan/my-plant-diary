@@ -7,6 +7,7 @@ class PlantSerializer(serializers.ModelSerializer):
     # https://stackoverflow.com/questions/28945327/django-rest-framework-with-choicefield#answer-28954424
     status = serializers.SerializerMethodField()
     watering_frequency = serializers.SerializerMethodField()
+    slug = serializers.ReadOnlyField()
 
     def get_status(self, obj):
         return obj.get_status_display()
@@ -16,7 +17,7 @@ class PlantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plant
-        fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered')
+        fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
