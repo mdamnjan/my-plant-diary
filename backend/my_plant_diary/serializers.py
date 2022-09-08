@@ -8,6 +8,8 @@ class PlantSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
     watering_frequency = serializers.SerializerMethodField()
     slug = serializers.ReadOnlyField()
+    next_watering=serializers.ReadOnlyField()
+    last_watered=serializers.ReadOnlyField()
 
     def get_status(self, obj):
         return obj.get_status_display()
@@ -17,7 +19,7 @@ class PlantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plant
-        fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug')
+        fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug', 'next_watering')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
