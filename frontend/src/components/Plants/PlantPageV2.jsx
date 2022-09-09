@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "./AddButton";
 import SideBar from "./SideBar";
+import Filters from "./Filters"
+
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 
 const PlantPageV2 = () => {
@@ -68,12 +70,13 @@ const PlantPageV2 = () => {
         }}
       />
       <div className="plant-page-container">
-        <Autocomplete
+        <Filters/>
+        {/* <Autocomplete
           fullWidth
           //   className="search-field"
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
-        />
+        /> */}
         <div className="plant-list-v2">
           {plants}
           <AddButton
