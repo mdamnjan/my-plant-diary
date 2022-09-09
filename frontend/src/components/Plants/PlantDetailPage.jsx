@@ -31,7 +31,7 @@ const PlantDetailPage = () => {
     <div className="plant-detail-container">
       <PlantCardV2 plant={plant} handleDelete={handleDelete} />
       {wateringEntries.map((entry) => entry.watered_on)}
-      <HistoryWidget entries={wateringEntries}/>
+      <HistoryWidget />
     </div>
   );
 };

@@ -1,9 +1,22 @@
-import { Card, Typography } from "@mui/material";
+import { Card, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./Plants.css";
 import Actions from "./Actions";
 
-const HistoryWidget = ({ entries }) => {
+// temporary basic auth for admin
+let tempAuth = { auth: { username: "admin", password: "admin" } };
+
+const HistoryWidget = () => {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/watering", tempAuth)
+      .then((response) => setEntries(response.data));
+  }, []);
+
   const entryCards = entries.map((entry) => (
     <Card variant="outlined">
       <Actions />
@@ -12,17 +25,19 @@ const HistoryWidget = ({ entries }) => {
     </Card>
   ));
   return (
-    <>
+    <Paper sx={{ height: "40%" }}>
       <Typography gutterBottom variant="h4" component="div">
         History
       </Typography>
-      {entryCards}
-      {entries.length==0 && (
+      <div className="history-list" style={{ overflowY: "auto", height: "100%" }}>
+        {entryCards}
+      </div>
+      {entries.length == 0 && (
         <Card>
           Sorry, this plant has no history. Try adding some watering entries
         </Card>
       )}
-    </>
+    </Paper>
   );
 };
 export default HistoryWidget;

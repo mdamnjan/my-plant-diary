@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 100vh
+    height: 100vh;
 }
 
 .plant-list {
@@ -157,10 +157,16 @@
 }
 
 .plant-detail-container {
+    height: 100vh;
 }
 
 .side-bar {
     width: 30%;
     height: 100vh;
+    /* overflow-y: auto; */
+}
+
+.history-list {
     overflow-y: auto;
+    height: 100%;
 }
