@@ -13,6 +13,9 @@ const HistoryWidget = ({ entries }) => {
   ));
   return (
     <Paper className="history-widget">
+      <h1>Home</h1>
+      <h1>My Plants</h1>
+      <h1>Watering Entries</h1>
       <Typography gutterBottom variant="h4" component="div">
         History
       </Typography>

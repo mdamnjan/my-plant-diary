@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
-import HistoryWidget from "./HistoryWidget"
+import HistoryWidget from "./HistoryWidget";
 
 // temporary basic auth for admin
 let tempAuth = { auth: { username: "admin", password: "admin" } };
@@ -18,7 +18,7 @@ const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
-  const [wateringEntries, setWateringEntries] = useState([])
+  const [wateringEntries, setWateringEntries] = useState([]);
 
   const getPlantList = () => {
     axios
@@ -66,8 +66,8 @@ const PlantPage = () => {
 
   useEffect(() => {
     axios
-    .get("/watering", tempAuth)
-    .then((response) => setWateringEntries(response.data))
+      .get("/watering", tempAuth)
+      .then((response) => setWateringEntries(response.data));
     getPlantList();
   }, []);
 
