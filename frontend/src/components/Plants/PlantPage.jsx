@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
+import HistoryWidget from "./HistoryWidget"
 
 // temporary basic auth for admin
 let tempAuth = { auth: { username: "admin", password: "admin" } };
@@ -17,6 +18,7 @@ const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+  const [wateringEntries, setWateringEntries] = useState([])
 
   const getPlantList = () => {
     axios
@@ -63,42 +65,48 @@ const PlantPage = () => {
   ));
 
   useEffect(() => {
+    axios
+    .get("/watering", tempAuth)
+    .then((response) => setWateringEntries(response.data))
     getPlantList();
   }, []);
 
   return (
-    <div className="plant-page-container">
-      <h1>My Plants</h1>
-      <Autocomplete
-        className="search-field"
-        options={plantList.map((plant) => plant.name)}
-        renderInput={(params) => <TextField {...params} label="Plant" />}
-      />
-      <div className="plant-list">
-        {plants}
-        <Tooltip placement="top" title="Add a plant">
-          <Fab
-            className="plus-button"
-            onClick={() => {
-              setOpen(true);
-              setIsEditing(false);
-            }}
-            color="primary"
-            aria-label="add"
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
+    <div style={{ display: "flex" }}>
+      <HistoryWidget entries={wateringEntries} />
+      <div className="plant-page-container">
+        {/* <h1>My Plants</h1> */}
+        <Autocomplete
+          className="search-field"
+          options={plantList.map((plant) => plant.name)}
+          renderInput={(params) => <TextField {...params} label="Plant" />}
+        />
+        <div className="plant-list">
+          {plants}
+          <Tooltip placement="top" title="Add a plant">
+            <Fab
+              className="plus-button"
+              onClick={() => {
+                setOpen(true);
+                setIsEditing(false);
+              }}
+              color="primary"
+              aria-label="add"
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </div>
+        <NewPlantForm
+          handleSubmit={handleSubmit}
+          isEditing={isEditing}
+          plant={plant}
+          onClose={() => {
+            setOpen(false);
+          }}
+          open={open}
+        />
       </div>
-      <NewPlantForm
-        handleSubmit={handleSubmit}
-        isEditing={isEditing}
-        plant={plant}
-        onClose={() => {
-          setOpen(false);
-        }}
-        open={open}
-      />
     </div>
   );
 };
