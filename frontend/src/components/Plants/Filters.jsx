@@ -7,7 +7,7 @@ import {
   Menu,
   MenuList,
   Button,
-  ClickAwayListener
+  ClickAwayListener,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FormGroup from "@mui/material/FormGroup";
@@ -18,7 +18,7 @@ import { useState, useRef } from "react";
 const Filters = () => {
   const [sort, setSort] = useState("Last Watered");
   const [open, setOpen] = useState(false);
-  const anchorRef = useRef(null)
+  const anchorRef = useRef(null);
 
   return (
     <Paper sx={{ width: "100%", display: "flex", position: "relative" }}>
@@ -49,18 +49,22 @@ const Filters = () => {
             label="Ok"
           />
         </FormGroup>
-        <Button onClick={()=>setOpen(true)}>Sort By</Button>
-        <ClickAwayListener onClickAway={()=>setOpen(false)}>
-        <Menu open={open}>
-          <MenuList>
-            <MenuItem>Last Watered</MenuItem>
-            <MenuItem>Next Watering</MenuItem>
-          </MenuList>
+        <Button
+          ref={anchorRef}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Sort By
+        </Button>
+        <Menu anchorEl={anchorRef.current} open={open}>
+          <ClickAwayListener onClickAway={() => setOpen(false)}>
+            <MenuList>
+              <MenuItem>Last Watered</MenuItem>
+              <MenuItem>Next Watering</MenuItem>
+            </MenuList>
+          </ClickAwayListener>
         </Menu>
-        </ClickAwayListener>
-        <Select sx={{ position: "absolute", right: "10%" }} label="Sort By">
-          <MenuItem value={"Last watered"}>Last Watered</MenuItem>
-        </Select>
       </div>
     </Paper>
   );
