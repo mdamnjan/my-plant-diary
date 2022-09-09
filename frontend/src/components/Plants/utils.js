@@ -7,14 +7,14 @@ export const fetchPlants = () => {
   return axios.get("/plants", auth);
 };
 
-export const handleCreatePlant = (body) => {
+export const createPlant = (body) => {
     return axios.post("/plants/", body, auth);
 }
 
-export const handleUpdatePlant = (plantID, body) => {
+export const updatePlant = (plantID, body) => {
     return axios.put(`/plants/${plantID}/`, body, auth);
 }
 
-export const handleDeletePlant = (plantID) => {
+export const deletePlant = (plantID) => {
   return axios.delete(`/plants/${plantID}/`, auth);
 };

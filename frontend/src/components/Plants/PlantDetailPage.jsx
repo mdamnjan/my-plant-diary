@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PlantCard from "./PlantCard";
 import HistoryWidget from "./HistoryWidget";
 import PlantCardV2 from "./PlantCardV2";
-import { handleDeletePlant } from "./utils";
+import { deletePlant } from "./utils";
 
 
 const PlantDetailPage = () => {
@@ -10,7 +10,7 @@ const PlantDetailPage = () => {
   const navigate = useNavigate();
   const plant = location.state;
   const handleDelete = (plant) => {
-    handleDeletePlant(plant.id).then(() => navigate("/"));
+    deletePlant(plant.id).then(() => navigate("/"));
   };
 
   return (

@@ -9,9 +9,9 @@ import AddButton from "./AddButton";
 import SideBar from "./SideBar";
 import {
   fetchPlants,
-  handleCreatePlant,
-  handleDeletePlant,
-  handleUpdatePlant,
+  createPlant,
+  deletePlant,
+  updatePlant,
 } from "./utils";
 
 const PlantPageV2 = () => {
@@ -40,14 +40,14 @@ const PlantPageV2 = () => {
     const body = { name: name, watering_frequency: wateringFreq };
 
     if (isEditing) {
-      handleUpdatePlant(plantID, body).then(() => updatePage());
+      updatePlant(plantID, body).then(() => updatePage());
     } else {
-      handleCreatePlant(body).then(() => updatePage());
+      createPlant(body).then(() => updatePage());
     }
   };
 
   const handleDelete = (plant) => {
-    handleDeletePlant(plant.id).then(() => getPlantList());
+    deletePlant(plant.id).then(() => getPlantList());
   };
 
   const plants = plantList.map((plant) => (
