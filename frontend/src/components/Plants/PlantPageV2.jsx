@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
-import HistoryWidget from "./HistoryWidget";
 import AddButton from "./AddButton";
+import SideBar from "./SideBar"
 
 // temporary basic auth for admin
 let tempAuth = { auth: { username: "admin", password: "admin" } };
@@ -69,7 +69,7 @@ const PlantPageV2 = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <HistoryWidget entries={wateringEntries} />
+      <SideBar entries={wateringEntries} />
       <div className="plant-page-container">
         <Autocomplete
           fullWidth

@@ -1,4 +1,4 @@
-import { Paper, Card, Typography } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 
 import "./Plants.css";
 import Actions from "./Actions";
@@ -12,15 +12,17 @@ const HistoryWidget = ({ entries }) => {
     </Card>
   ));
   return (
-    <Paper className="history-widget">
-      <h1>Home</h1>
-      <h1>My Plants</h1>
-      <h1>Watering Entries</h1>
+    <>
       <Typography gutterBottom variant="h4" component="div">
         History
       </Typography>
       {entryCards}
-    </Paper>
+      {entries.length==0 && (
+        <Card>
+          Sorry, this plant has no history. Try adding some watering entries
+        </Card>
+      )}
+    </>
   );
 };
 export default HistoryWidget;

@@ -1,14 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import PlantCard from "./PlantCard";
+import HistoryWidget from "./HistoryWidget";
+import PlantCardV2 from "./PlantCardV2";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 let tempAuth = { auth: { username: "admin", password: "admin" } };
 
 const PlantDetailPage = () => {
-  const [wateringEntries, setWateringEntries] = useState([])
-
-  console.log(wateringEntries)
+  const [wateringEntries, setWateringEntries] = useState([]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,25 +19,19 @@ const PlantDetailPage = () => {
 
   useEffect(() => {
     axios
-    .get("/watering", tempAuth)
-    .then((response) => setWateringEntries(response.data.filter((entry)=>(entry.id==plant.id))))
+      .get("/watering", tempAuth)
+      .then((response) =>
+        setWateringEntries(
+          response.data.filter((entry) => entry.id == plant.id)
+        )
+      );
   }, []);
 
   return (
     <div className="plant-detail-container">
-      <PlantCard plant={plant} handleDelete={handleDelete} />
-        {wateringEntries.map((entry)=>entry.watered_on)}
-      {/* <img
-        className="plant-profile-img"
-        src="../../Calathea_orbifolia.jpg"
-      ></img> */}
-      {/* <h1>{plant.name}</h1>
-      <img
-        className="plant-profile-img"
-        src="../../Calathea_orbifolia.jpg"
-      ></img>
-      <h3>Watering Frequency</h3>
-      <p>{plant.watering_frequency}</p> */}
+      <PlantCardV2 plant={plant} handleDelete={handleDelete} />
+      {wateringEntries.map((entry) => entry.watered_on)}
+      <HistoryWidget entries={wateringEntries}/>
     </div>
   );
 };
