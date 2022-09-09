@@ -1,20 +1,15 @@
 import { Card, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import "./Plants.css";
 import Actions from "./Actions";
-
-// temporary basic auth for admin
-let tempAuth = { auth: { username: "admin", password: "admin" } };
+import { fetchWateringEntries } from "./utils";
 
 const HistoryWidget = () => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/watering", tempAuth)
-      .then((response) => setEntries(response.data));
+    fetchWateringEntries().then((response) => setEntries(response.data));
   }, []);
 
   const entryCards = entries.map((entry) => (
