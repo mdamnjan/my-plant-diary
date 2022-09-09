@@ -3,26 +3,25 @@ import PlantCardV2 from "./PlantCardV2";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "./AddButton";
-import SideBar from "./SideBar"
-
-// temporary basic auth for admin
-let tempAuth = { auth: { username: "admin", password: "admin" } };
+import SideBar from "./SideBar";
+import {
+  fetchPlants,
+  handleCreatePlant,
+  handleDeletePlant,
+  handleUpdatePlant,
+} from "./utils";
 
 const PlantPageV2 = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
-  const [wateringEntries, setWateringEntries] = useState([]);
 
   const getPlantList = () => {
-    axios
-      .get("/plants", tempAuth)
-      .then((response) => setPlantList(response.data));
+    fetchPlants().then((response) => setPlantList(response.data));
   };
 
   const handleEdit = (plant) => {
@@ -39,17 +38,16 @@ const PlantPageV2 = () => {
     };
 
     const body = { name: name, watering_frequency: wateringFreq };
-    const auth = tempAuth;
 
     if (isEditing) {
-      axios.put(`/plants/${plantID}/`, body, auth).then(() => updatePage());
+      handleUpdatePlant(plantID, body).then(() => updatePage());
     } else {
-      axios.post("/plants/", body, auth).then(() => updatePage());
+      handleCreatePlant(body).then(() => updatePage());
     }
   };
 
   const handleDelete = (plant) => {
-    axios.delete(`/plants/${plant.id}/`, tempAuth).then(() => getPlantList());
+    handleDeletePlant(plant.id).then(() => getPlantList());
   };
 
   const plants = plantList.map((plant) => (
@@ -74,9 +72,7 @@ const PlantPageV2 = () => {
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
         />
-        <div className="plant-list-v2">
-          {plants}
-        </div>
+        <div className="plant-list-v2">{plants}</div>
         <NewPlantForm
           handleSubmit={handleSubmit}
           isEditing={isEditing}
@@ -88,12 +84,12 @@ const PlantPageV2 = () => {
         />
       </div>
       <AddButton
-            tooltipText="Add a plant"
-            onClick={() => {
-              setOpen(true);
-              setIsEditing(false);
-            }}
-          />
+        tooltipText="Add a plant"
+        onClick={() => {
+          setOpen(true);
+          setIsEditing(false);
+        }}
+      />
     </div>
   );
 };
