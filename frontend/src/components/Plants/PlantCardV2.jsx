@@ -7,10 +7,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import StatusTag from "./StatusTag";
+import {useNavigate} from "react-router-dom"
 
 const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
+    let navigate = useNavigate();
+
   return (
-    <Card sx={{ display: "flex", margin: '0 !important', minHeight: '40%' }} variant="outlined">
+    <Card
+      sx={{
+        display: "flex",
+        margin: "0 !important",
+        minHeight: "40%",
+        position: "relative",
+      }}
+      variant="outlined"
+      onClick={() =>
+        navigate(`/plants/${plant.id}/`, { replace: true, state: plant })
+      }
+    >
       <CardMedia
         sx={{ width: "20%" }}
         component="img"
@@ -19,31 +34,46 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {plant.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <StatusTag status={plant.status} />
+        <Typography variant="body1" color="text.secondary">
+          Last Watered: {plant.last_watered}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Next Watering: {plant.next_watering}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Watering Frequency: {plant.watering_frequency}
         </Typography>
       </CardContent>
-      <CardActions sx={{flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'end', margin: '0 !important'}}>
-      <IconButton
-        onClick={(e) => {
-          e.stopPropagation();
-          handleEdit(plant);
-        }}
-        color="primary"
-      >
-        <EditIcon />
-      </IconButton>
-      <IconButton
-        onClick={(e) => {
-          e.stopPropagation();
-          handleDelete(plant);
+      <CardActions
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "end",
+          margin: "0 !important",
         }}
       >
-        <DeleteIcon />
-      </IconButton>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEdit(plant);
+          }}
+          color="primary"
+        >
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(plant);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );

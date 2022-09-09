@@ -104,6 +104,11 @@
     box-shadow: 0px 1px #149846;
 }
 
+.ok-status, .alert-status {
+    margin-bottom: 10px;
+}
+
+
 .status-icon  {
     vertical-align: text-top;
 }
