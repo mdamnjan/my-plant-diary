@@ -32,5 +32,5 @@ export const deletePlant = (plantID) => {
 };
 
 export const deleteWateringEntry = (entryID) => {
-    return axios.delete(`/watering/${plantID}/`, auth);
+    return axios.delete(`/watering/${entryID}/`, auth);
   };
