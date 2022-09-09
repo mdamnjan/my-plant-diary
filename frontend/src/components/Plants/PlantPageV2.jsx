@@ -1,15 +1,13 @@
 import "./Plants.css";
-import PlantCard from "./PlantCard";
 import PlantCardV2 from "./PlantCardV2";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { Divider, Fab, Tooltip } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
 import HistoryWidget from "./HistoryWidget";
+import AddButton from "./AddButton";
 
 // temporary basic auth for admin
 let tempAuth = { auth: { username: "admin", password: "admin" } };
@@ -74,25 +72,13 @@ const PlantPageV2 = () => {
       <HistoryWidget entries={wateringEntries} />
       <div className="plant-page-container">
         <Autocomplete
-          className="search-field"
+          fullWidth
+          //   className="search-field"
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
         />
-        <div className="plant-list">
+        <div className="plant-list-v2">
           {plants}
-          <Tooltip placement="top" title="Add a plant">
-            <Fab
-              className="plus-button"
-              onClick={() => {
-                setOpen(true);
-                setIsEditing(false);
-              }}
-              color="primary"
-              aria-label="add"
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
         </div>
         <NewPlantForm
           handleSubmit={handleSubmit}
@@ -104,6 +90,13 @@ const PlantPageV2 = () => {
           open={open}
         />
       </div>
+      <AddButton
+            tooltipText="Add a plant"
+            onClick={() => {
+              setOpen(true);
+              setIsEditing(false);
+            }}
+          />
     </div>
   );
 };
