@@ -61,15 +61,12 @@ const PlantPageV2 = () => {
   ));
 
   useEffect(() => {
-    axios
-      .get("/watering", tempAuth)
-      .then((response) => setWateringEntries(response.data));
     getPlantList();
   }, []);
 
   return (
     <div style={{ display: "flex" }}>
-      <SideBar entries={wateringEntries} />
+      <SideBar />
       <div className="plant-page-container">
         <Autocomplete
           fullWidth
