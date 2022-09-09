@@ -29,9 +29,9 @@ const HistoryWidget = () => {
       <Typography gutterBottom variant="h4" component="div">
         History
       </Typography>
-      <div className="history-list" style={{ overflowY: "auto", height: "100%" }}>
+      <Paper variant="outlined" className="history-list" style={{ overflowY: "auto", height: "100%" }}>
         {entryCards}
-      </div>
+      </Paper>
       {entries.length == 0 && (
         <Card>
           Sorry, this plant has no history. Try adding some watering entries
