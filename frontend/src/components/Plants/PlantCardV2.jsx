@@ -10,12 +10,12 @@ import Typography from "@mui/material/Typography";
 
 const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
   return (
-    <Card sx={{ display: "flex", margin: '0 !important' }} variant="outlined">
+    <Card sx={{ display: "flex", margin: '0 !important', minHeight: '40%' }} variant="outlined">
       <CardMedia
         sx={{ width: "20%" }}
         component="img"
         image="../../Calathea_orbifolia.jpg"
-        alt="green iguana"
+        alt={plant.name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
