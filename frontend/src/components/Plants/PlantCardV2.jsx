@@ -23,7 +23,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       }}
       variant="outlined"
       onClick={() =>
-        navigate(`/plants/${plant.id}/`, { replace: true, state: plant })
+        navigate(`/plants/${plant.slug}/`, { replace: false, state: plant })
       }
     >
       <CardMedia

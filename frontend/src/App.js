@@ -14,7 +14,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<PlantPageV2 />} />
-            <Route path="/plants/:plantID/" element={<PlantDetailPage />} />
+            <Route path="/plants" element={<PlantPageV2 />} />
+            <Route path="/plants/:slug/" element={<PlantDetailPage />} />
           </Routes>
         </Router>
       </header>
