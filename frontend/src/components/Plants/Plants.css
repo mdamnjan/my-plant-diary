@@ -103,7 +103,7 @@
     overflow-x: hidden;
 }
 
-.plant-name-field {
+.plant-name-field, .date-picker {
     display: block !important;
     margin-bottom: 20px !important
 }
@@ -125,12 +125,15 @@
     margin-bottom: 20px;
 }
 
-.plant-actions {
+.actions {
     display: block;
     float: right;
     margin-top: 3%;
 }
 
-.plant-action-button {
+.action-button {
     margin: -3px !important;
+}
+
+.plant-detail-container {
 }
