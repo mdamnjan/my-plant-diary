@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import PlantCard from "./PlantCard";
 import HistoryWidget from "./HistoryWidget";
 import PlantCardV2 from "./PlantCardV2";
-import { deletePlant } from "./utils";
-
+import { createWateringEntry, deletePlant, fetchPlants, fetchWateringEntries } from "./utils";
+import AddButton from "./AddButton";
+import { useState } from "react";
+import WateringEntryForm from "./WateringEntryForm";
 
 const PlantDetailPage = () => {
   const location = useLocation();
@@ -13,10 +14,22 @@ const PlantDetailPage = () => {
     deletePlant(plant.id).then(() => navigate("/"));
   };
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="plant-detail-container">
       <PlantCardV2 plant={plant} handleDelete={handleDelete} />
       <HistoryWidget />
+      <WateringEntryForm
+        open={open}
+        onClose={() => setOpen(false)}
+        plant={plant}
+        handleSubmit={(body) => createWateringEntry(body)}
+      />
+      <AddButton
+        tooltipText="Log a watering entry"
+        onClick={() => setOpen(true)}
+      />
     </div>
   );
 };
