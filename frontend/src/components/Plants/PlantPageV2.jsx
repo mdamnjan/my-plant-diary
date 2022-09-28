@@ -7,12 +7,7 @@ import { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "./AddButton";
 import SideBar from "./SideBar";
-import {
-  fetchPlants,
-  createPlant,
-  deletePlant,
-  updatePlant,
-} from "./utils";
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 
 const PlantPageV2 = () => {
   const [open, setOpen] = useState(false);
@@ -63,8 +58,15 @@ const PlantPageV2 = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
-      <SideBar />
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <SideBar
+        navigation
+        onClick={() => {
+          console.log("Clicked");
+          setOpen(true);
+          setIsEditing(false);
+        }}
+      />
       <div className="plant-page-container">
         <Autocomplete
           fullWidth
@@ -72,7 +74,16 @@ const PlantPageV2 = () => {
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
         />
-        <div className="plant-list-v2">{plants}</div>
+        <div className="plant-list-v2">
+          {plants}
+          <AddButton
+            tooltipText="Add a plant"
+            onClick={() => {
+              setOpen(true);
+              setIsEditing(false);
+            }}
+          />
+        </div>
         <NewPlantForm
           handleSubmit={handleSubmit}
           isEditing={isEditing}
@@ -83,13 +94,7 @@ const PlantPageV2 = () => {
           open={open}
         />
       </div>
-      <AddButton
-        tooltipText="Add a plant"
-        onClick={() => {
-          setOpen(true);
-          setIsEditing(false);
-        }}
-      />
+      <SideBar />
     </div>
   );
 };
