@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets, permissions, generics
+from rest_framework import viewsets, permissions, generics, filters
 from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer
 from .models import Plant, Note, WateringEntry
 from .permissions import IsOwnerOrReadOnly
@@ -17,7 +18,9 @@ class PlantViewSet(viewsets.ModelViewSet):
     queryset = Plant.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                       IsOwnerOrReadOnly]
-                      
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['name']
+    filterset_fields = ['status', 'watering_frequency']
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
