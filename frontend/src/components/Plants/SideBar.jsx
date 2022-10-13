@@ -1,13 +1,14 @@
 import HistoryWidget from "./HistoryWidget";
 
 import { Paper, Button, Typography } from "@mui/material";
-import { Home, LocalFlorist, LocalDrink, AccountCircle } from "@mui/icons-material";
+import { Home, LocalFlorist, LocalDrink, AccountCircle, Note } from "@mui/icons-material";
 
 const SideBar = ({ navigation, onClick }) => {
   const buttons = [
     { text: "Home", icon: <Home fontSize="large"/> },
     { text: "My Plants", icon: <LocalFlorist fontSize="large"/> },
     { text: "Watering", icon: <LocalDrink fontSize="large"/> },
+    {text: "Notes", icon: <Note fontSize="large"/>},
     { text: "Profile", icon: <AccountCircle fontSize="large"/> },
   ];
   if (navigation) {
