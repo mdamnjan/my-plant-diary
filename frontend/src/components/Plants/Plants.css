@@ -173,6 +173,7 @@
 .side-bar {
     width: 20%;
     height: 100vh;
+    min-width: 250px;
     /* overflow-y: auto; */
 }
 
@@ -181,9 +182,21 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1000px) {
+    .plant-list-v2 >* {
+        /* make 2 columns instead of 3 */
+        flex-basis: 49%;
+    }
+  }
+
+  @media only screen and (max-width: 750px) {
     .side-bar {
       width: 0% !important;
+      min-width: 0;
       visibility: hidden;
+    }
+    .plant-list-v2 >* {
+        /* make 2 columns instead of 3 */
+        flex-basis: 100%;
     }
   }
