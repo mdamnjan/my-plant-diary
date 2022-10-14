@@ -34,7 +34,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         image="../../Calathea_orbifolia.jpg"
         alt={plant.name}
       />
-      <CardContent sx={{ height: "30%" }}>
+      <CardContent sx={{ height: "30%", minHeight: "170px" }}>
         <Typography gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
