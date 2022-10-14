@@ -8,10 +8,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import StatusTag from "./StatusTag";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
   return (
     <Card
@@ -21,6 +21,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         margin: "0 !important",
         minHeight: "40%",
         position: "relative",
+        aspectRatio: "1/1",
       }}
       variant="outlined"
       onClick={() =>
@@ -28,12 +29,12 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       }
     >
       <CardMedia
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", height: "70%" }}
         component="img"
         image="../../Calathea_orbifolia.jpg"
         alt={plant.name}
       />
-      <CardContent>
+      <CardContent sx={{ height: "30%" }}>
         <Typography gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
@@ -52,13 +53,16 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         sx={{
           flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
+          flexDirection: "row",
+          justifyContent: "flex-end",
           alignItems: "end",
           margin: "0 !important",
+          position: "absolute",
+          right: 0,
         }}
       >
         <IconButton
+          sx={{ backgroundColor: "white" }}
           onClick={(e) => {
             e.stopPropagation();
             handleEdit(plant);
@@ -68,6 +72,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
           <EditIcon />
         </IconButton>
         <IconButton
+          sx={{ backgroundColor: "white" }}
           onClick={(e) => {
             e.stopPropagation();
             handleDelete(plant);
