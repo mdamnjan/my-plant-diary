@@ -15,6 +15,7 @@
 .plant-list-v2 {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     /* flex-direction: column; */
     justify-content: space-between;
     overflow-y: auto;

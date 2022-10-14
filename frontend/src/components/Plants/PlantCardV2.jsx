@@ -19,9 +19,8 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         display: "flex",
         flexDirection: "column",
         margin: "0 !important",
-        minHeight: "40%",
+        height: "50%",
         position: "relative",
-        aspectRatio: "1/1",
       }}
       variant="outlined"
       onClick={() =>
