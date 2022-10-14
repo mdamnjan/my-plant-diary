@@ -17,6 +17,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
     <Card
       sx={{
         display: "flex",
+        flexDirection: "column",
         margin: "0 !important",
         minHeight: "40%",
         position: "relative",
@@ -27,7 +28,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       }
     >
       <CardMedia
-        sx={{ width: "20%" }}
+        sx={{ width: "100%" }}
         component="img"
         image="../../Calathea_orbifolia.jpg"
         alt={plant.name}

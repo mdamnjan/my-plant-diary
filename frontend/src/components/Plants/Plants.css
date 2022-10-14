@@ -14,12 +14,20 @@
 
 .plant-list-v2 {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    justify-content: space-between;
     overflow-y: auto;
     background-color: white;
+    justify-content: flex-start;
+    /* flex-wrap: wrap; */
     /* max-height: 100vh; */
     /* width: 40%; */
     /* position: relative; */
+}
+
+.plant-list-v2 >* {
+    flex: 0 0 33%;
 }
 
 .search-field {

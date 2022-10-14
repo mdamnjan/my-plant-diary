@@ -94,7 +94,6 @@ const PlantPageV2 = () => {
           open={open}
         />
       </div>
-      <SideBar />
     </div>
   );
 };
