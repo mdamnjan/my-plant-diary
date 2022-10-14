@@ -8,18 +8,20 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import StatusTag from "./StatusTag";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
   return (
     <Card
       sx={{
         display: "flex",
+        flexDirection: "column",
         margin: "0 !important",
         minHeight: "40%",
         position: "relative",
+        aspectRatio: "1/1",
       }}
       variant="outlined"
       onClick={() =>
@@ -27,16 +29,16 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       }
     >
       <CardMedia
-        sx={{ width: "20%" }}
-        component="img"
+        sx={{ width: "100%", height: "70%", position: "relative" }}
+        component="div"
         image="../../Calathea_orbifolia.jpg"
+        children={<StatusTag status={plant.status} />}
         alt={plant.name}
       />
-      <CardContent>
+      <CardContent sx={{ height: "20%", minHeight: "125px" }}>
         <Typography gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
-        <StatusTag status={plant.status} />
         <Typography variant="body1" color="text.secondary">
           Last Watered: {plant.last_watered}
         </Typography>
@@ -51,13 +53,16 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         sx={{
           flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
+          flexDirection: "row",
+          justifyContent: "flex-end",
           alignItems: "end",
           margin: "0 !important",
+          position: "absolute",
+          right: 0,
         }}
       >
         <IconButton
+          sx={{ backgroundColor: "white" }}
           onClick={(e) => {
             e.stopPropagation();
             handleEdit(plant);
@@ -67,6 +72,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
           <EditIcon />
         </IconButton>
         <IconButton
+          sx={{ backgroundColor: "white" }}
           onClick={(e) => {
             e.stopPropagation();
             handleDelete(plant);

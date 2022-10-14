@@ -3,7 +3,7 @@
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    width: 60%;
+    width: 80%;
 }
 
 .plant-list {
@@ -14,12 +14,21 @@
 
 .plant-list-v2 {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    justify-content: space-between;
     overflow-y: auto;
     background-color: white;
+    justify-content: flex-start;
+    height: 100vh
+    /* flex-wrap: wrap; */
     /* max-height: 100vh; */
     /* width: 40%; */
     /* position: relative; */
+}
+
+.plant-list-v2 >* {
+    flex: 0 0 33%;
 }
 
 .search-field {
@@ -107,6 +116,9 @@
 
 .ok-status, .alert-status {
     margin-bottom: 10px;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
 }
 
 
@@ -164,6 +176,7 @@
 .side-bar {
     width: 20%;
     height: 100vh;
+    min-width: 250px;
     /* overflow-y: auto; */
 }
 
@@ -172,9 +185,21 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1000px) {
+    .plant-list-v2 >* {
+        /* make 2 columns instead of 3 */
+        flex-basis: 49%;
+    }
+  }
+
+  @media only screen and (max-width: 750px) {
     .side-bar {
       width: 0% !important;
+      min-width: 0;
       visibility: hidden;
+    }
+    .plant-list-v2 >* {
+        /* make 2 columns instead of 3 */
+        flex-basis: 100%;
     }
   }
