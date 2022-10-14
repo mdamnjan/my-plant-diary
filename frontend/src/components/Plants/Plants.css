@@ -20,6 +20,7 @@
     overflow-y: auto;
     background-color: white;
     justify-content: flex-start;
+    height: 100vh
     /* flex-wrap: wrap; */
     /* max-height: 100vh; */
     /* width: 40%; */
