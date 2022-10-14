@@ -116,6 +116,9 @@
 
 .ok-status, .alert-status {
     margin-bottom: 10px;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
 }
 
 

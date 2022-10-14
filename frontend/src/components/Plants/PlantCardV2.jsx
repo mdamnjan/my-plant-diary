@@ -29,16 +29,16 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
       }
     >
       <CardMedia
-        sx={{ width: "100%", height: "70%" }}
-        component="img"
+        sx={{ width: "100%", height: "70%", position: "relative" }}
+        component="div"
         image="../../Calathea_orbifolia.jpg"
+        children={<StatusTag status={plant.status} />}
         alt={plant.name}
       />
-      <CardContent sx={{ height: "30%", minHeight: "170px" }}>
+      <CardContent sx={{ height: "20%", minHeight: "125px" }}>
         <Typography gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
-        <StatusTag status={plant.status} />
         <Typography variant="body1" color="text.secondary">
           Last Watered: {plant.last_watered}
         </Typography>
