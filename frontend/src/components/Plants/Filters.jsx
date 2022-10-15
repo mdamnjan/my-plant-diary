@@ -15,7 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useState, useRef } from "react";
 
-const Filters = () => {
+const Filters = ({ onFilterChange, filters }) => {
   const [sort, setSort] = useState("Last Watered");
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -26,6 +26,10 @@ const Filters = () => {
         <TextField
           sx={{ marginRight: "20px" }}
           fullwidth
+          // onChange does not detect backspace, this does
+          onKeyUp={(e) => {
+            onFilterChange(e.target.value)
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

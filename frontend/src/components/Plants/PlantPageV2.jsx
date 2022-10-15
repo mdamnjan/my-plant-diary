@@ -16,9 +16,10 @@ const PlantPageV2 = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+  const [filters, setFilters] = useState("");
 
   const getPlantList = () => {
-    fetchPlants().then((response) => setPlantList(response.data));
+    fetchPlants(filters).then((response) => setPlantList(response.data));
   };
 
   const handleEdit = (plant) => {
@@ -55,9 +56,13 @@ const PlantPageV2 = () => {
     />
   ));
 
+  const handleFilterChange = (filters) => {
+    setFilters(filters)
+  };
+
   useEffect(() => {
     getPlantList();
-  }, []);
+  }, [filters]);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -70,7 +75,7 @@ const PlantPageV2 = () => {
         }}
       />
       <div className="plant-page-container">
-        <Filters/>
+        <Filters filters={filters} onFilterChange={handleFilterChange} />
         {/* <Autocomplete
           fullWidth
           //   className="search-field"
