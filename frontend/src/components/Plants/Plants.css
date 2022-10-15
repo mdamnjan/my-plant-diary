@@ -30,6 +30,7 @@
 
 .plant-list-v2 >* {
     flex: 0 0 33%;
+    height: 50%;
 }
 
 .search-field {
