@@ -22,13 +22,21 @@ const Filters = ({ onFilterChange, filters }) => {
 
   return (
     <Paper sx={{ width: "100%", display: "flex", position: "relative" }}>
-      <div style={{ margin: "1%", display: "flex", alignItems: "center" }}>
+      <div
+        style={{
+          margin: "1% 0%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
         <TextField
-          sx={{ marginRight: "20px" }}
+          sx={{ marginRight: "20px", width: "80% !important" }}
           fullwidth
           // onChange does not detect backspace, this does
           onKeyUp={(e) => {
-            onFilterChange(e.target.value)
+            onFilterChange(e.target.value);
           }}
           InputProps={{
             endAdornment: (
@@ -41,7 +49,7 @@ const Filters = ({ onFilterChange, filters }) => {
           label="Plants"
           variant="outlined"
         />
-        <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
+        {/* <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
           <FormControlLabel
             sx={{ display: "block" }}
             control={<Switch defaultChecked />}
@@ -68,7 +76,7 @@ const Filters = ({ onFilterChange, filters }) => {
               <MenuItem>Next Watering</MenuItem>
             </MenuList>
           </ClickAwayListener>
-        </Menu>
+        </Menu> */}
       </div>
     </Paper>
   );
