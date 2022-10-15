@@ -32,6 +32,7 @@ const Filters = ({ onFilterChange, filters }) => {
         }}
       >
         <TextField
+          placeholder="Search for a plant..."
           sx={{ marginRight: "20px", width: "80% !important" }}
           fullwidth
           // onChange does not detect backspace, this does
@@ -46,7 +47,6 @@ const Filters = ({ onFilterChange, filters }) => {
             ),
           }}
           id="outlined-basic"
-          label="Plants"
           variant="outlined"
         />
         {/* <FormGroup sx={{ display: "flex", flexDirection: "row" }}>
