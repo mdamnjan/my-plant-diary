@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "my_plant_diary",
     "corsheaders",
-    "rest_framework"
+    "rest_framework",
+    "django_filters"
 ]
 
 MIDDLEWARE = [

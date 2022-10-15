@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "./AddButton";
 import SideBar from "./SideBar";
+import Filters from "./Filters"
+
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 
 const PlantPageV2 = () => {
@@ -14,9 +16,10 @@ const PlantPageV2 = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+  const [filters, setFilters] = useState("");
 
   const getPlantList = () => {
-    fetchPlants().then((response) => setPlantList(response.data));
+    fetchPlants(filters).then((response) => setPlantList(response.data));
   };
 
   const handleEdit = (plant) => {
@@ -53,9 +56,13 @@ const PlantPageV2 = () => {
     />
   ));
 
+  const handleFilterChange = (filters) => {
+    setFilters(filters)
+  };
+
   useEffect(() => {
     getPlantList();
-  }, []);
+  }, [filters]);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -68,12 +75,13 @@ const PlantPageV2 = () => {
         }}
       />
       <div className="plant-page-container">
-        <Autocomplete
+        <Filters filters={filters} onFilterChange={handleFilterChange} />
+        {/* <Autocomplete
           fullWidth
           //   className="search-field"
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
-        />
+        /> */}
         <div className="plant-list-v2">
           {plants}
           <AddButton

@@ -3,8 +3,8 @@ import axios from "axios";
 // temporary basic auth for admin
 const auth = { auth: { username: "admin", password: "admin" } };
 
-export const fetchPlants = () => {
-  return axios.get("/plants", auth);
+export const fetchPlants = (filters) => {
+  return axios.get(`/plants/?search=${filters}`, auth);
 };
 
 export const fetchWateringEntries = () => {
