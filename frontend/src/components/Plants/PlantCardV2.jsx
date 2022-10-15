@@ -5,8 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import { Fab } from "@mui/material";
 import StatusTag from "./StatusTag";
 import { useNavigate } from "react-router-dom";
 
@@ -60,25 +60,27 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
           right: 0,
         }}
       >
-        <IconButton
-          sx={{ backgroundColor: "white" }}
+        <Fab
           onClick={(e) => {
             e.stopPropagation();
             handleEdit(plant);
           }}
           color="primary"
+          size="medium"
+          aria-label="add"
         >
           <EditIcon />
-        </IconButton>
-        <IconButton
-          sx={{ backgroundColor: "white" }}
+        </Fab>
+        <Fab
           onClick={(e) => {
             e.stopPropagation();
             handleDelete(plant);
           }}
+          size="medium"
+          aria-label="add"
         >
           <DeleteIcon />
-        </IconButton>
+        </Fab>
       </CardActions>
     </Card>
   );
