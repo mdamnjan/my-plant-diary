@@ -1,0 +1,29 @@
+.side-bar {
+    width: 20%;
+    height: 100vh;
+    min-width: 250px;
+}
+
+p, nav>* {
+    display: flex;
+}
+
+h2 {
+    margin-left: 5px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#side-bar-add-button {
+    width: 100%;
+    margin-top: 5%;
+}
+
+#logo {
+    width: 30px; 
+    margin: 10px;
+}

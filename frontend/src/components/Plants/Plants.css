@@ -175,13 +175,6 @@
     height: 100vh;
 }
 
-.side-bar {
-    width: 20%;
-    height: 100vh;
-    min-width: 250px;
-    /* overflow-y: auto; */
-}
-
 .history-list {
     overflow-y: auto;
     height: 100%;

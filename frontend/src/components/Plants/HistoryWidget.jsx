@@ -2,7 +2,6 @@ import { Card, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import "./Plants.css";
-import Actions from "./Actions";
 import { fetchWateringEntries } from "./utils";
 
 const HistoryWidget = () => {
@@ -14,7 +13,6 @@ const HistoryWidget = () => {
 
   const entryCards = entries.map((entry) => (
     <Card variant="outlined">
-      <Actions />
       {entry.plant}
       <p>Watered: {entry.watered_on}</p>
     </Card>

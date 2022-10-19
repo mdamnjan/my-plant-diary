@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import HistoryWidget from "./HistoryWidget";
-import PlantCardV2 from "./PlantCardV2";
+import PlantCardV2 from "./PlantCard";
 import { createWateringEntry, deletePlant, fetchPlants, fetchWateringEntries } from "./utils";
 import AddButton from "./AddButton";
 import { useState } from "react";

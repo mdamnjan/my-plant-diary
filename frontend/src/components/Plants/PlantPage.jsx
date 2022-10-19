@@ -2,28 +2,21 @@ import "./Plants.css";
 import PlantCard from "./PlantCard";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { Divider, Fab, Tooltip } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 import NewPlantForm from "./NewPlantForm";
-import HistoryWidget from "./HistoryWidget";
+import AddButton from "./AddButton";
+import SideBar from "../common/SideBar";
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 
-// temporary basic auth for admin
-let tempAuth = { auth: { username: "admin", password: "admin" } };
-
-const PlantPage = () => {
+const PlantPageV2 = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
-  const [wateringEntries, setWateringEntries] = useState([]);
 
   const getPlantList = () => {
-    axios
-      .get("/plants", tempAuth)
-      .then((response) => setPlantList(response.data));
+    fetchPlants().then((response) => setPlantList(response.data));
   };
 
   const handleEdit = (plant) => {
@@ -40,62 +33,56 @@ const PlantPage = () => {
     };
 
     const body = { name: name, watering_frequency: wateringFreq };
-    const auth = tempAuth;
 
     if (isEditing) {
-      axios.put(`/plants/${plantID}/`, body, auth).then(() => updatePage());
+      updatePlant(plantID, body).then(() => updatePage());
     } else {
-      axios.post("/plants/", body, auth).then(() => updatePage());
+      createPlant(body).then(() => updatePage());
     }
   };
 
   const handleDelete = (plant) => {
-    axios.delete(`/plants/${plant.id}/`, tempAuth).then(() => getPlantList());
+    deletePlant(plant.id).then(() => getPlantList());
   };
 
   const plants = plantList.map((plant) => (
-    <>
-      <PlantCard
-        plant={plant}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-      <Divider />
-    </>
+    <PlantCard
+      plant={plant}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+    />
   ));
 
   useEffect(() => {
-    axios
-      .get("/watering", tempAuth)
-      .then((response) => setWateringEntries(response.data));
     getPlantList();
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
-      <HistoryWidget entries={wateringEntries} />
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <SideBar
+        navigation
+        onClick={() => {
+          console.log("Clicked");
+          setOpen(true);
+          setIsEditing(false);
+        }}
+      />
       <div className="plant-page-container">
-        {/* <h1>My Plants</h1> */}
         <Autocomplete
-          className="search-field"
+          fullWidth
+          //   className="search-field"
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
         />
-        <div className="plant-list">
+        <div className="plant-list-v2">
           {plants}
-          <Tooltip placement="top" title="Add a plant">
-            <Fab
-              className="plus-button"
-              onClick={() => {
-                setOpen(true);
-                setIsEditing(false);
-              }}
-              color="primary"
-              aria-label="add"
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
+          <AddButton
+            tooltipText="Add a plant"
+            onClick={() => {
+              setOpen(true);
+              setIsEditing(false);
+            }}
+          />
         </div>
         <NewPlantForm
           handleSubmit={handleSubmit}
@@ -110,4 +97,4 @@ const PlantPage = () => {
     </div>
   );
 };
-export default PlantPage;
+export default PlantPageV2;
