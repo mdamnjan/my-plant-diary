@@ -70,11 +70,10 @@ const PlantPageV2 = () => {
       <div className="plant-page-container">
         <Autocomplete
           fullWidth
-          //   className="search-field"
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => <TextField {...params} label="Plant" />}
         />
-        <div className="plant-list-v2">
+        <div className="plant-list">
           {plants}
           <AddButton
             tooltipText="Add a plant"

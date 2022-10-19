@@ -8,27 +8,16 @@
 
 .plant-list {
     display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.plant-list-v2 {
-    display: flex;
     flex-wrap: wrap;
     width: 100%;
-    /* flex-direction: column; */
     justify-content: space-between;
     overflow-y: auto;
     background-color: white;
     justify-content: flex-start;
     height: 100vh
-    /* flex-wrap: wrap; */
-    /* max-height: 100vh; */
-    /* width: 40%; */
-    /* position: relative; */
 }
 
-.plant-list-v2 >* {
+.plant-list >* {
     flex: 0 0 33%;
     height: 50%;
 }
@@ -36,7 +25,6 @@
 .search-field {
     width: 30%;
     background-color: white;
-    /* border-radius: 20px; */
     margin-bottom: 1%;
 }
 
@@ -59,27 +47,6 @@
     background-color: white;
     position: relative;
     min-width: 250px;
-}
-
-.image-gallery > img, .plant-profile-img {
-    background-color: gray;
-    width: 100%;
-    border-radius: 20px;
-    max-height: 100%;
-    object-fit: cover;
-    min-width: 100px;
-}
-
-.image-gallery {
-    width: 40%;
-    float: left;
-    margin: 5%;
-    position: relative;
-}
-
-.plant-info-section {
-    max-width: 60%;
-    margin-right: 3%;
 }
 
 .alert-status {
@@ -137,22 +104,7 @@
 }
 
 .plant-profile-img {
-    max-width: 250px;
     margin-bottom: 20px
-}
-
-.choose-image {
-    margin-bottom: 20px;
-}
-
-.actions {
-    display: block;
-    float: right;
-    margin-top: 3%;
-}
-
-.action-button {
-    margin: -3px !important;
 }
 
 .plant-detail-container {
@@ -165,14 +117,14 @@
 }
 
   @media only screen and (max-width: 1000px) {
-    .plant-list-v2 >* {
+    .plant-list >* {
         /* make 2 columns instead of 3 */
         flex-basis: 49%;
     }
   }
 
   @media only screen and (max-width: 750px) {
-    .plant-list-v2 >* {
+    .plant-list >* {
         /* make 2 columns instead of 3 */
         flex-basis: 100%;
     }
