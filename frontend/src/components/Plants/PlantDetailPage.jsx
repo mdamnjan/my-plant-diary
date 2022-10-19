@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import HistoryWidget from "./HistoryWidget";
 import PlantCardV2 from "./PlantCard";
-import { createWateringEntry, deletePlant, fetchPlants, fetchWateringEntries } from "./utils";
+import { createWateringEntry, deletePlant, fetchPlants, fetchWateringEntries, fetchNotes } from "./utils";
 import AddButton from "../common/AddButton";
 import { Typography } from "@mui/material";
 import { useState } from "react";
@@ -15,8 +15,18 @@ const PlantDetailPage = () => {
   const handleDelete = (plant) => {
     deletePlant(plant.id).then(() => navigate("/"));
   };
+  const [entries, setEntries] = useState([]);
+  const [notes, setNotes] = useState([])
 
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    fetchWateringEntries().then((response) => setEntries(response.data));
+  }, []);
+
+  useEffect(() => {
+    fetchNotes().then((response) => setNotes(response.data));
+  }, []);
 
   return (
     <div className="plant-detail-container">
@@ -25,7 +35,8 @@ const PlantDetailPage = () => {
       <Typography variant="body1">Last Watered: {plant.last_watered}</Typography>
       <Typography variant="body1">Next Watering: {plant.next_watering}</Typography>
       <Typography variant="body1">Watering Frequency: {plant.watering_frequency}</Typography>
-      <div></div>
+      <HistoryWidget type='watering'/>
+      <HistoryWidget type='note'/>
       <WateringEntryForm
         open={open}
         onClose={() => setOpen(false)}

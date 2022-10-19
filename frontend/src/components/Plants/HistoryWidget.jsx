@@ -2,27 +2,35 @@ import { Card, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import "./Plants.css";
-import { fetchWateringEntries } from "./utils";
+import { fetchNotes, fetchWateringEntries } from "./utils";
 
-const HistoryWidget = () => {
+const HistoryWidget = ({ type }) => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    fetchWateringEntries().then((response) => setEntries(response.data));
+    if (type == "watering") {
+      fetchWateringEntries().then((response) => setEntries(response.data));
+    } else {
+      fetchNotes().then((response) => setEntries(response.data));
+    }
   }, []);
 
   const entryCards = entries.map((entry) => (
     <Card variant="outlined">
-      {entry.plant}
-      <p>Watered: {entry.watered_on}</p>
+      {type == "watering" && <p>Watered: {entry.watered_on}</p>}
+      {type == "note" && <p>{entry.text}</p>}
     </Card>
   ));
   return (
-    <Paper sx={{ height: "40%" }}>
+    <Paper sx={{ height: "40%", width: "50%", display: "inline-block" }}>
       <Typography gutterBottom variant="h4" component="div">
-        History
+        {type == "watering" ? "Waterings" : "Notes"}
       </Typography>
-      <Paper variant="outlined" className="history-list" style={{ overflowY: "auto", height: "100%" }}>
+      <Paper
+        variant="outlined"
+        className="history-list"
+        style={{ overflowY: "auto", height: "100%" }}
+      >
         {entryCards}
       </Paper>
       {entries.length == 0 && (

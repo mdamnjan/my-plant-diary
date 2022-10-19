@@ -11,6 +11,10 @@ export const fetchWateringEntries = () => {
   return axios.get("/watering", auth);
 };
 
+export const fetchNotes = () => {
+  return axios.get("/notes", auth);
+};
+
 export const createPlant = (body) => {
   return axios.post("/plants/", body, auth);
 };
