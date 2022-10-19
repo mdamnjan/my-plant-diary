@@ -29,7 +29,7 @@ nav {
 }
 
 .plus-button {
-    position: fixed !important;
+    position: absolute !important;
     bottom: 12%;
     right: 35%;
 }

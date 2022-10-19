@@ -109,6 +109,16 @@
 
 .plant-detail-container {
     height: 100vh;
+    background-color: white;
+    width: 80%;
+    max-width: 1000px;
+    margin: auto
+}
+
+.plant-detail-container > img {
+    height: 40%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .history-list {
