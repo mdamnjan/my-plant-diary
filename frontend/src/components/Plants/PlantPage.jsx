@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 
 import NewPlantForm from "./NewPlantForm";
-import AddButton from "./AddButton";
+import AddButton from "../common/AddButton";
 import SideBar from "../common/SideBar";
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 

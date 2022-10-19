@@ -40,22 +40,6 @@
     margin-bottom: 1%;
 }
 
-.plus-button-v2 {
-    position: fixed !important;
-    bottom: 12%;
-    right: 35%;
-}
-
-.plus-button {
-    position: sticky !important;
-    position: -webkit-sticky; /* Safari */
-    bottom: 11%;
-    /* hack for MUI dialog causing scrollbar jump
-    https://github.com/creativetimofficial/ct-material-kit-pro-react/issues/81*/
-    left: 100%;
-    margin-right: 10% !important;
-}
-
 .plus-icon {
     color: rgb(71, 71, 72);
     scale: 3;
@@ -188,11 +172,6 @@
   }
 
   @media only screen and (max-width: 750px) {
-    .side-bar {
-      width: 0% !important;
-      min-width: 0;
-      visibility: hidden;
-    }
     .plant-list-v2 >* {
         /* make 2 columns instead of 3 */
         flex-basis: 100%;

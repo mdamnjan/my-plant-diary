@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HistoryWidget from "./HistoryWidget";
 import PlantCardV2 from "./PlantCard";
 import { createWateringEntry, deletePlant, fetchPlants, fetchWateringEntries } from "./utils";
-import AddButton from "./AddButton";
+import AddButton from "../common/AddButton";
 import { useState } from "react";
 import WateringEntryForm from "./WateringEntryForm";
 
