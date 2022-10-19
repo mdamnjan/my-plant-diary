@@ -104,7 +104,9 @@
 }
 
 .plant-profile-img {
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    object-fit: cover;
+    max-height: 700px;
 }
 
 .plant-detail-container {
@@ -137,5 +139,8 @@
     .plant-list >* {
         /* make 2 columns instead of 3 */
         flex-basis: 100%;
+    }
+    .plant-page-container, .plant-detail-container {
+        width: 100%;
     }
   }

@@ -20,6 +20,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         flexDirection: "column",
         margin: "0 !important",
         position: "relative",
+        minHeight: "350px"
       }}
       variant="outlined"
       onClick={() =>
