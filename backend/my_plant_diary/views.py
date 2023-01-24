@@ -14,9 +14,15 @@ def index(request):
 
 class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializer
-    queryset = Plant.objects.all()
-    permission_classes = [permissions.IsAuthenticated,
-                      IsOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def get_queryset(self):
+        """
+        Return a list of all plants owned by the current user.
+
+        """
+        user = self.request.user
+        return Plant.objects.filter(owner=user)
                       
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

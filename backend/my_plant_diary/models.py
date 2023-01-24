@@ -62,4 +62,4 @@ class WateringEntry(models.Model):
             self.plant.next_watering = self.plant.get_next_watering()
             self.plant.status = self.plant.calculate_status()
             self.plant.save()
-        super(WateringEntry, self).save(*args, **kwargs)
+        super(WateringEntry, self).save(*args, **kwargs)    
