@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, generics
 from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer
 from .models import Plant, Note, WateringEntry
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwner
 
 # Create your views here.
 
@@ -15,8 +15,8 @@ def index(request):
 class PlantViewSet(viewsets.ModelViewSet):
     serializer_class = PlantSerializer
     queryset = Plant.objects.all()
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated,
+                      IsOwner]
                       
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -28,8 +28,8 @@ class PlantDetailViewSet(generics.RetrieveAPIView):
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     queryset = Note.objects.all().order_by('-updated')
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated,
+                      IsOwner]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -41,8 +41,8 @@ class NoteDetailViewSet(generics.RetrieveAPIView):
 class WateringViewSet(viewsets.ModelViewSet):
     serializer_class = WateringEntrySerializer
     queryset = WateringEntry.objects.all().order_by('-watered_on')
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated,
+                      IsOwner]
 
 class WateringDetailViewSet(generics.RetrieveAPIView):
     queryset = WateringEntry.objects.all()
