@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Plant, Note, WateringEntry
+from .models import Plant, Note, Watering
 
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -26,9 +26,9 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = ('id', 'text', 'plant', 'created', 'updated')
 
-class WateringEntrySerializer(serializers.ModelSerializer):
+class WateringSerializer(serializers.ModelSerializer):
     class Meta:
-        model = WateringEntry
+        model = Watering
         fields = ('id', 'plant', 'watered_on', 'created')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

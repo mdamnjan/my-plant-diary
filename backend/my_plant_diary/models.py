@@ -55,7 +55,7 @@ class Note(Entry):
     updated = models.DateTimeField(auto_now=True)
     text = models.CharField(max_length=1000)
 
-class WateringEntry(Entry):
+class Watering(Entry):
     watered_on = models.DateField()
     
     def save(self, *args, **kwargs):
@@ -64,4 +64,4 @@ class WateringEntry(Entry):
             self.plant.next_watering = self.plant.get_next_watering()
             self.plant.status = self.plant.calculate_status()
             self.plant.save()
-        super(WateringEntry, self).save(*args, **kwargs)    
+        super(Watering, self).save(*args, **kwargs)    
