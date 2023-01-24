@@ -22,10 +22,9 @@ class PlantSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug', 'next_watering')
 
 class NoteSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Note
-        fields = ('id', 'text', 'plant', 'owner', 'created', 'updated')
+        fields = ('id', 'text', 'plant', 'created', 'updated')
 
 class WateringEntrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,12 +32,11 @@ class WateringEntrySerializer(serializers.ModelSerializer):
         fields = ('id', 'plant', 'watered_on', 'created')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    notes = serializers.PrimaryKeyRelatedField(many=True, queryset=Note.objects.all())
     plants = serializers.PrimaryKeyRelatedField(many=True, queryset=Plant.objects.all())
 
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups', 'notes', 'plants']
+        fields = ['url', 'username', 'email', 'groups', 'plants']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

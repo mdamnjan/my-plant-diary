@@ -37,8 +37,6 @@ class NoteViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated,
                       IsOwner]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
 class NoteDetailViewSet(generics.RetrieveAPIView):
     queryset = Note.objects.all()

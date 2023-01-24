@@ -44,17 +44,19 @@ class Plant(models.Model):
         self.slug = slugify(self.name)
         super(Plant, self).save(*args, **kwargs)    
     
-class Note(models.Model):
-    owner = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
+class Entry(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
+class Note(Entry):
     updated = models.DateTimeField(auto_now=True)
     text = models.CharField(max_length=1000)
 
-class WateringEntry(models.Model):
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+class WateringEntry(Entry):
     watered_on = models.DateField()
-    created = models.DateTimeField(auto_now_add=True)
     
     def save(self, *args, **kwargs):
         if not self.plant.last_watered or self.plant.last_watered < self.watered_on:
