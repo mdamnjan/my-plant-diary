@@ -9,15 +9,14 @@ import PlantDetailPage from "./components/Plants/PlantDetailPage";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+        <header className="App-header"></header>
         <Router>
           <Routes>
-            <Route path="/" element={<PlantPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/plants" element={<PlantPage />} />
             <Route path="/plants/:slug/" element={<PlantDetailPage />} />
           </Routes>
         </Router>
-      </header>
     </div>
   );
 }
