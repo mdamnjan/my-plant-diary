@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const API_BASE = 'http://localhost:8000'
+
 // temporary basic auth for admin
 const auth = { auth: { username: "admin", password: "admin" } };
 
 export const fetchPlants = () => {
-  return axios.get("/plants", auth);
+  return axios.get(`${API_BASE}/plants`, auth);
 };
 
 export const fetchWateringEntries = () => {

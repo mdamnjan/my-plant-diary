@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "dependencies": {
     "@date-io/dayjs": "^2.15.0",
     "@emotion/react": "^11.10.4",
