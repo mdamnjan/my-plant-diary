@@ -10,7 +10,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
-
+        
+        if request.user.is_superuser:
+            return True
+        
         # Might not be the proper way to do this
         # for checking perms of watering entries
         if hasattr(obj, 'plant'):
