@@ -28,6 +28,7 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = ('id', 'text', 'plant', 'owner', 'created', 'updated')
 
 class WateringEntrySerializer(serializers.ModelSerializer):
+    plant = PlantSerializer(many=False)
     class Meta:
         model = WateringEntry
         fields = ('id', 'plant', 'watered_on', 'created')
