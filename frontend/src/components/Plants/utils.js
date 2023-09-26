@@ -3,40 +3,42 @@ import axios from "axios";
 const API_BASE = 'http://localhost:8000'
 
 // temporary basic auth for admin
-const auth = { auth: { username: "admin", password: "admin" } };
+const auth = { username: "admin", password: "admin" }
+
+const axiosInstance = axios.create({baseURL: API_BASE, auth: auth})
 
 export const fetchPlants = () => {
-  return axios.get(`${API_BASE}/plants`, auth);
+  return axiosInstance.get(`/plants`);
 };
 
 export const fetchWateringEntries = () => {
-  return axios.get("/watering", auth);
+  return axiosInstance.get("/watering");
 };
 
 export const fetchNotes = () => {
-  return axios.get("/notes", auth);
+  return axiosInstance.get("/notes");
 };
 
 export const createPlant = (body) => {
-  return axios.post("/plants/", body, auth);
+  return axiosInstance.post("/plants/", body);
 };
 
 export const createWateringEntry = (body) => {
-    return axios.post("/watering/", body, auth);
+    return axiosInstance.post("/watering/", body);
   };
 
 export const updatePlant = (plantID, body) => {
-  return axios.put(`/plants/${plantID}/`, body, auth);
+  return axiosInstance.put(`/plants/${plantID}/`, body);
 };
 
 export const updateWateringEntry = (entryID, body) => {
-    return axios.put(`/watering/${entryID}/`, body, auth);
+    return axiosInstance.put(`/watering/${entryID}/`, body);
   };
 
 export const deletePlant = (plantID) => {
-  return axios.delete(`/plants/${plantID}/`, auth);
+  return axiosInstance.delete(`/plants/${plantID}/`);
 };
 
 export const deleteWateringEntry = (entryID) => {
-    return axios.delete(`/watering/${entryID}/`, auth);
+    return axiosInstance.delete(`/watering/${entryID}/`);
   };
