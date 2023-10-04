@@ -56,6 +56,17 @@ export const authenticate = (body) => {
   );
 };
 
+export const register = (body) => {
+  return axiosInstance.post(
+    "/register/",
+    { username: body.username, password: body.password },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+
 export const logout = () => {
   return axiosInstance.post("/logout/", {
     withCredentials: true,

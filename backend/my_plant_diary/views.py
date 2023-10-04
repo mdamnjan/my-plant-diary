@@ -181,6 +181,20 @@ class LoginView(views.APIView):
             return res
 
         else:
-            return response.Response({'error': 'wrong credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            return response.Response('Wrong username/password.', status=status.HTTP_401_UNAUTHORIZED)
     
 
+class RegistrationView(views.APIView):
+    def post(self, request, format=None):
+        username = request.data['username']
+        password = request.data['password']
+
+        user = User.objects.filter(username=username)
+
+        if user.exists():
+            return response.Response('Sorry, a user with this username already exists.', status=status.HTTP_400_BAD_REQUEST)
+        else:
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+
+            return response.Response('User created successfully!', status=status.HTTP_201_CREATED)
