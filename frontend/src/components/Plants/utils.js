@@ -14,6 +14,10 @@ export const fetchPlants = () => {
   return axiosInstance.get(`/plants`);
 };
 
+export const fetchPlant = (id) => {
+  return axiosInstance.get(`/plants/${id}`);
+};
+
 export const fetchWateringEntries = () => {
   return axiosInstance.get("/watering");
 };
@@ -57,15 +61,10 @@ export const authenticate = (body) => {
 };
 
 export const register = (body) => {
-  return axiosInstance.post(
-    "/register/",
-    body,
-    {
-      withCredentials: true,
-    }
-  );
+  return axiosInstance.post("/register/", body, {
+    withCredentials: true,
+  });
 };
-
 
 export const logout = () => {
   return axiosInstance.post("/logout/", {
