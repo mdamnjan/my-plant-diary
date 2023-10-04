@@ -10,6 +10,8 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { logout } from "../Plants/utils";
+import { useNavigate } from "react-router-dom";
+import { useDebugValue } from "react";
 
 const SideBar = ({ onClick }) => {
   const buttons = [
@@ -31,6 +33,8 @@ const SideBar = ({ onClick }) => {
       url: "/profile",
     },
   ];
+
+  let navigate = useNavigate();
   return (
     <Paper className="side-bar">
       <Typography>
@@ -45,10 +49,16 @@ const SideBar = ({ onClick }) => {
           </Button>
         ))}
       </nav>
-      <Button id="side-bar-add-button" onClick={onClick} variant="contained">
-        Add a Plant
+      <Button
+        id="side-bar-add-button"
+        variant="outlined"
+        onClick={() => {
+          logout();
+          navigate("/login");
+        }}
+      >
+        Logout
       </Button>
-      <Button onClick={logout}>Logout</Button>
     </Paper>
   );
 };
