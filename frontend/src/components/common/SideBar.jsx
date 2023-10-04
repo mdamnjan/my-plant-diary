@@ -9,6 +9,7 @@ import {
   Note,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { logout } from "../Plants/utils";
 
 const SideBar = ({ onClick }) => {
   const buttons = [
@@ -47,6 +48,7 @@ const SideBar = ({ onClick }) => {
       <Button id="side-bar-add-button" onClick={onClick} variant="contained">
         Add a Plant
       </Button>
+      <Button onClick={logout}>Logout</Button>
     </Paper>
   );
 };

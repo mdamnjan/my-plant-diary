@@ -30,11 +30,11 @@ router.register(r'watering', views.WateringViewSet)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('users/', views.UserList.as_view()),
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', views.CookieTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
+    path('api/login/', views.LoginView.as_view(), name ='login')
 ]

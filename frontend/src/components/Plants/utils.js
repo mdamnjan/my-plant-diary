@@ -1,11 +1,14 @@
 import axios from "axios";
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = "http://localhost:8000/api";
 
-// temporary basic auth for admin
-const auth = { username: "admin", password: "admin" }
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
 
-const axiosInstance = axios.create({baseURL: API_BASE, auth: auth})
+const axiosInstance = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true,
+});
 
 export const fetchPlants = () => {
   return axiosInstance.get(`/plants`);
@@ -24,21 +27,43 @@ export const createPlant = (body) => {
 };
 
 export const createWateringEntry = (body) => {
-    return axiosInstance.post("/watering/", body);
-  };
+  return axiosInstance.post("/watering/", body);
+};
 
 export const updatePlant = (plantID, body) => {
   return axiosInstance.put(`/plants/${plantID}/`, body);
 };
 
 export const updateWateringEntry = (entryID, body) => {
-    return axiosInstance.put(`/watering/${entryID}/`, body);
-  };
+  return axiosInstance.put(`/watering/${entryID}/`, body);
+};
 
 export const deletePlant = (plantID) => {
   return axiosInstance.delete(`/plants/${plantID}/`);
 };
 
 export const deleteWateringEntry = (entryID) => {
-    return axiosInstance.delete(`/watering/${entryID}/`);
-  };
+  return axiosInstance.delete(`/watering/${entryID}/`);
+};
+
+export const authenticate = (body) => {
+  return axiosInstance.post(
+    "/login/",
+    { username: body.username, password: body.password },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+export const logout = () => {
+  return axiosInstance.post("/logout/", {
+    withCredentials: true,
+  });
+};
+
+export const refreshToken = () => {
+  return axiosInstance.post("/token/refresh/", {
+    withCredentials: true,
+  });
+};
