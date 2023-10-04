@@ -1,22 +1,25 @@
 import "./Login.css";
-import axios from "axios";
 import { useState } from "react";
 import { authenticate } from "../Plants/utils";
+import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
+
+    // reset error when attempting to register/log in again so it doesn't show the old error message
+    setError(null)
     await authenticate({ username: username, password: password })
       .then((res) => {
-        window.location.assign("/plants");
+        navigate("/plants");
       })
       .catch((error) => setError(error.response.data));
   };
@@ -32,6 +35,7 @@ const LoginPage = () => {
           id="outlined-basic"
           className="text-field"
           label="Username"
+          value={username}
           variant="outlined"
           onChange={(e) => setUsername(e.target.value)}
           error={error}
@@ -43,6 +47,7 @@ const LoginPage = () => {
           label="Password"
           variant="outlined"
           type="password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           error={error}
           helperText={error}
@@ -50,6 +55,10 @@ const LoginPage = () => {
         <Button className="login-button" variant="contained" type="submit">
           Log In
         </Button>
+          <div id="sign-up-section">
+            Don't have an account?{" "}
+            <Button onClick={() => navigate('/signup')}>Sign Up</Button>
+          </div>  
       </form>
     </div>
   );

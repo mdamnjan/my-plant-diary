@@ -188,13 +188,19 @@ class RegistrationView(views.APIView):
     def post(self, request, format=None):
         username = request.data['username']
         password = request.data['password']
+        email = request.data['email']
 
         user = User.objects.filter(username=username)
+        user_by_email = User.objects.filter(email=email)
 
-        if user.exists():
+        if user_by_email.exists():
+            return response.Response('An account with this email already exists.', status=status.HTTP_400_BAD_REQUEST)
+        
+        elif user.exists():
             return response.Response('Sorry, a user with this username already exists.', status=status.HTTP_400_BAD_REQUEST)
+        
         else:
-            user = User.objects.create_user(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password, email=email)
             user.save()
 
             return response.Response('User created successfully!', status=status.HTTP_201_CREATED)

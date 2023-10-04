@@ -1,7 +1,7 @@
 .login-container {
   display: flex;
   justify-content: center;
-  height: 100vh
+  height: 100vh;
 }
 
 .login-form {
@@ -25,7 +25,9 @@
   margin-bottom: 20px !important;
 }
 
-.login-button {
-  float: right;
-  align-self: flex-end;
+#sign-up-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

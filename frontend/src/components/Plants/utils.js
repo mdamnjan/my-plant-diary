@@ -59,7 +59,7 @@ export const authenticate = (body) => {
 export const register = (body) => {
   return axiosInstance.post(
     "/register/",
-    { username: body.username, password: body.password },
+    body,
     {
       withCredentials: true,
     }
