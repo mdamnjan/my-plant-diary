@@ -28,13 +28,11 @@ const PlantDetailPage = () => {
   const [open, setOpen] = useState(false);
 
   const getWateringEntries = () => {
-    console.log("HERE")
     fetchWateringEntries().then((response) => setEntries(response.data));
   };
 
   const getPlant = () => {
     fetchPlant(location.state.id).then((response)=>setPlant(response.data))
-    console.log("I AM GETTING THE PLANT")
   }
 
   const handleSubmit = (body) => {
