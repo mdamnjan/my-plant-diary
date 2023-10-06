@@ -10,44 +10,68 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+const performApiCall = async (method, url, body) => {
+  let res;
+  try {
+    res = await axiosInstance.request({
+      method: method,
+      url: url,
+      data: body,
+    });
+  } catch (error) {
+    if (error.response.status === 401) {
+      // refresh the token and try again
+      return refreshToken().then(() => {
+        return axiosInstance.request({
+          method: method,
+          url: url,
+          data: body,
+        })
+      }
+      );
+    }
+  }
+  return res;
+};
+
 export const fetchPlants = () => {
-  return axiosInstance.get(`/plants`);
+  return performApiCall("get", "/plants");
 };
 
 export const fetchPlant = (id) => {
-  return axiosInstance.get(`/plants/${id}`);
+  return performApiCall("get", `/plants/${id}`);
 };
 
 export const fetchWateringEntries = () => {
-  return axiosInstance.get("/watering");
+  return performApiCall("get", "/watering");
 };
 
 export const fetchNotes = () => {
-  return axiosInstance.get("/notes");
+  return performApiCall("get", "/notes");
 };
 
 export const createPlant = (body) => {
-  return axiosInstance.post("/plants/", body);
+  return performApiCall("post", "/plants/", body);
 };
 
 export const createWateringEntry = (body) => {
-  return axiosInstance.post("/watering/", body);
+  return performApiCall("post", "/watering/", body);
 };
 
 export const updatePlant = (plantID, body) => {
-  return axiosInstance.put(`/plants/${plantID}/`, body);
+  return performApiCall("put", `/plants/${plantID}/`, body);
 };
 
 export const updateWateringEntry = (entryID, body) => {
-  return axiosInstance.put(`/watering/${entryID}/`, body);
+  return performApiCall("put", `/watering/${entryID}/`, body);
 };
 
 export const deletePlant = (plantID) => {
-  return axiosInstance.delete(`/plants/${plantID}/`);
+  return performApiCall("delete", `/plants/${plantID}/`);
 };
 
 export const deleteWateringEntry = (entryID) => {
-  return axiosInstance.delete(`/watering/${entryID}/`);
+  return performApiCall("delete", `/watering/${entryID}/`);
 };
 
 export const authenticate = (body) => {
