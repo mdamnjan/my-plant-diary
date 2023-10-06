@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "../common/AddButton";
-import SideBar from "../common/SideBar";
+import BasePage from "../common/BasePage";
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
+import { Typography } from "@mui/material";
 
 const PlantPageV2 = () => {
   const [open, setOpen] = useState(false);
@@ -58,42 +59,38 @@ const PlantPageV2 = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <SideBar
-        navigation
-        onClick={() => {
-          console.log("Clicked");
-          setOpen(true);
-          setIsEditing(false);
-        }}
-      />
-      <div className="plant-page-container">
+    <BasePage>
+      <div style={{ margin: "20px" }}>
+        <Typography variant="h4">My Plants</Typography>
         <Autocomplete
+          style={{ marginTop: "10px" }}
           fullWidth
           options={plantList.map((plant) => plant.name)}
-          renderInput={(params) => <TextField {...params} label="Plant" />}
-        />
-        <div className="plant-list">
-          {plants}
-          <AddButton
-            tooltipText="Add a plant"
-            onClick={() => {
-              setOpen(true);
-              setIsEditing(false);
-            }}
-          />
-        </div>
-        <NewPlantForm
-          handleSubmit={handleSubmit}
-          isEditing={isEditing}
-          plant={plant}
-          onClose={() => {
-            setOpen(false);
-          }}
-          open={open}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="Search for a plant..." />
+          )}
         />
       </div>
-    </div>
+      <div className="plant-list">
+        {plants}
+        <AddButton
+          tooltipText="Add a plant"
+          onClick={() => {
+            setOpen(true);
+            setIsEditing(false);
+          }}
+        />
+      </div>
+      <NewPlantForm
+        handleSubmit={handleSubmit}
+        isEditing={isEditing}
+        plant={plant}
+        onClose={() => {
+          setOpen(false);
+        }}
+        open={open}
+      />
+    </BasePage>
   );
 };
 export default PlantPageV2;
