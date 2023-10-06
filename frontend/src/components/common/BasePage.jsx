@@ -7,6 +7,7 @@ import {
   LocalDrink,
   AccountCircle,
   Note,
+  Logout
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { logout } from "../Plants/utils";
@@ -63,6 +64,7 @@ const BasePage = ({ children }) => {
             navigate("/login");
           }}
         >
+            <Logout/>
           Logout
         </Button>
       </Paper>
