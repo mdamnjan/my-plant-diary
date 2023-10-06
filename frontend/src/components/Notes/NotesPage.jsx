@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Note from "./Note";
 import "./Note.css"
 import { Divider } from "@mui/material";
+import BasePage from "../common/BasePage";
 
 const noteList = [
   {
@@ -25,6 +26,6 @@ const NotesPage = () => {
   //   axios.get("/api/notes/").then((response) => setNoteList(response.data));
   // }, []);
   let notes = noteList.map((note) => <><Note key={note.id} note={note} /><Divider/></>);
-  return <div className="note-list">{notes}</div>;
+  return <BasePage><div className="note-list">{notes}</div></BasePage>;
 };
 export default NotesPage;

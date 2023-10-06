@@ -7,6 +7,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PlantDetailPage from "./components/Plants/PlantDetailPage";
 import HomePage from "./components/Home/HomePage";
 import RegistrationForm from "./components/Login/RegistrationForm";
+import NotesPage from "./components/Notes/NotesPage";
+import WateringPage from "./components/Watering/WateringPage";
+import ProfilePage from "./components/Profile/ProfilePage";
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<RegistrationForm />} />
           <Route path="/plants" element={<PlantPage />} />
+          <Route path="/notes" element={<NotesPage />} />
+          <Route path="/watering" element={<WateringPage />} />
           <Route path="/plants/:slug/" element={<PlantDetailPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </div>
