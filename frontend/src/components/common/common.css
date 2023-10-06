@@ -31,7 +31,7 @@ nav {
 .plus-button {
     position: absolute !important;
     bottom: 12%;
-    right: 40%;
+    right: 45%;
 }
 
   @media only screen and (max-width: 750px) {

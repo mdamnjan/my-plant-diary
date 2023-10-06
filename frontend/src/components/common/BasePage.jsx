@@ -38,7 +38,7 @@ const BasePage = ({ children }) => {
   return (
     <Container
       disableGutters
-      maxWidth={"lg"}
+      maxWidth={false}
       id="base-page"
       style={{ display: "flex"}}
       component={Paper}
@@ -68,7 +68,7 @@ const BasePage = ({ children }) => {
           Logout
         </Button>
       </Paper>
-      <Paper style={{padding: "0px 20px 0px 20px", overflowY: 'auto', height: "100vh", width: "100%"}}>{children}</Paper>
+      <Paper style={{padding: "0px 20px 0px 20px", height: "100vh", width: "100%", overflowY: "auto"}}>{children}</Paper>
     </Container>
   );
 };
