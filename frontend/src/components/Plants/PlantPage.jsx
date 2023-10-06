@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import AddButton from "../common/AddButton";
 import SideBar from "../common/SideBar";
-import { fetchPlants, createPlant, deletePlant, updatePlant, refreshToken } from "./utils";
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
 
 const PlantPageV2 = () => {
   const [open, setOpen] = useState(false);
@@ -53,10 +53,6 @@ const PlantPageV2 = () => {
     />
   ));
 
-  const refresh = async () => {
-    await refreshToken().then((res)=>console.log("here", res))
-  }
-
   useEffect(() => {
     getPlantList();
   }, []);
@@ -96,7 +92,6 @@ const PlantPageV2 = () => {
           }}
           open={open}
         />
-        <button onClick={refresh}>Refresh token</button>
       </div>
     </div>
   );
