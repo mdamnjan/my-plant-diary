@@ -45,9 +45,16 @@ class PlantDetailViewSet(generics.RetrieveAPIView):
 class NoteViewSet(viewsets.ModelViewSet):
     authentication_classes=[CustomAuthentication]
     serializer_class = NoteSerializer
-    queryset = Note.objects.all().order_by('-updated')
     permission_classes = [permissions.IsAuthenticated,
                       IsOwner]
+
+    def get_queryset(self):
+        """
+        Return a list of all notes owned by the current user.
+
+        """
+        user = self.request.user
+        return Note.objects.filter(plant__owner=user).order_by('-updated')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -59,9 +66,16 @@ class NoteDetailViewSet(generics.RetrieveAPIView):
 class WateringViewSet(viewsets.ModelViewSet):
     authentication_classes=[CustomAuthentication]
     serializer_class = WateringEntrySerializer
-    queryset = WateringEntry.objects.all().order_by('-watered_on')
     permission_classes = [permissions.IsAuthenticated,
                       IsOwner]
+    
+    def get_queryset(self):
+        """
+        Return a list of all watering entries owned by the current user.
+
+        """
+        user = self.request.user
+        return WateringEntry.objects.filter(plant__owner=user).order_by('-watered_on')
 
 class WateringDetailViewSet(generics.RetrieveAPIView):
     queryset = WateringEntry.objects.all()

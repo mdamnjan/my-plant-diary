@@ -25,8 +25,8 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'plants', views.PlantViewSet, basename="Plant")
-router.register(r'notes', views.NoteViewSet)
-router.register(r'watering', views.WateringViewSet)
+router.register(r'notes', views.NoteViewSet, basename="Note")
+router.register(r'watering', views.WateringViewSet, basename="WateringEntry")
 
 
 urlpatterns = [
