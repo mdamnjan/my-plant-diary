@@ -8,7 +8,7 @@ import PlantDetailPage from "./components/Plants/PlantDetailPage";
 import HomePage from "./components/Home/HomePage";
 import RegistrationForm from "./components/Login/RegistrationForm";
 import NotesPage from "./components/Notes/NotesPage";
-import WateringPage from "./components/Watering/WateringPage";
+import TasksPage from "./components/Tasks/TasksPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
           <Route path="/signup" element={<RegistrationForm />} />
           <Route path="/plants" element={<PlantPage />} />
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/watering" element={<WateringPage />} />
+          <Route path="/tasks" element={<TasksPage />} />
           <Route path="/plants/:slug/" element={<PlantDetailPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
