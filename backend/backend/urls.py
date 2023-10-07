@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework_simplejwt import views as jwt_views
 
 from my_plant_diary import views
+from my_plant_diary import auth_views
 
 
 router = routers.DefaultRouter()
@@ -33,9 +33,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    # path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', views.CookieTokenRefreshView.as_view(), name='token_refresh'),
-    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
-    path('api/login/', views.LoginView.as_view(), name ='login'),
-    path('api/register/', views.RegistrationView.as_view(), name ='register')
+    path('api/token/refresh/', auth_views.CookieTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/logout/', auth_views.LogoutView.as_view(), name ='logout'),
+    path('api/login/', auth_views.LoginView.as_view(), name ='login'),
+    path('api/register/',auth_views.RegistrationView.as_view(), name ='register')
 ]
