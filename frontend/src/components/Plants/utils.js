@@ -26,9 +26,8 @@ const performApiCall = async (method, url, body) => {
           method: method,
           url: url,
           data: body,
-        })
-      }
-      );
+        });
+      });
     }
   }
   return res;
@@ -56,6 +55,10 @@ export const createPlant = (body) => {
 
 export const createWateringEntry = (body) => {
   return performApiCall("post", "/watering/", body);
+};
+
+export const createNote = (body) => {
+  return performApiCall("post", "/notes/", body);
 };
 
 export const updatePlant = (plantID, body) => {
