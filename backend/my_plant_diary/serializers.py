@@ -31,10 +31,10 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = ('id', 'text', 'plant', 'owner', 'created', 'updated')
 
 class WateringEntrySerializer(serializers.ModelSerializer):
-    plant = PlantSerializer(many=False)
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = WateringEntry
-        fields = ('id', 'plant', 'watered_on', 'created')
+        fields = ('id', 'plant', 'watered_on', 'owner', 'created')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     notes = serializers.PrimaryKeyRelatedField(many=True, queryset=Note.objects.all())
