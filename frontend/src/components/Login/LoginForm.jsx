@@ -1,10 +1,9 @@
-import "./Login.css";
-import { useState } from "react";
-import { authenticate } from "../Plants/utils";
+import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-import TextField from "@mui/material/TextField";
-import { Button, Typography } from "@mui/material";
+import "./Login.css";
+import { authenticate } from "../Plants/utils";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -16,7 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     // reset error when attempting to register/log in again so it doesn't show the old error message
-    setError(null)
+    setError(null);
     await authenticate({ username: username, password: password })
       .then((res) => {
         navigate("/plants");
@@ -55,10 +54,10 @@ const LoginPage = () => {
         <Button className="login-button" variant="contained" type="submit">
           Log In
         </Button>
-          <div id="sign-up-section">
-            Don't have an account?{" "}
-            <Button onClick={() => navigate('/signup')}>Sign Up</Button>
-          </div>  
+        <div id="sign-up-section">
+          Don't have an account?{" "}
+          <Button onClick={() => navigate("/signup")}>Sign Up</Button>
+        </div>
       </form>
     </div>
   );

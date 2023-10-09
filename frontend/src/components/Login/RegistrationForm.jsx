@@ -1,10 +1,9 @@
-import "./Login.css";
+import { Alert, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { register } from "../Plants/utils";
 import { useNavigate } from "react-router-dom";
 
-import TextField from "@mui/material/TextField";
-import { Button, Typography, Alert } from "@mui/material";
+import "./Login.css";
+import { register } from "../Plants/utils";
 
 const RegistrationForm = () => {
   const [username, setUsername] = useState("");
