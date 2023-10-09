@@ -2,6 +2,7 @@
     width: 10%;
     height: 100vh;
     min-width: 250px;
+    padding-left: 50px;
 }
 
 p, nav>* {
@@ -18,11 +19,6 @@ nav {
     align-items: flex-start;
 }
 
-#side-bar-add-button {
-    width: 100%;
-    margin-top: 5%;
-}
-
 #logo {
     width: 30px; 
     margin: 10px;
@@ -31,7 +27,7 @@ nav {
 .plus-button {
     position: absolute !important;
     bottom: 12%;
-    right: 45%;
+    right: 50%;
 }
 
   @media only screen and (max-width: 750px) {

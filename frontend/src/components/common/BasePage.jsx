@@ -1,30 +1,39 @@
-import "./common.css";
-
-import { Paper, Button, Typography, Container } from "@mui/material";
+import { Button, Container, Paper, Typography } from "@mui/material";
 import {
+  AccountCircle,
+  Analytics,
   Home,
   LocalFlorist,
-  LocalDrink,
-  AccountCircle,
+  Logout,
   Note,
-  Logout
+  Task,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import { logout } from "../Plants/utils";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
+
+import "./common.css";
+import { Link, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const BasePage = ({ children }) => {
+import { logout } from "../Plants/utils";
+
+const BasePage = () => {
   const buttons = [
     { text: "Home", icon: <Home fontSize="large" />, url: "/" },
     {
-      text: "My Plants",
+      text: "Insights",
+      icon: <Analytics fontSize="large" />,
+      url: "/insights",
+    },
+    {
+      text: "Plants",
       icon: <LocalFlorist fontSize="large" />,
       url: "/plants",
     },
     {
-      text: "Watering",
-      icon: <LocalDrink fontSize="large" />,
-      url: "/watering",
+      text: "Tasks",
+      icon: <Task fontSize="large" />,
+      url: "/tasks",
     },
     { text: "Notes", icon: <Note fontSize="large" />, url: "/notes" },
     {
@@ -38,37 +47,79 @@ const BasePage = ({ children }) => {
   return (
     <Container
       disableGutters
-      maxWidth={false}
+      maxWidth={"xl"}
       id="base-page"
-      style={{ display: "flex"}}
+      style={{ display: "flex" }}
       component={Paper}
     >
       <Paper className="side-bar">
-        <Typography>
+        <Typography sx={{ padding: "10px 20px" }}>
           <img id="logo" alt="plant logo" src="leaf-svgrepo-com.svg" />
-          <h2>My Plant Diary</h2>
+          <h3>My Plant Diary</h3>
         </Typography>
-        <nav>
+        <nav style={{ padding: "0px 20px" }}>
           {buttons.map((button) => (
-            <Button component={Link} to={button.url}>
+            <Button
+              fullWidth
+              variant={
+                window.location.pathname === button.url ? "contained" : ""
+              }
+              sx={{
+                textTransform: "none",
+                borderRadius: "20px",
+                display: "flex",
+                justifyContent: "flex-start",
+                padding: "5px 20px",
+              }}
+              component={Link}
+              to={button.url}
+            >
               {button.icon}
-              <h2>{button.text}</h2>
+              <h3 className="nav-text" style={{ marginLeft: "10px" }}>
+                {button.text}
+              </h3>
             </Button>
           ))}
+          <Button
+            fullWidth
+            sx={{
+              textTransform: "none",
+              borderRadius: "20px",
+              display: "flex",
+              justifyContent: "flex-start",
+              padding: "5px 20px",
+              justifySelf: "flex-end",
+              alignSelf: "end",
+            }}
+            onClick={() => {
+              logout();
+              navigate("/login");
+            }}
+          >
+            <Logout />
+            <h3 className="nav-text" style={{ marginLeft: "10px" }}>
+              Log Out
+            </h3>
+          </Button>
         </nav>
-        <Button
-          id="side-bar-add-button"
-          variant="outlined"
-          onClick={() => {
-            logout();
-            navigate("/login");
-          }}
-        >
-            <Logout/>
-          Logout
-        </Button>
       </Paper>
-      <Paper style={{padding: "0px 20px 0px 20px", height: "100vh", width: "100%", overflowY: "auto"}}>{children}</Paper>
+      <Container
+        maxWidth={false}
+        style={{
+          margin: "auto",
+          padding: "20px 40px 20px 40px",
+          height: "100vh",
+          width: "100%",
+          overflowY: "auto",
+        }}
+      >
+        <Outlet />
+      </Container>
+      <Paper>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar />
+        </LocalizationProvider>
+      </Paper>
     </Container>
   );
 };
