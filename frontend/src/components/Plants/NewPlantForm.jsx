@@ -13,6 +13,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+import UploadButton from "../common/UploadButton";
+import { uploadFileToFirebase } from "../../utils";
+
 const FreqChoices = {
   EOD: "Every Other Day",
   OAW: "Once a Week",
@@ -24,6 +27,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const defaultWatering = "OAW";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
+  const [img, setImg] = useState(null)
 
   const clearFields = () => {
     setName("");
@@ -47,14 +51,16 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
         onSubmit={(e) => {
           e.preventDefault();
           clearFields();
-          handleSubmit(e, name, wateringFreq, plant.id);
+          handleSubmit(e, name, wateringFreq, plant.id, img);
         }}
         className="new-plant-form-container"
       >
         <img
           className="plant-profile-img"
-          src="../../Calathea_orbifolia.jpg"
+          src={img}
+          alt="plant"
         ></img>
+        <UploadButton setFile={setImg} />
         <TextField
           onChange={(e) => setName(e.target.value)}
           className="plant-name-field"

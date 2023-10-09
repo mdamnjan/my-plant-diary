@@ -7,12 +7,14 @@ import PlantCard from "./PlantCard";
 import NewPlantForm from "./NewPlantForm";
 
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
+import { uploadFileToFirebase } from "../../utils";
 
 const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+  const [imgURL, setImgURL] = useState(null);
 
   const getPlantList = () => {
     fetchPlants().then((response) => setPlantList(response.data));
@@ -24,14 +26,20 @@ const PlantPage = () => {
     setPlant(plant);
   };
 
-  const handleSubmit = (e, name, wateringFreq, plantID) => {
+  const handleSubmit = (e, name, wateringFreq, plantID, img) => {
     const updatePage = () => {
       setOpen(false);
       getPlantList();
       setIsEditing(false);
     };
 
-    const body = { name: name, watering_frequency: wateringFreq };
+    uploadFileToFirebase(img, setImgURL);
+
+    const body = {
+      name: name,
+      watering_frequency: wateringFreq,
+      img_url: imgURL,
+    };
 
     if (isEditing) {
       updatePlant(plantID, body).then(() => updatePage());
