@@ -1,16 +1,17 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import Typography from "@mui/material/Typography";
-import { Fab } from "@mui/material";
-import StatusTag from "./StatusTag";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Fab,
+  Typography,
+} from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
+import StatusTag from "./StatusTag";
+
+const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   let navigate = useNavigate();
 
   return (
@@ -20,7 +21,8 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         flexDirection: "column",
         margin: "0 !important",
         position: "relative",
-        minHeight: "350px"
+        minHeight: "250px",
+        minWidth: "250px",
       }}
       variant="outlined"
       onClick={() =>
@@ -34,11 +36,11 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         children={<StatusTag status={plant.status} />}
         alt={plant.name}
       />
-      <CardContent sx={{ height: "20%", minHeight: "125px" }}>
+      <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        {/* <Typography variant="body1" color="text.secondary">
           Last Watered: {plant.last_watered}
         </Typography>
         <Typography variant="body1" color="text.secondary">
@@ -46,7 +48,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Watering Frequency: {plant.watering_frequency}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions
         sx={{
@@ -69,7 +71,7 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
           size="medium"
           aria-label="add"
         >
-          <EditIcon />
+          <Edit />
         </Fab>
         <Fab
           onClick={(e) => {
@@ -79,10 +81,10 @@ const PlantCardV2 = ({ plant, handleEdit, handleDelete }) => {
           size="medium"
           aria-label="add"
         >
-          <DeleteIcon />
+          <Delete />
         </Fab>
       </CardActions>
     </Card>
   );
 };
-export default PlantCardV2;
+export default PlantCard;

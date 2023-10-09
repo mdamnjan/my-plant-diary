@@ -1,16 +1,14 @@
-import "./Plants.css";
-import PlantCard from "./PlantCard";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import { Autocomplete, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
-import NewPlantForm from "./NewPlantForm";
+import "./Plants.css";
 import AddButton from "../common/AddButton";
-import BasePage from "../common/BasePage";
-import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
-import { Typography } from "@mui/material";
+import PlantCard from "./PlantCard";
+import NewPlantForm from "./NewPlantForm";
 
-const PlantPageV2 = () => {
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
+
+const PlantPage = () => {
   const [open, setOpen] = useState(false);
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -59,7 +57,7 @@ const PlantPageV2 = () => {
   }, []);
 
   return (
-    <BasePage>
+    <>
       <div style={{ margin: "20px" }}>
         <Typography variant="h4">My Plants</Typography>
         <Autocomplete
@@ -90,7 +88,7 @@ const PlantPageV2 = () => {
         }}
         open={open}
       />
-    </BasePage>
+    </>
   );
 };
-export default PlantPageV2;
+export default PlantPage;

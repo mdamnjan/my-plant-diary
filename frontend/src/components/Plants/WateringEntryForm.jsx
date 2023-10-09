@@ -1,13 +1,12 @@
-import Dialog from "@mui/material/Dialog";
-import { TextField, Button } from "@mui/material";
-import { useState, useEffect } from "react";
-import { Dayjs } from "dayjs";
+import { Button, Dialog, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+import { useState, useEffect } from "react";
 
 const WateringEntryForm = ({ open, onClose, plant, handleSubmit }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
 
   const clearFields = () => {
     setDate(null);
@@ -26,7 +25,7 @@ const WateringEntryForm = ({ open, onClose, plant, handleSubmit }) => {
           // https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
           handleSubmit({
             plant: plant.id,
-            watered_on: date.toLocaleDateString("en-CA"),
+            watered_on: date,
           });
         }}
         className="new-plant-form-container"
@@ -35,9 +34,9 @@ const WateringEntryForm = ({ open, onClose, plant, handleSubmit }) => {
           <DatePicker
             className="date-picker"
             label="Date"
-            value={date}
             onChange={(newValue) => {
-              setDate(new Date(newValue));
+              const newDate = new Date(newValue).toLocaleDateString("en-CA");
+              setDate(newDate);
             }}
             renderInput={(params) => (
               <TextField InputLabelProps={{ shrink: true }} {...params} />

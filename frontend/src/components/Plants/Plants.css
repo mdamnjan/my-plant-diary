@@ -37,19 +37,17 @@
 
 .alert-status {
     border-radius: 20px;
-    background-color: #ff0808;
+    background-color: #ff0808 !important;
     display: inline-block;
     padding: 5px 13px 5px 5px;
-    color: white;
     box-shadow: 0px 1px #700101;
 }
 
 .ok-status {
     border-radius: 20px;
-    background-color: #0ed95c;
+    background-color: #0ed95c !important;
     display: inline-block;
     padding: 5px 13px 5px 5px;
-    color: white;
     box-shadow: 0px 1px #149846;
 }
 
@@ -58,11 +56,13 @@
     position: absolute;
     left: 5%;
     bottom: 5%;
+    color: white !important;
 }
 
 
 .status-icon  {
     vertical-align: text-top;
+    color: white !important
 }
 
 .ok-status-icon {
@@ -99,8 +99,8 @@
 .plant-detail-container {
     height: 100vh;
     background-color: white;
-    width: 80%;
-    margin: 50px auto;
+    width: 100%;
+    margin: 50px 0px;
 }
 
 .plant-detail-container > img {
@@ -114,14 +114,18 @@
     height: 100%;
 }
 
-  @media only screen and (max-width: 1200px) {
+.plant-list >* {
+    flex-basis: 31%;
+}
+
+  @media only screen and (max-width: 1320px) {
     .plant-list >* {
         /* make 2 columns instead of 3 */
         flex-basis: 48%;
     }
   }
 
-  @media only screen and (max-width: 890px) {
+  @media only screen and (max-width: 1250px) {
     .plant-list >* {
         /* make 2 columns instead of 3 */
         flex-basis: 100%;

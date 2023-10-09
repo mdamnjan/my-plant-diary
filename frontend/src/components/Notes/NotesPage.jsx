@@ -1,31 +1,57 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Note from "./Note";
-import "./Note.css"
-import { Divider } from "@mui/material";
-import BasePage from "../common/BasePage";
+import { Divider, Box, Typography } from "@mui/material";
 
-const noteList = [
-  {
-    id: 1,
-    text: "I love this plant so much!",
-    plant: { id: 1, name: "String of Hearts" },
-    owner: { username: "admin", email: "admin@example.com", password: "admin" },
-  },
-  {
-    id: 2,
-    text: "Why is this plant so dramatic ;(",
-    plant: { id: 1, name: "Calathea Orbifolia" },
-    owner: { username: "admin", email: "admin@example.com", password: "admin" },
-  },
-];
+import { useState, useEffect } from "react";
+
+import AddButton from "../common/AddButton";
+
+import "./Note.css";
+import Note from "./Note";
+import NoteForm from "./NoteForm";
+
+import { fetchNotes, createNote } from "../Plants/utils";
 
 const NotesPage = () => {
-  // const [noteList, setNoteList] = useState([]);
-  // useEffect(() => {
-  //   axios.get("/api/notes/").then((response) => setNoteList(response.data));
-  // }, []);
-  let notes = noteList.map((note) => <><Note key={note.id} note={note} /><Divider/></>);
-  return <BasePage><div className="note-list">{notes}</div></BasePage>;
+  const [open, setOpen] = useState(false);
+  const [noteList, setNoteList] = useState([]);
+
+  let notes = noteList.map((note) => (
+    <Box sx={{ width: "100%" }}>
+      <Note key={note.id} note={note} />
+    </Box>
+  ));
+
+  const getNotes = () => {
+    fetchNotes().then((response) => setNoteList(response.data));
+  };
+
+  const handleSubmit = (e, text, plant) => {
+    const updatePage = () => {
+      setOpen(false);
+      getNotes();
+    };
+
+    const body = { text: text, plant: plant.id };
+    createNote(body).then(() => updatePage());
+  };
+
+  useEffect(() => {
+    getNotes();
+  }, []);
+
+  return (
+    <>
+      <Box sx={{ width: "100%" }}>
+        <Typography variant="h2">Notes</Typography>
+      </Box>
+      <Divider />
+      <div style={{ margin: "20px auto" }}>{notes}</div>
+      <AddButton onClick={() => setOpen(true)} tooltipText={"Add a note"} />
+      <NoteForm
+        handleSubmit={handleSubmit}
+        open={open}
+        onClose={() => setOpen(false)}
+      />
+    </>
+  );
 };
 export default NotesPage;
