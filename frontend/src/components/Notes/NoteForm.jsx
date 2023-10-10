@@ -10,11 +10,13 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { fetchPlants } from "../Plants/utils";
+import UploadButton from "../common/UploadButton";
 
 const NoteForm = ({ open, onClose, handleSubmit }) => {
   const [plant, setPlant] = useState(null);
   const [noteContent, setNoteContent] = useState(null);
   const [plantList, setPlantList] = useState([]);
+  const [img, setImg] = useState(null);
 
   useEffect(() => {
     const getPlants = async () => {
@@ -23,12 +25,21 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
     getPlants();
   }, []);
 
+  const getImageFromFile = (file) => {
+    try {
+      return URL.createObjectURL(file);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit(e, noteContent, plant);
+          handleSubmit(e, noteContent, plant, img);
         }}
         style={{
           display: "flex",
@@ -121,7 +132,19 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
             </div>
           </div>
         )}
+        <img
+          style={{
+            height: "200px",
+            objectFit: "contain",
+            backgroundColor: "#b5b5b5",
+            width: "100%",
+          }}
+          alt="uploaded"
+          src={getImageFromFile(img) || ""}
+        ></img>
+        <UploadButton setFile={setImg} />
         <TextField
+          sx={{ marginBottom: "20px" }}
           onChange={(e) => setNoteContent(e.target.value)}
           fullWidth
           multiline

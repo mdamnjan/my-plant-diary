@@ -50,7 +50,6 @@ export const fetchNotes = () => {
 };
 
 export const createPlant = (body) => {
-  console.log("is this running", body)
   return performApiCall("post", "/plants/", body);
 };
 

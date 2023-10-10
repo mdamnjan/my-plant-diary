@@ -9,10 +9,12 @@ import Note from "./Note";
 import NoteForm from "./NoteForm";
 
 import { fetchNotes, createNote } from "../Plants/utils";
+import { uploadFileToFirebase } from "../../utils";
 
 const NotesPage = () => {
   const [open, setOpen] = useState(false);
   const [noteList, setNoteList] = useState([]);
+  const [imgURL, setImgURL] = useState(null);
 
   let notes = noteList.map((note) => (
     <Box sx={{ width: "100%" }}>
@@ -24,14 +26,21 @@ const NotesPage = () => {
     fetchNotes().then((response) => setNoteList(response.data));
   };
 
-  const handleSubmit = (e, text, plant) => {
+  const handleSubmit = (e, text, plant, img) => {
     const updatePage = () => {
       setOpen(false);
       getNotes();
     };
 
-    const body = { text: text, plant: plant.id };
-    createNote(body).then(() => updatePage());
+    let body = { text: text, plant: plant.id };
+
+    if (img) {
+      uploadFileToFirebase(img).then((url) => {
+        createNote({ img_url: url, ...body }).then(() => updatePage());
+      });
+    } else {
+      createNote(body).then(() => updatePage());
+    }
   };
 
   useEffect(() => {

@@ -11,7 +11,6 @@ import {
 import "./Note.css";
 
 const Note = ({ note }) => {
-  console.log(note)
   return (
     <>
       <Card
@@ -23,20 +22,6 @@ const Note = ({ note }) => {
           right: "6px",
         }}
       >
-        {/* <CardHeader
-        avatar={<Avatar src="../../Calathea_orbifolia.jpg" />}
-        title={note.plant.name || "plant name"}
-        // action={
-        //   <CardActions>
-        //     <Fab color="primary" size="small">
-        //       <Edit />
-        //     </Fab>
-        //     <Fab size="small">
-        //       <Delete color="action" />
-        //     </Fab>
-        //   </CardActions>
-        // }
-      /> */}
         <CardActions style={{ float: "right" }}>
           <IconButton size="small" color="primary">
             <Edit />
@@ -56,11 +41,17 @@ const Note = ({ note }) => {
             <p style={{ margin: "5px 0px 0px 10px" }}>{note.text}</p>
           </div>
         </CardContent>
-        {note.img && (
+        {note.img_url && (
           <CardMedia
-            sx={{ objectFit: "contain", maxHeight: 400 }}
+            sx={{
+              objectFit: "contain",
+              backgroundColor: "#b5b5b5",
+              width: "100%",
+              maxHeight: 400,
+              marginBottom: "40px",
+            }}
             component="img"
-            src="../../Calathea_orbifolia.jpg"
+            src={note.img_url}
           />
         )}
       </Card>
