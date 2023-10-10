@@ -57,7 +57,6 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
               />
             ))
           }
-          getOptionSelected={(option, value) => option.id === value.id}
           getOptionLabel={(option) => option.name}
           options={plantList}
           renderInput={(params) => (
@@ -82,14 +81,14 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
                   display: "inline-block",
                   verticalAlign: "middle",
                 }}
-                src="../../Calathea_orbifolia.jpg"
+                src={option.img_url || "../../Calathea_orbifolia.jpg"}
               />
               <p style={{ display: "inline-block" }} className="username">
                 {option.name}
               </p>
             </Box>
           )}
-          onInputChange={(e, newValue) => {
+          onChange={(e, newValue) => {
             setPlant(newValue);
           }}
         />{" "}
@@ -104,12 +103,12 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
               padding: "5px 10px 5px 5px",
               position: "relative",
               justifyContent: "space-between",
-              alignSelf: "flex-start"
+              alignSelf: "flex-start",
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
-                src={"../../Calathea_orbifolia.jpg"}
+                src={plant.img_url || "../../Calathea_orbifolia.jpg"}
                 alt="plant"
                 style={{
                   borderRadius: "50%",
@@ -118,7 +117,7 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
                   marginRight: "5px",
                 }}
               ></img>
-              {plant}
+              {plant.name}
             </div>
           </div>
         )}

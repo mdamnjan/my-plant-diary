@@ -11,6 +11,7 @@ import {
 import "./Note.css";
 
 const Note = ({ note }) => {
+  console.log(note)
   return (
     <>
       <Card
