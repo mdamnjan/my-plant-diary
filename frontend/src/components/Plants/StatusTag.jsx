@@ -1,4 +1,4 @@
-import { CheckCircle, PriorityHigh } from "@mui/icons-material";
+import { CheckCircle, Error } from "@mui/icons-material";
 import { Chip } from "@mui/material";
 
 const StatusTag = ({ status }) => {
@@ -6,7 +6,7 @@ const StatusTag = ({ status }) => {
     status === "Ok" ? (
       <CheckCircle className="status-icon ok-status-icon" />
     ) : (
-      <PriorityHigh className="status-icon" />
+      <Error className="status-icon" />
     );
   const className = status === "Ok" ? "ok-status" : "alert-status";
   return (
