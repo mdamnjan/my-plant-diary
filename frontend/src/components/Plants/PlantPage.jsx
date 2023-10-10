@@ -33,7 +33,10 @@ const PlantPage = () => {
       setIsEditing(false);
     };
 
-    uploadFileToFirebase(img, setImgURL);
+    if (img) {
+      const downloadURL = uploadFileToFirebase(img);
+      setImgURL(downloadURL)
+    }
 
     const body = {
       name: name,

@@ -35,7 +35,7 @@ const AlertsWidget = ({ plants }) => {
         >
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src={"../../Calathea_orbifolia.jpg"}
+              src={plant.img_url || "../../Calathea_orbifolia.jpg"}
               alt="plant"
               style={{
                 borderRadius: "50%",

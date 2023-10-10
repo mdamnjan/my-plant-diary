@@ -14,6 +14,8 @@ import StatusTag from "./StatusTag";
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   let navigate = useNavigate();
 
+  console.log("plant", plant)
+
   return (
     <Card
       sx={{
@@ -32,7 +34,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
       <CardMedia
         sx={{ width: "100%", height: "70%", position: "relative" }}
         component="div"
-        image="../../Calathea_orbifolia.jpg"
+        image={plant.img_url || "../../Calathea_orbifolia.jpg"}
         children={<StatusTag status={plant.status} />}
         alt={plant.name}
       />
