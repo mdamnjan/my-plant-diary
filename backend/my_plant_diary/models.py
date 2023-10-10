@@ -16,6 +16,10 @@ class Plant(models.Model):
     watering_frequency=models.CharField(max_length=3, choices=WATERING_FREQUENCY_CHOICES, default='OAW')
     last_watered=models.DateField(null=True)
     next_watering=models.DateField(null=True)
+    img_url=models.CharField(max_length=200, null=True)
+
+    # image url that points to the cloud storage file
+    # img_url=models.CharField(max_length=200, default="")
 
     def get_next_watering(self):
         if not self.last_watered:
