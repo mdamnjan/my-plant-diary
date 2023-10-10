@@ -64,7 +64,7 @@ const PlantDetailPage = () => {
     <div className="plant-detail-container">
       <img
         alt="plant"
-        src={plant.img_url || "../../Calathea_orbifolia.jpg"}
+        src={plant?.img_url || "../../Calathea_orbifolia.jpg"}
         style={{ objectFit: "contain", backgroundColor: "grey" }}
       ></img>
       <Typography variant="h5">{plant?.name}</Typography>
