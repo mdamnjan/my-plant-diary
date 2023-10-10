@@ -28,7 +28,7 @@ class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Note
-        fields = ('id', 'text', 'plant', 'owner', 'created', 'updated')
+        fields = ('id', 'text', 'plant', 'owner', 'created', 'updated', 'img_url')
 
 class WateringEntrySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

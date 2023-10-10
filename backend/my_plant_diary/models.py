@@ -54,6 +54,7 @@ class Note(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     text = models.CharField(max_length=1000)
+    img_url = models.CharField(max_length=200, null=True)
 
 class WateringEntry(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
