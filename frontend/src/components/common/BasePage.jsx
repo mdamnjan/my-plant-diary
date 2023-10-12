@@ -52,7 +52,7 @@ const BasePage = () => {
       style={{ display: "flex" }}
       component={Paper}
     >
-      <Paper className="side-bar">
+      <Paper className="nav-bar">
         <Typography sx={{ padding: "10px 20px" }}>
           <img id="logo" alt="plant logo" src="leaf-svgrepo-com.svg" />
           <h3>My Plant Diary</h3>
@@ -115,7 +115,7 @@ const BasePage = () => {
       >
         <Outlet />
       </Container>
-      <Paper>
+      <Paper className="side-bar">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar />
         </LocalizationProvider>

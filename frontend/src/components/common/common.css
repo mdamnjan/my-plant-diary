@@ -1,4 +1,4 @@
-.side-bar {
+.nav-bar {
     width: 10%;
     height: 100vh;
     min-width: 250px;
@@ -30,10 +30,26 @@ nav {
     right: 50%;
 }
 
-  @media only screen and (max-width: 750px) {
+@media only screen and (max-width: 1280px) {
     .side-bar {
+        width: 0% !important;
+        min-width: 0;
+        visibility: hidden;
+    }
+    .nav-bar {
+        padding-left: 0;
+      }
+  }
+
+  @media only screen and (max-width: 750px) {
+    .nav-bar {
       width: 0% !important;
       min-width: 0;
       visibility: hidden;
+    }
+    .side-bar {
+        width: 0% !important;
+        min-width: 0;
+        visibility: hidden;
     }
   }
