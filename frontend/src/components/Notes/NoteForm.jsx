@@ -11,6 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import { fetchPlants } from "../Plants/utils";
 import UploadButton from "../common/UploadButton";
+import { getImageFromFile } from "../../utils";
 
 const NoteForm = ({ open, onClose, handleSubmit }) => {
   const [plant, setPlant] = useState(null);
@@ -24,15 +25,6 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
     };
     getPlants();
   }, []);
-
-  const getImageFromFile = (file) => {
-    try {
-      return URL.createObjectURL(file);
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  };
 
   return (
     <Dialog open={open} onClose={onClose}>

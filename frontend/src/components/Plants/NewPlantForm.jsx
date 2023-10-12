@@ -14,7 +14,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import UploadButton from "../common/UploadButton";
-import { uploadFileToFirebase } from "../../utils";
+import { getImageFromFile } from "../../utils";
 
 const FreqChoices = {
   EOD: "Every Other Day",
@@ -27,7 +27,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const defaultWatering = "OAW";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
-  const [img, setImg] = useState(null)
+  const [img, setImg] = useState(null);
 
   const clearFields = () => {
     setName("");
@@ -56,8 +56,14 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
         className="new-plant-form-container"
       >
         <img
+          style={{
+            height: "200px",
+            objectFit: "contain",
+            backgroundColor: "#b5b5b5",
+            width: "100%",
+          }}
           className="plant-profile-img"
-          src={img}
+          src={getImageFromFile(img) || ""}
           alt="plant"
         ></img>
         <UploadButton setFile={setImg} />

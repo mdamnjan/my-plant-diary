@@ -33,21 +33,21 @@ const PlantPage = () => {
       setIsEditing(false);
     };
 
-    if (img) {
-      const downloadURL = uploadFileToFirebase(img);
-      setImgURL(downloadURL)
-    }
-
     const body = {
       name: name,
       watering_frequency: wateringFreq,
-      img_url: imgURL,
     };
 
-    if (isEditing) {
-      updatePlant(plantID, body).then(() => updatePage());
+    if (img) {
+      uploadFileToFirebase(img).then((url) => {
+        createPlant({ img_url: url, ...body }).then(() => updatePage());
+      });
     } else {
-      createPlant(body).then(() => updatePage());
+      if (isEditing) {
+        updatePlant(plantID, body).then(() => updatePage());
+      } else {
+        createPlant(body).then(() => updatePage());
+      }
     }
   };
 
