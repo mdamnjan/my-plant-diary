@@ -1,7 +1,6 @@
 import { Button, Container, Paper, Typography } from "@mui/material";
 import {
   AccountCircle,
-  Analytics,
   Home,
   LocalFlorist,
   Logout,
@@ -20,11 +19,6 @@ import { logout } from "../Plants/utils";
 const BasePage = () => {
   const buttons = [
     { text: "Home", icon: <Home fontSize="large" />, url: "/" },
-    {
-      text: "Insights",
-      icon: <Analytics fontSize="large" />,
-      url: "/insights",
-    },
     {
       text: "Plants",
       icon: <LocalFlorist fontSize="large" />,

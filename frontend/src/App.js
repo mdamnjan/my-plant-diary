@@ -4,7 +4,6 @@ import "./App.css";
 
 import BasePage from "./components/common/BasePage";
 import HomePage from "./components/Home/HomePage";
-import InsightsPage from "./components/Insights/InsightsPage";
 
 import LoginForm from "./components/Login/LoginForm";
 import ProfilePage from "./components/Profile/ProfilePage";
@@ -28,7 +27,6 @@ function App() {
           </Route>
           <Route element={<BasePage />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/insights" element={<InsightsPage />} />
             <Route path="/plants" element={<PlantPage />} />
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/tasks" element={<TasksPage />} />
