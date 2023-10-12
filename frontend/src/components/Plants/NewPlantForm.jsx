@@ -43,7 +43,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
     if (!isEditing) {
       clearFields();
     }
-  }, [isEditing]);
+  }, [isEditing, plant]);
 
   return (
     <Dialog open={open} onClose={onClose}>

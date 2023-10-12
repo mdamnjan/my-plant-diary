@@ -39,10 +39,6 @@ const PlantDetailPage = () => {
     fetchNotes().then((response) => setNotes(response.data));
   };
 
-  const getPlant = () => {
-    fetchPlant(location.state.id).then((response) => setPlant(response.data));
-  };
-
   const handleSubmit = (body) => {
     createWateringEntry(body).then(() => {
       getWateringEntries();
@@ -56,9 +52,12 @@ const PlantDetailPage = () => {
 
   useEffect(() => {
     getWateringEntries();
+    const getPlant = () => {
+      fetchPlant(location.state.id).then((response) => setPlant(response.data));
+    };
     getPlant();
     getNotes();
-  }, []);
+  }, [location.state]);
 
   return (
     <div className="plant-detail-container">

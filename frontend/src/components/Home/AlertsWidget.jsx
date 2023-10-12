@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Paper, Chip } from "@mui/material";
 import { Error } from "@mui/icons-material";
-import StatusTag from "../Plants/StatusTag";
 
 const AlertsWidget = ({ plants }) => {
   const navigate = useNavigate();

@@ -14,7 +14,6 @@ import { uploadFileToFirebase } from "../../utils";
 const NotesPage = () => {
   const [open, setOpen] = useState(false);
   const [noteList, setNoteList] = useState([]);
-  const [imgURL, setImgURL] = useState(null);
 
   let notes = noteList.map((note) => (
     <Box sx={{ width: "100%" }}>

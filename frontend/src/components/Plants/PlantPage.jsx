@@ -14,7 +14,6 @@ const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
-  const [imgURL, setImgURL] = useState(null);
 
   const getPlantList = () => {
     fetchPlants().then((response) => setPlantList(response.data));

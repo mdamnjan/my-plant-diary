@@ -11,10 +11,10 @@ import { tasks as dummyTasks } from "../../dummyData";
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState(dummyTasks);
 
-  const completedTaskList = dummyTasks.filter((task) => task.completed);
-  const uncompletedTaskList = dummyTasks.filter((task) => !task.completed);
+  const completedTaskList = taskList.filter((task) => task.completed);
+  const uncompletedTaskList = taskList.filter((task) => !task.completed);
 
   let completedTasks = completedTaskList.map((task) => (
     <Box sx={{ width: "100%" }}>

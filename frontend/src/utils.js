@@ -1,4 +1,4 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseStorage } from "./firebaseConfig";
 
 export const uploadFileToFirebase = (file) => {
