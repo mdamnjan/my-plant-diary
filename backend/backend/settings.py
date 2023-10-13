@@ -138,7 +138,8 @@ CORS_ORIGIN_WHITELIST = [
     # uncomment these for local development
     # 'http://localhost:3000',
     # 'http://localhost:8000',
-    'https://my-plant-diary.up.railway.app'
+    'https://my-plant-diary.up.railway.app',
+    'https://my-plant-diary-api.up.railway.app'
 ]
 
 REST_FRAMEWORK = {
@@ -151,7 +152,8 @@ CSRF_TRUSTED_ORIGINS = [
     # uncomment these for local development
     # 'http://localhost:3000',
     # 'http://*.127.0.0.1',
-    'https://my-plant-diary.up.railway.app'
+    'https://my-plant-diary.up.railway.app',
+    'https://my-plant-diary-api.up.railway.app'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
