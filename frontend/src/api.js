@@ -68,6 +68,7 @@ export const createNote = (body) => {
 };
 
 export const createTask = (body) => {
+    console.log(body)
     return performApiCall("post", "/tasks/", body);
   };
 

@@ -110,7 +110,7 @@ const PlantDetailPage = () => {
             Next Watering: {plant?.next_watering}
           </Typography>
           <Typography variant="body1">
-            Watering Frequency: {plant?.watering_frequency}
+            Watering Frequency: {plant?.watering_frequency_display}
           </Typography>
           {entries.length > 0 && <WateringLineChart entries={entries} />}
         </>

@@ -46,11 +46,11 @@ const Task = ({ task }) => {
           </div>
           <Chip
             sx={{
-              backgroundColor: getTagColor(task.type),
+              backgroundColor: getTagColor(task.type_display),
               color: "white",
               margin: "3px 0px 0px 5px",
             }}
-            label={task.type}
+            label={task.type_display}
           />
         </CardContent>
         <CardActions>

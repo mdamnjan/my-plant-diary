@@ -31,7 +31,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
 
   const clearFields = () => {
     setName("");
-    setWateringFreq(FreqChoices[defaultWatering]);
+    setWateringFreq(defaultWatering);
   };
   const [lastWatered, setLastWatered] = useState(null);
 
@@ -100,7 +100,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
             value={wateringFreq}
           >
             {["EOD", "OAW", "ETW", "OAM"].map((freq) => (
-              <MenuItem value={FreqChoices[freq]}>{FreqChoices[freq]}</MenuItem>
+              <MenuItem value={freq}>{FreqChoices[freq]}</MenuItem>
             ))}
           </Select>
         </FormControl>

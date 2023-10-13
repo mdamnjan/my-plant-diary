@@ -17,6 +17,8 @@ const TaskWidget = ({ tasks }) => {
     }
   };
 
+  let tasksShown = tasks.length > 5? tasks.slice(0, 5) : tasks;
+
   return (
     <Paper
       sx={{
@@ -29,7 +31,7 @@ const TaskWidget = ({ tasks }) => {
         <a href="/tasks">View All</a>
       </div>
       <span>Upcoming tasks</span>
-      {tasks.map((task) => (
+      {tasksShown.map((task) => (
         <div
           onClick={() =>
             navigate(`/plants/${task.plant.slug}`, {
@@ -62,8 +64,8 @@ const TaskWidget = ({ tasks }) => {
             {task.plant_name}
           </div>
           <Chip
-            label={task.type}
-            sx={{ backgroundColor: getTagColor(task.type), color: "white" }}
+            label={task.type_display}
+            sx={{ backgroundColor: getTagColor(task.type_display), color: "white" }}
           />
         </div>
       ))}

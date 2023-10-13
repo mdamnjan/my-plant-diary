@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import "../Notes/Note.css";
 import AddButton from "../common/AddButton";
-import NoteForm from "../Notes/NoteForm";
+import TaskForm from "./TaskForm";
 import Task from "./Task";
 
 import { createTask, fetchTasks } from "../../api";
@@ -35,13 +35,13 @@ const TasksPage = () => {
     });
   };
 
-  const handleSubmit = (e, text, plant) => {
+  const handleSubmit = (e, taskType, plant, taskDate) => {
     const updatePage = () => {
       setOpen(false);
       getTasks();
     };
 
-    const body = { text: text, plant: plant.id };
+    const body = { type: taskType, plant: plant.id, date: taskDate };
     createTask(body).then(() => updatePage());
   };
 
@@ -62,7 +62,7 @@ const TasksPage = () => {
       <Typography variant="h5">Completed</Typography>
       <div style={{ margin: "20px auto" }}>{completedTasks}</div>
       <AddButton onClick={() => setOpen(true)} tooltipText={"Add a task"} />
-      <NoteForm
+      <TaskForm
         handleSubmit={handleSubmit}
         open={open}
         onClose={() => setOpen(false)}
