@@ -138,6 +138,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
     env('CLIENT_DOMAIN'),
+    env('SERVER_DOMAIN')
 ]
 
 REST_FRAMEWORK = {
@@ -149,7 +150,8 @@ REST_FRAMEWORK = {
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://*.127.0.0.1',
-    env('SERVER_DOMAIN')
+    env('CLIENT_DOMAIN'),
+    env('SERVER_DOMAIN'),
 ]
 
 CORS_ALLOW_CREDENTIALS = True
