@@ -134,12 +134,17 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-    env('CLIENT_DOMAIN'),
-    env('SERVER_DOMAIN')
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+#     'http://localhost:8000',
+#     'https://my-plant-diary.up.railway.app*',
+#     'https://my-plant-diary*',
+#     'https://*.up.railway.app',
+#     env('CLIENT_DOMAIN'),
+#     env('SERVER_DOMAIN')
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -152,6 +157,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://*.127.0.0.1',
     env('CLIENT_DOMAIN'),
     env('SERVER_DOMAIN'),
+    "https://*"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
