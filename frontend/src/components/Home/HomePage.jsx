@@ -20,10 +20,7 @@ const HomePage = () => {
     });
   }, []);
 
-  console.log("plants", plants)
-
   let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
-  console.log("plantlist", plantList)
   plantList = plantList.map((plant) => (
     <PlantCard style={{ width: "300px !important" }} plant={plant} />
   ));

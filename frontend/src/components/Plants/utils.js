@@ -19,6 +19,7 @@ const performApiCall = async (method, url, body) => {
       url: url,
       data: body,
     });
+    console.log(url, res)
   } catch (error) {
     if (error.response.status === 401) {
       // refresh the token and try again

@@ -74,12 +74,12 @@ const PlantDetailPage = () => {
 
   return (
     <div className="plant-detail-container">
+      <Typography variant="h5">{plant?.name}</Typography>
       <img
         alt="plant"
         src={plant?.img_url || "../../Calathea_orbifolia.jpg"}
         style={{ objectFit: "contain", backgroundColor: "grey" }}
       ></img>
-      <Typography variant="h5">{plant?.name}</Typography>
       <Box sx={{ width: "100%", margin: "auto" }}>
         <Tabs
           value={tab}
