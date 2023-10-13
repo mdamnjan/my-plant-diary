@@ -136,35 +136,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'https://my-plant-diary.up.railway.app*',
-    'https://my-plant-diary*',
-    'https://*.up.railway.app',
-    'https://.up.railway.app',
-    env('CLIENT_DOMAIN'),
-    env('SERVER_DOMAIN')
-]
-
+CORS_ALLOWED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app']
 CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app']
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://*.127.0.0.1',
-    env('CLIENT_DOMAIN'),
-    env('SERVER_DOMAIN'),
-    "https://*"
-]
-
-CORS_ALLOW_CREDENTIALS = True
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
