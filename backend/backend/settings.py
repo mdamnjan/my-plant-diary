@@ -135,7 +135,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000', 'http://localhost:8000'
+    # uncomment these for local development
+    # 'http://localhost:3000',
+    # 'http://localhost:8000',
+    env('CLIENT_DOMAIN')
 ]
 
 REST_FRAMEWORK = {
@@ -144,7 +147,11 @@ REST_FRAMEWORK = {
     ],
 }
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    # uncomment these for local development
+    # 'http://localhost:3000',
+    # 'http://*.127.0.0.1',
+    env('CLIENT_DOMAIN')]
 
 CORS_ALLOW_CREDENTIALS = True
 
