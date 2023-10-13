@@ -12,12 +12,13 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { useState, useEffect } from "react";
-import { fetchPlants } from "../../api";
-import UploadButton from "../common/UploadButton";
-import { getImageFromFile } from "../../utils";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+import { useState, useEffect } from "react";
+
+import { fetchPlants } from "../../api";
+
 
 const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   const [plant, setPlant] = useState(null);

@@ -2,10 +2,8 @@ import {
   Button,
   Paper,
   Typography,
-  Link,
   useMediaQuery,
   IconButton,
-  Icon,
 } from "@mui/material";
 import {
   AccountCircle,
