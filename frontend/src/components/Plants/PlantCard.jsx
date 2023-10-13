@@ -36,7 +36,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         sx={{ width: "100%", height: "70%", position: "relative" }}
         component="div"
         image={plant.img_url || "../../Calathea_orbifolia.jpg"}
-        children={<StatusTag status={plant.status} />}
+        children={<StatusTag status={plant.status_display} />}
         alt={plant.name}
       />
       <CardContent>

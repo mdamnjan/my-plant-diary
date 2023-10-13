@@ -29,7 +29,7 @@ const PlantTable = ({ plants }) => {
       </div>
     );
 
-    const plantStatus = <StatusTag status={plant.status} />;
+    const plantStatus = <StatusTag status={plant.status_display} />;
 
     return {
       name: plantName,

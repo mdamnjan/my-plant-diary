@@ -15,6 +15,8 @@ import PlantDetailPage from "./components/Plants/PlantDetailPage";
 import NotesPage from "./components/Notes/NotesPage";
 import TasksPage from "./components/Tasks/TasksPage";
 
+import "./App.css"
+
 function App() {
   return (
     <div className="App">

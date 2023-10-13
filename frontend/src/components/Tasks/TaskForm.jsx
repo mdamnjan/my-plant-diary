@@ -19,7 +19,7 @@ import { getImageFromFile } from "../../utils";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const TaskForm = ({ open, onClose, handleSubmit }) => {
+const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   const [plant, setPlant] = useState(null);
   const [taskType, setTaskType] = useState(null);
   const [plantList, setPlantList] = useState([]);
@@ -49,7 +49,7 @@ const TaskForm = ({ open, onClose, handleSubmit }) => {
           minWidth: "300px",
         }}
       >
-        <Typography>Add a Task</Typography>
+        <Typography>{isEditing? "Edit Task": "Add a Task"}</Typography>
         <Autocomplete
           fullWidth
           style={{

@@ -11,7 +11,7 @@ import {
 import "../Notes/Note.css";
 import { deleteTask } from "../../api";
 
-const Task = ({ task }) => {
+const Task = ({ task, handleEdit }) => {
   const getTagColor = (type) => {
     switch (type) {
       case "Water":
@@ -30,28 +30,49 @@ const Task = ({ task }) => {
       <Card
         sx={{
           marginBottom: "20px",
-          minWidth: "260px",
+
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <CardContent sx={{ display: "flex" }}>
-          <div>
-            <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
-          </div>
+        <CardContent>
+          <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
+        </CardContent>
+        <CardContent
+          sx={{
+            paddingLeft: '0px',
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            flexGrow: 1,
+
+          }}
+        >
           <div>
             <h3 style={{ margin: "5px 0px 0px 10px" }}>
               {task.plant_name || "plant name"}
             </h3>
           </div>
-          <Chip
-            sx={{
-              backgroundColor: getTagColor(task.type_display),
-              color: "white",
-              margin: "3px 0px 0px 5px",
-            }}
-            label={task.type_display}
-          />
+          <div>
+            <Chip
+              sx={{
+                backgroundColor: getTagColor(task.type_display),
+                color: "white",
+                margin: "3px 0px 0px 0px",
+              }}
+              label={task.type_display}
+            />
+            {task.overdue && (
+              <Chip
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  margin: "3px 0px 0px 0px",
+                }}
+                label="Late"
+              />
+            )}
+          </div>
         </CardContent>
         <CardActions>
           <IconButton
@@ -60,7 +81,11 @@ const Task = ({ task }) => {
           >
             {task.completed ? <CheckCircle /> : <CircleOutlined />}
           </IconButton>
-          <IconButton color="primary" sx={{ padding: "0px" }}>
+          <IconButton
+            onClick={handleEdit}
+            color="primary"
+            sx={{ padding: "0px" }}
+          >
             <Edit />
           </IconButton>
           <IconButton

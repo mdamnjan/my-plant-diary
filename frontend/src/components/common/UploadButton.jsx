@@ -22,7 +22,7 @@ const UploadButton = ({ setFile }) => {
       variant="contained"
       startIcon={<CloudUpload />}
     >
-      Upload file
+      Upload Image
       <VisuallyHiddenInput
         onInput={(e) => {
           setFile(e.target.files[0]);

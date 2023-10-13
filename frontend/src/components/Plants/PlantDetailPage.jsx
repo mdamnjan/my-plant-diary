@@ -40,16 +40,16 @@ const PlantDetailPage = () => {
     });
   };
 
-  const getNotes = () => {
-    fetchNotes(plant?.name).then((response) => {
+  const getNotes = (plant) => {
+    fetchNotes(plant).then((response) => {
       if (response.data) {
         setNotes(response.data);
       }
     });
   };
 
-  const getTasks = () => {
-    fetchTasks(plant?.name).then((response) => {
+  const getTasks = (plant) => {
+    fetchTasks(plant).then((response) => {
       if (response.data) {
         setTasks(response.data);
       }
@@ -78,8 +78,8 @@ const PlantDetailPage = () => {
   useEffect(() => {
     getWateringEntries();
     getPlant(location.state.id);
-    getNotes();
-    getTasks()
+    getNotes(location.state.name);
+    getTasks(location.state.name)
   }, [location.state]);
 
   return (

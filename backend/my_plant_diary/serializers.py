@@ -30,7 +30,7 @@ class TaskSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Task
-        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'type_display', 'completed')
+        fields = ('id', 'overdue', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'type_display', 'completed')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

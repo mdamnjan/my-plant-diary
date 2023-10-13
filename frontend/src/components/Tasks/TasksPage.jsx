@@ -11,19 +11,25 @@ import { createTask, fetchTasks } from "../../api";
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
   const [taskList, setTaskList] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setOpen(true);
+  };
 
   const completedTaskList = taskList.filter((task) => task.completed);
   const uncompletedTaskList = taskList.filter((task) => !task.completed);
 
   let completedTasks = completedTaskList.map((task) => (
     <Box sx={{ width: "100%" }}>
-      <Task key={task.id} task={task} />
+      <Task key={task.id} task={task} handleEdit={handleEdit} />
     </Box>
   ));
 
   let tasks = uncompletedTaskList.map((task) => (
     <Box sx={{ width: "100%" }}>
-      <Task key={task.id} task={task} />
+      <Task key={task.id} task={task} handleEdit={handleEdit} />
     </Box>
   ));
 
@@ -63,6 +69,7 @@ const TasksPage = () => {
       <div style={{ margin: "20px auto" }}>{completedTasks}</div>
       <AddButton onClick={() => setOpen(true)} tooltipText={"Add a task"} />
       <TaskForm
+        isEditing={isEditing}
         handleSubmit={handleSubmit}
         open={open}
         onClose={() => setOpen(false)}

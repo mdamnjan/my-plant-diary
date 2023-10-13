@@ -7,6 +7,7 @@
 
 p, nav>* {
     display: flex;
+    justify-content: center;
 }
 
 h2 {
@@ -28,14 +29,10 @@ nav {
     position: absolute !important;
     bottom: 12%;
     right: 50%;
+    margin-right: -28px !important;
 }
 
 @media only screen and (max-width: 1280px) {
-    .side-bar {
-        width: 0% !important;
-        min-width: 0;
-        visibility: hidden;
-    }
     .nav-bar {
         padding-left: 0;
       }
@@ -44,12 +41,7 @@ nav {
   @media only screen and (max-width: 750px) {
     .nav-bar {
       width: 0% !important;
-      min-width: 0;
-      visibility: hidden;
-    }
-    .side-bar {
-        width: 0% !important;
-        min-width: 0;
-        visibility: hidden;
+      min-width: 100px;
+      background-color: transparent;
     }
   }

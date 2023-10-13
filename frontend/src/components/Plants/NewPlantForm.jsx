@@ -63,7 +63,7 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
             width: "100%",
           }}
           className="plant-profile-img"
-          src={getImageFromFile(img) || ""}
+          src={isEditing ? plant.img_url : getImageFromFile(img) || ""}
           alt="plant"
         ></img>
         <UploadButton setFile={setImg} />
@@ -74,19 +74,21 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
           label="Name"
           value={name}
         />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            className="date-picker"
-            label="Last Watered"
-            value={lastWatered}
-            onChange={(newValue) => {
-              setLastWatered(newValue);
-            }}
-            renderInput={(params) => (
-              <TextField InputLabelProps={{ shrink: true }} {...params} />
-            )}
-          />
-        </LocalizationProvider>
+        {!isEditing && (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              className="date-picker"
+              label="Last Watered"
+              value={lastWatered}
+              onChange={(newValue) => {
+                setLastWatered(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField InputLabelProps={{ shrink: true }} {...params} />
+              )}
+            />
+          </LocalizationProvider>
+        )}
         <FormControl sx={{ width: "100%" }}>
           <InputLabel id="water-freq-field">Needs Water</InputLabel>
           <Select
