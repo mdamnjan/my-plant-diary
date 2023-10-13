@@ -53,9 +53,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -134,7 +134,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000',
@@ -146,21 +145,25 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     env('SERVER_DOMAIN')
 # ]
 
+# CORS_ALLOWED_ORIGINS=['https://my-plant-diary.up.railway.app']
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://*.127.0.0.1',
-    env('CLIENT_DOMAIN'),
-    env('SERVER_DOMAIN'),
-    "https://*"
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     'http://localhost:3000',
+#     'http://*.127.0.0.1',
+#     env('CLIENT_DOMAIN'),
+#     env('SERVER_DOMAIN'),
+#     "https://*"
+# ]
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 
 SIMPLE_JWT = {
