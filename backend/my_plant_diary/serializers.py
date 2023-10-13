@@ -8,34 +8,29 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     # https://stackoverflow.com/questions/28945327/django-rest-framework-with-choicefield#answer-28954424
-    status = serializers.SerializerMethodField()
-    watering_frequency = serializers.SerializerMethodField()
+    status = serializers.ChoiceField(choices=Plant.PLANT_STATUS_CHOICES)
+    status_display = serializers.ReadOnlyField(source='get_status_display')
+
     slug = serializers.ReadOnlyField()
     next_watering=serializers.ReadOnlyField()
     last_watered=serializers.ReadOnlyField()
-
-    def get_status(self, obj):
-        return obj.get_status_display()
-
-    def get_watering_frequency(self, obj):
-        return obj.get_watering_frequency_display()
+    watering_frequency_display=serializers.ReadOnlyField(source='get_watering_frequency_display')
 
     class Meta:
         model = Plant
-        fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug', 'next_watering', 'img_url')
+        fields = ('id', 'owner', 'name', 'slug', 'img_url', 'status', 'status_display', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    type = serializers.SerializerMethodField()
     plant_name=serializers.ReadOnlyField(source='plant.name')
     plant_img=serializers.ReadOnlyField(source='plant.img_url')
 
-    def get_type(self, obj):
-        return obj.get_type_display()
+    type = serializers.ChoiceField(choices=Task.TASK_TYPE_CHOICES)
+    type_display = serializers.ReadOnlyField(source='get_type_display')
     
     class Meta:
         model = Task
-        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'completed')
+        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'type_display', 'completed')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
