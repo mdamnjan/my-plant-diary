@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // TODO: ideally this should be an env var or there should be a proxy
-const API_BASE = "https://my-plant-diary-api.up.railway.app/api/";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
