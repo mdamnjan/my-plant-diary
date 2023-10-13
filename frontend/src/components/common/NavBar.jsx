@@ -63,7 +63,6 @@ const NavBar = () => {
     {
       text: "Log Out",
       icon: <Logout fontSize="large" />,
-      url: "/logout",
       onClick: function () {
         logout();
         navigate("/login");
@@ -129,9 +128,7 @@ const NavBar = () => {
               justifyContent: "flex-start",
               padding: "5px 20px",
             }}
-            onClick={() => {
-              navigate(button.url);
-            }}
+            onClick={button.onClick}
           >
             {button.icon}
             <h3 className="nav-text" style={{ marginLeft: "10px" }}>
