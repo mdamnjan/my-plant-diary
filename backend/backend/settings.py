@@ -138,7 +138,7 @@ CORS_ORIGIN_WHITELIST = [
     # uncomment these for local development
     # 'http://localhost:3000',
     # 'http://localhost:8000',
-    env('CLIENT_DOMAIN')
+    'https://my-plant-diary.up.railway.app'
 ]
 
 REST_FRAMEWORK = {
@@ -151,7 +151,8 @@ CSRF_TRUSTED_ORIGINS = [
     # uncomment these for local development
     # 'http://localhost:3000',
     # 'http://*.127.0.0.1',
-    env('CLIENT_DOMAIN')]
+    'https://my-plant-diary.up.railway.app'
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
