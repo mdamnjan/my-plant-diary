@@ -11,7 +11,7 @@ import { fetchPlants, fetchTasks } from "../../api";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     fetchPlants().then((response) => {
@@ -19,11 +19,11 @@ const HomePage = () => {
         setPlants(response.data);
       }
     });
-    fetchTasks().then((response)=>{
+    fetchTasks().then((response) => {
       if (response.data) {
-        setTasks(response.data)
+        setTasks(response.data);
       }
-    })
+    });
   }, []);
 
   let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
@@ -73,8 +73,10 @@ const HomePage = () => {
           iconColor={"#f67a52"}
         />
       </Box>
-      <Typography>Plants</Typography>
-      <a href="/plants">View All</a>
+      <Box sx={{verticalAlign: "baseline"}}>
+        <Typography sx={{display: "inline-block", marginRight: "10px"}}>Plants</Typography>
+        <a style={{display: "inline-block"}} href="/plants">View All</a>
+      </Box>
       <Box
         sx={{
           width: "100%",

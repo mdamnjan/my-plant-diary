@@ -15,6 +15,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { logout } from "../../api";
+import { tasks } from "../../dummyData";
 
 const BasePage = () => {
   const buttons = [
@@ -111,7 +112,7 @@ const BasePage = () => {
       </Container>
       <Paper className="side-bar">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateCalendar />
+          <DateCalendar slots={(tasks)}/>
         </LocalizationProvider>
       </Paper>
     </Container>

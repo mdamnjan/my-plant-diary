@@ -41,7 +41,7 @@ const PlantDetailPage = () => {
   };
 
   const getNotes = () => {
-    fetchNotes().then((response) => {
+    fetchNotes(plant?.name).then((response) => {
       if (response.data) {
         setNotes(response.data);
       }
@@ -49,7 +49,7 @@ const PlantDetailPage = () => {
   };
 
   const getTasks = () => {
-    fetchTasks().then((response) => {
+    fetchTasks(plant?.name).then((response) => {
       if (response.data) {
         setTasks(response.data);
       }

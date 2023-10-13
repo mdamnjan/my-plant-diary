@@ -19,7 +19,7 @@ const performApiCall = async (method, url, body) => {
       url: url,
       data: body,
     });
-    console.log(url, res)
+    console.log(url, res);
   } catch (error) {
     if (error.response.status === 401) {
       // refresh the token and try again
@@ -43,18 +43,27 @@ export const fetchPlant = (id) => {
   return performApiCall("get", `/plants/${id}`);
 };
 
-export const fetchWateringEntries = () => {
-  return performApiCall("get", "/watering");
+export const fetchWateringEntries = (plant) => {
+  if (plant) {
+    return performApiCall("get", `/watering/?plant=${plant}`);
+  }
+  return performApiCall("get", `/watering`);
 };
 
-export const fetchNotes = () => {
+export const fetchNotes = (plant) => {
+  if (plant) {
+    return performApiCall("get", `/notes/plant=${plant}`);
+  }
   return performApiCall("get", "/notes");
 };
 
-export const fetchTasks = () => {
-    return performApiCall("get", "/tasks");
-  };
-  
+export const fetchTasks = (plant) => {
+  if (plant) {
+    return performApiCall("get", `/tasks/?plant=${plant}`);
+  }
+  return performApiCall("get", "/tasks");
+};
+
 export const createPlant = (body) => {
   return performApiCall("post", "/plants/", body);
 };
@@ -68,9 +77,9 @@ export const createNote = (body) => {
 };
 
 export const createTask = (body) => {
-    console.log(body)
-    return performApiCall("post", "/tasks/", body);
-  };
+  console.log(body);
+  return performApiCall("post", "/tasks/", body);
+};
 
 export const updatePlant = (plantID, body) => {
   return performApiCall("put", `/plants/${plantID}/`, body);
@@ -81,8 +90,8 @@ export const updateWateringEntry = (entryID, body) => {
 };
 
 export const updateTask = (taskID, body) => {
-    return performApiCall("put", `/tasks/${taskID}/`, body);
-  };
+  return performApiCall("put", `/tasks/${taskID}/`, body);
+};
 
 export const deletePlant = (plantID) => {
   return performApiCall("delete", `/plants/${plantID}/`);
@@ -93,8 +102,8 @@ export const deleteWateringEntry = (entryID) => {
 };
 
 export const deleteTask = (taskID) => {
-    return performApiCall("delete", `/tasks/${taskID}/`);
-  };
+  return performApiCall("delete", `/tasks/${taskID}/`);
+};
 
 export const authenticate = (body) => {
   return axiosInstance.post(

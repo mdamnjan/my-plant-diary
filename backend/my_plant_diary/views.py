@@ -45,6 +45,14 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         """
         user = self.request.user
+
+        url_params = self.request.GET
+
+        if url_params:
+            if url_params['plant']:
+                query_plant = self.request.GET['plant']
+                return Task.objects.filter(plant__owner=user, plant__name=query_plant).order_by('-updated')
+        
         return Task.objects.filter(plant__owner=user).order_by('-updated')
 
     def perform_create(self, serializer):
@@ -66,6 +74,14 @@ class NoteViewSet(viewsets.ModelViewSet):
 
         """
         user = self.request.user
+
+        url_params = self.request.GET
+
+        if url_params:
+            if url_params['plant']:
+                query_plant = self.request.GET['plant']
+                return Note.objects.filter(plant__owner=user, plant__name=query_plant).order_by('-updated')
+            
         return Note.objects.filter(plant__owner=user).order_by('-updated')
 
     def perform_create(self, serializer):
@@ -87,6 +103,14 @@ class WateringViewSet(viewsets.ModelViewSet):
 
         """
         user = self.request.user
+
+        url_params = self.request.GET
+
+        if url_params:
+            if url_params['plant']:
+                query_plant = self.request.GET['plant']
+                return WateringEntry.objects.filter(plant__owner=user, plant__name=query_plant).order_by('-updated')
+            
         return WateringEntry.objects.filter(plant__owner=user).order_by('-watered_on')
 
 class WateringDetailViewSet(generics.RetrieveAPIView):
