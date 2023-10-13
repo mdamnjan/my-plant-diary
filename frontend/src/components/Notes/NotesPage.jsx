@@ -8,7 +8,7 @@ import "./Note.css";
 import Note from "./Note";
 import NoteForm from "./NoteForm";
 
-import { fetchNotes, createNote } from "../Plants/utils";
+import { fetchNotes, createNote } from "../../api";
 import { uploadFileToFirebase } from "../../utils";
 
 const NotesPage = () => {

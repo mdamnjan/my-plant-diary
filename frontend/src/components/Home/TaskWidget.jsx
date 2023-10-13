@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Paper, Chip } from "@mui/material";
-import { tasks } from "../../dummyData";
 
-const TaskWidget = () => {
+const TaskWidget = ({ tasks }) => {
   const navigate = useNavigate();
 
   const getTagColor = (type) => {
@@ -51,7 +50,7 @@ const TaskWidget = () => {
         >
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src={"../../Calathea_orbifolia.jpg"}
+              src={task.plant_img || "../../Calathea_orbifolia.jpg"}
               alt="plant"
               style={{
                 borderRadius: "50%",
@@ -60,7 +59,7 @@ const TaskWidget = () => {
                 marginRight: "5px",
               }}
             ></img>
-            {task.plant.name}
+            {task.plant_name}
           </div>
           <Chip
             label={task.type}

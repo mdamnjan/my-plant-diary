@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
-import { register } from "../Plants/utils";
+import { register } from "../../api";
 
 const RegistrationForm = () => {
   const [username, setUsername] = useState("");

@@ -7,10 +7,11 @@ import NumberWidget from "./NumberWidget";
 import PlantCard from "../Plants/PlantCard";
 import TaskWidget from "./TaskWidget";
 
-import { fetchPlants } from "../Plants/utils";
+import { fetchPlants, fetchTasks } from "../../api";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
+  const [tasks, setTasks] = useState([])
 
   useEffect(() => {
     fetchPlants().then((response) => {
@@ -18,6 +19,11 @@ const HomePage = () => {
         setPlants(response.data);
       }
     });
+    fetchTasks().then((response)=>{
+      if (response.data) {
+        setTasks(response.data)
+      }
+    })
   }, []);
 
   let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
@@ -91,7 +97,7 @@ const HomePage = () => {
         }}
       >
         <AlertsWidget plants={plants} />
-        <TaskWidget />
+        <TaskWidget tasks={tasks} />
       </Box>
       <Box
         sx={{

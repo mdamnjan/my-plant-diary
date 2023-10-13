@@ -32,11 +32,11 @@ const Note = ({ note }) => {
         </CardActions>
         <CardContent sx={{ display: "flex" }}>
           <div>
-            <Avatar src="../../Calathea_orbifolia.jpg" />
+            <Avatar src={note.plant_img || "../../Calathea_orbifolia.jpg"} />
           </div>
           <div>
             <h3 style={{ margin: "5px 0px 0px 10px" }}>
-              {note.plant.name || "plant name"}
+              {note.plant_name}
             </h3>
             <p style={{ margin: "5px 0px 0px 10px" }}>{note.text}</p>
           </div>

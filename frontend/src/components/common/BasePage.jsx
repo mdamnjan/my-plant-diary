@@ -14,7 +14,7 @@ import "./common.css";
 import { Link, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { logout } from "../Plants/utils";
+import { logout } from "../../api";
 
 const BasePage = () => {
   const buttons = [

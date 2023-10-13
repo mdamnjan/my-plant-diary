@@ -6,7 +6,7 @@ import AddButton from "../common/AddButton";
 import PlantCard from "./PlantCard";
 import NewPlantForm from "./NewPlantForm";
 
-import { fetchPlants, createPlant, deletePlant, updatePlant } from "./utils";
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "../../api";
 import { uploadFileToFirebase } from "../../utils";
 
 const PlantPage = () => {

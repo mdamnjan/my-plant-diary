@@ -6,12 +6,11 @@ import AddButton from "../common/AddButton";
 import NoteForm from "../Notes/NoteForm";
 import Task from "./Task";
 
-import { fetchNotes, createNote } from "../Plants/utils";
-import { tasks as dummyTasks } from "../../dummyData";
+import { createTask, fetchTasks } from "../../api";
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
-  const [taskList, setTaskList] = useState(dummyTasks);
+  const [taskList, setTaskList] = useState([]);
 
   const completedTaskList = taskList.filter((task) => task.completed);
   const uncompletedTaskList = taskList.filter((task) => !task.completed);
@@ -28,8 +27,8 @@ const TasksPage = () => {
     </Box>
   ));
 
-  const getNotes = () => {
-    fetchNotes().then((response) => {
+  const getTasks = () => {
+    fetchTasks().then((response) => {
       if (response.data) {
         setTaskList(response.data);
       }
@@ -39,15 +38,15 @@ const TasksPage = () => {
   const handleSubmit = (e, text, plant) => {
     const updatePage = () => {
       setOpen(false);
-      getNotes();
+      getTasks();
     };
 
     const body = { text: text, plant: plant.id };
-    createNote(body).then(() => updatePage());
+    createTask(body).then(() => updatePage());
   };
 
   useEffect(() => {
-    getNotes();
+    getTasks();
   }, []);
 
   return (

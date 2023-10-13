@@ -9,7 +9,7 @@ import {
   Chip,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { fetchPlants } from "../Plants/utils";
+import { fetchPlants } from "../../api";
 import UploadButton from "../common/UploadButton";
 import { getImageFromFile } from "../../utils";
 

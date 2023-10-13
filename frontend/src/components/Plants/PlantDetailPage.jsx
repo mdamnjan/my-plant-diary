@@ -13,8 +13,8 @@ import {
   fetchPlant,
   fetchWateringEntries,
   fetchNotes,
-} from "./utils";
-import { tasks } from "../../dummyData";
+  fetchTasks,
+} from "../../api";
 
 import AddButton from "../common/AddButton";
 import WateringEntryForm from "./WateringEntryForm";
@@ -30,6 +30,7 @@ const PlantDetailPage = () => {
   const [plant, setPlant] = useState(null);
   const [entries, setEntries] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [tasks, setTasks] = useState([])
 
   const getWateringEntries = () => {
     fetchWateringEntries().then((response) => {
@@ -43,6 +44,14 @@ const PlantDetailPage = () => {
     fetchNotes().then((response) => {
       if (response.data) {
         setNotes(response.data);
+      }
+    });
+  };
+
+  const getTasks = () => {
+    fetchTasks().then((response) => {
+      if (response.data) {
+        setTasks(response.data);
       }
     });
   };
@@ -70,6 +79,7 @@ const PlantDetailPage = () => {
     getWateringEntries();
     getPlant(location.state.id);
     getNotes();
+    getTasks()
   }, [location.state]);
 
   return (

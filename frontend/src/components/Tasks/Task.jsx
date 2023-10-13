@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 
 import "../Notes/Note.css";
+import { deleteTask } from "../../api";
 
 const Task = ({ task }) => {
   const getTagColor = (type) => {
@@ -17,7 +18,7 @@ const Task = ({ task }) => {
         return "#4444ff";
       case "Repot":
         return "#a03f0b";
-      case "Propagate":
+      case "Prune":
         return "#7ca118";
       default:
         return "#ff7d20";
@@ -34,27 +35,13 @@ const Task = ({ task }) => {
           justifyContent: "space-between",
         }}
       >
-        {/* <CardHeader
-        avatar={<Avatar src="../../Calathea_orbifolia.jpg" />}
-        title={note.plant.name || "plant name"}
-        // action={
-        //   <CardActions>
-        //     <Fab color="primary" size="small">
-        //       <Edit />
-        //     </Fab>
-        //     <Fab size="small">
-        //       <Delete color="action" />
-        //     </Fab>
-        //   </CardActions>
-        // }
-      /> */}
         <CardContent sx={{ display: "flex" }}>
           <div>
-            <Avatar src="../../Calathea_orbifolia.jpg" />
+            <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
           </div>
           <div>
             <h3 style={{ margin: "5px 0px 0px 10px" }}>
-              {task.plant.name || "plant name"}
+              {task.plant_name || "plant name"}
             </h3>
           </div>
           <Chip
@@ -76,7 +63,11 @@ const Task = ({ task }) => {
           <IconButton color="primary" sx={{ padding: "0px" }}>
             <Edit />
           </IconButton>
-          <IconButton color="default" sx={{ padding: "0px" }}>
+          <IconButton
+            onClick={() => deleteTask(task.id)}
+            color="default"
+            sx={{ padding: "0px" }}
+          >
             <Delete />
           </IconButton>
         </CardActions>
