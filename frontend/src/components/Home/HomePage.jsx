@@ -13,7 +13,7 @@ const HomePage = () => {
   const [plants, setPlants] = useState([]);
 
   useEffect(() => {
-    fetchPlants().then((response) => setPlants(response.data));
+    fetchPlants().then((response) => setPlants(response.data || []));
   }, []);
 
   let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
