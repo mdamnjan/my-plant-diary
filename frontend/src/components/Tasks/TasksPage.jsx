@@ -29,8 +29,10 @@ const TasksPage = () => {
   ));
 
   const getNotes = () => {
-    fetchNotes().then((response) => setTaskList(response.data));
-  };
+    fetchNotes().then((response) => {
+      if (response.data) {
+      setTaskList(response.data)}
+  })
 
   const handleSubmit = (e, text, plant) => {
     const updatePage = () => {

@@ -16,7 +16,11 @@ const PlantPage = () => {
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
 
   const getPlantList = () => {
-    fetchPlants().then((response) => setPlantList(response.data));
+    fetchPlants().then((response) => {
+      if (response.data) {
+        setPlantList(response.data);
+      }
+    });
   };
 
   const handleEdit = (plant) => {

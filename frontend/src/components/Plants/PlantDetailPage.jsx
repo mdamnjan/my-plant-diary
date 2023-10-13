@@ -32,11 +32,27 @@ const PlantDetailPage = () => {
   const [notes, setNotes] = useState([]);
 
   const getWateringEntries = () => {
-    fetchWateringEntries().then((response) => setEntries(response.data));
+    fetchWateringEntries().then((response) => {
+      if (response.data) {
+        setEntries(response.data);
+      }
+    });
   };
 
   const getNotes = () => {
-    fetchNotes().then((response) => setNotes(response.data));
+    fetchNotes().then((response) => {
+      if (response.data) {
+        setNotes(response.data);
+      }
+    });
+  };
+
+  const getPlant = (plantID) => {
+    fetchPlant(plantID).then((response) => {
+      if (response.data) {
+        setPlant(response.data);
+      }
+    });
   };
 
   const handleSubmit = (body) => {
@@ -52,10 +68,7 @@ const PlantDetailPage = () => {
 
   useEffect(() => {
     getWateringEntries();
-    const getPlant = () => {
-      fetchPlant(location.state.id).then((response) => setPlant(response.data));
-    };
-    getPlant();
+    getPlant(location.state.id);
     getNotes();
   }, [location.state]);
 
