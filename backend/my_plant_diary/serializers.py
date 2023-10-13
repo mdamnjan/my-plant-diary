@@ -26,15 +26,24 @@ class PlantSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    type = serializers.SerializerMethodField()
+    plant_name=serializers.ReadOnlyField(source='plant.name')
+    plant_img=serializers.ReadOnlyField(source='plant.img_url')
+
+    def get_type(self, obj):
+        return obj.get_type_display()
+    
     class Meta:
         model = Task
-        fields = ('id', 'plant', 'owner', 'created', 'updated', 'date', 'type', 'completed')
+        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'completed')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    plant_name=serializers.ReadOnlyField(source='plant.name')
+    plant_img=serializers.ReadOnlyField(source='plant.img_url')
     class Meta:
         model = Note
-        fields = ('id', 'text', 'plant', 'owner', 'created', 'updated', 'img_url')
+        fields = ('id', 'text', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'img_url')
 
 class WateringEntrySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
