@@ -16,6 +16,11 @@ const HomePage = () => {
     fetchPlants().then((response) => setPlants(response.data));
   }, []);
 
+  let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
+  plantList = plantList.map((plant) => (
+    <PlantCard style={{ width: "300px !important" }} plant={plant} />
+  ));
+
   return (
     <div
       style={{
@@ -70,9 +75,7 @@ const HomePage = () => {
           overflowX: "auto",
         }}
       >
-        {plants.slice(0, 3).map((plant) => (
-          <PlantCard style={{ width: "300px !important" }} plant={plant} />
-        ))}
+        {plantList}
       </Box>
       <Box
         sx={{
