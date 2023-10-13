@@ -31,9 +31,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['my-plant-diary-api.up.railway.app']
 
 
 # Application definition
@@ -146,7 +146,6 @@ CORS_ALLOWED_ORIGINS = [
     env('CLIENT_DOMAIN'),
     env('SERVER_DOMAIN')
 ]
-
 
 CORS_ALLOW_ALL_ORIGINS = False
 
