@@ -48,6 +48,17 @@ class Plant(models.Model):
         self.slug = slugify(self.name)
         super(Plant, self).save(*args, **kwargs)    
     
+class Task(models.Model):
+    owner = models.ForeignKey(User, related_name='tasks', on_delete=models.CASCADE)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    date =models.DateField(null=False)
+    completed = models.BooleanField(default=False)
+    TASK_TYPE_CHOICES=[('water', 'Water'), ('progress', 'Progress Update'), ('repot', 'Repot'), ('prune', 'Prune')]
+    type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES, default='water')
+
 class Note(models.Model):
     owner = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)

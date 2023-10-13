@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Plant, Note, WateringEntry
+from .models import Plant, Note, Task, WateringEntry
 from django.conf import settings
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.exceptions import InvalidToken
@@ -23,6 +23,12 @@ class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
         fields = ('id', 'name', 'owner', 'status', 'watering_frequency', 'last_watered', 'slug', 'next_watering', 'img_url')
+
+class TaskSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    class Meta:
+        model = Task
+        fields = ('id', 'plant', 'owner', 'created', 'updated', 'date', 'type', 'completed')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

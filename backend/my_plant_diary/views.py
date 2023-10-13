@@ -2,8 +2,8 @@ from django.contrib.auth.models import User, Group
 from .authenticate import CustomAuthentication
 
 from rest_framework import viewsets, permissions, generics
-from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer
-from .models import Plant, Note, WateringEntry
+from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer, TaskSerializer
+from .models import Plant, Note, WateringEntry, Task
 from .permissions import IsOwner
 
 # Create your views here.
@@ -32,6 +32,27 @@ class PlantViewSet(viewsets.ModelViewSet):
 class PlantDetailViewSet(generics.RetrieveAPIView):
     queryset = Plant.objects.all()
     serializer_class = PlantSerializer
+
+class TaskViewSet(viewsets.ModelViewSet):
+    authentication_classes=[CustomAuthentication]
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated,
+                      IsOwner]
+
+    def get_queryset(self):
+        """
+        Return a list of all notes owned by the current user.
+
+        """
+        user = self.request.user
+        return Task.objects.filter(plant__owner=user).order_by('-updated')
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class TaskDetailViewSet(generics.RetrieveAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
 class NoteViewSet(viewsets.ModelViewSet):
     authentication_classes=[CustomAuthentication]

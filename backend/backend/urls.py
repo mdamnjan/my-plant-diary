@@ -27,6 +27,7 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'plants', views.PlantViewSet, basename="Plant")
 router.register(r'notes', views.NoteViewSet, basename="Note")
 router.register(r'watering', views.WateringViewSet, basename="WateringEntry")
+router.register(r'tasks', views.TaskViewSet, basename="Task")
 
 
 urlpatterns = [
