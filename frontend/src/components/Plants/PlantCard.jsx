@@ -25,6 +25,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         position: "relative",
         minHeight: "250px",
         minWidth: "250px",
+        maxHeight: "350px"
       }}
       variant="outlined"
       onClick={() =>
