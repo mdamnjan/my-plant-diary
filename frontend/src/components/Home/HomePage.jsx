@@ -8,6 +8,7 @@ import PlantCard from "../Plants/PlantCard";
 import TaskWidget from "./TaskWidget";
 
 import { fetchPlants, fetchTasks } from "../../api";
+import "./HomePage.css";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
@@ -43,6 +44,7 @@ const HomePage = () => {
         <Typography variant="h2">Overview</Typography>
       </Box>
       <Box
+        className="widgets"
         sx={{
           width: "100%",
           display: "flex",
@@ -73,9 +75,13 @@ const HomePage = () => {
           iconColor={"#f67a52"}
         />
       </Box>
-      <Box sx={{verticalAlign: "baseline"}}>
-        <Typography sx={{display: "inline-block", marginRight: "10px"}}>Plants</Typography>
-        <a style={{display: "inline-block"}} href="/plants">View All</a>
+      <Box className="widgets" sx={{ verticalAlign: "baseline" }}>
+        <Typography sx={{ display: "inline-block", marginRight: "10px" }}>
+          Plants
+        </Typography>
+        <a style={{ display: "inline-block" }} href="/plants">
+          View All
+        </a>
       </Box>
       <Box
         sx={{
@@ -90,6 +96,7 @@ const HomePage = () => {
         {plantList}
       </Box>
       <Box
+        className="widgets"
         sx={{
           width: "100%",
           display: "flex",

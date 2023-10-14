@@ -41,7 +41,7 @@ nav {
   @media only screen and (max-width: 750px) {
     .nav-bar {
       width: 0% !important;
-      min-width: 100px;
+      min-width: 50px;
       background-color: transparent;
     }
   }

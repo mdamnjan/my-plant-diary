@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Paper, Chip } from "@mui/material";
 import { Error } from "@mui/icons-material";
+import "./HomePage.css"
 
 const AlertsWidget = ({ plants }) => {
   const navigate = useNavigate();
   return (
     <Paper
+    className="widget"
       sx={{
         flex: "1 1 50%",
         padding: "15px",

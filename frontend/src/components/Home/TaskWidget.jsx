@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Paper, Chip } from "@mui/material";
+import "./HomePage.css"
 
 const TaskWidget = ({ tasks }) => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const TaskWidget = ({ tasks }) => {
 
   return (
     <Paper
+    className="widget"
       sx={{
         flex: "1 1 50%",
         padding: "15px",

@@ -17,10 +17,11 @@ const BasePage = () => {
     >
       <NavBar />
       <Container
+      disableGutters
         maxWidth={false}
         style={{
           margin: "auto",
-          padding: "20px 40px 20px 40px",
+          padding: "20px",
           height: "100vh",
           width: "100%",
           overflowY: "auto",

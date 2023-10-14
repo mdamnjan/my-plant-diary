@@ -40,7 +40,7 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
           flexDirection: "column",
           marginBottom: "20px",
           padding: "20px",
-          minWidth: "400px",
+          minWidth: "280px",
         }}
       >
         <Typography>Add a Note</Typography>

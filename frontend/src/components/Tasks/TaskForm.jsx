@@ -47,7 +47,7 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
           flexDirection: "column",
           marginBottom: "20px",
           padding: "20px",
-          minWidth: "300px",
+          minWidth: "280px",
         }}
       >
         <Typography>{isEditing? "Edit Task": "Add a Task"}</Typography>

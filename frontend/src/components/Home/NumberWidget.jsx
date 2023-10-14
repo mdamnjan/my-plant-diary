@@ -1,8 +1,10 @@
 import { Paper, IconButton, Typography } from "@mui/material";
+import "./HomePage.css"
 
 const NumberWidget = ({ icon, data, subtitle, iconColor, backgroundColor }) => {
   return (
     <Paper
+      className="widget"
       style={{
         flex: "1 1 0",
         height: "100px",
