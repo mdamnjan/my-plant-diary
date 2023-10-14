@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import environ
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +35,6 @@ SECRET_KEY = env('DJANGO_SECRET')
 DEBUG = False
 
 ALLOWED_HOSTS = ['my-plant-diary-api.up.railway.app']
-
 
 # Application definition
 
@@ -140,8 +140,19 @@ CORS_ALLOWED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-pla
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app']
+# https://stackoverflow.com/questions/74424912/react-and-django-csrf-token-is-not-set-on-production-and-especially-for-create
+# CSRF_COOKIE_SAMESITE = 'None'
+CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app', env('CSRF_ORIGIN')]
+CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_HTTP_ONLY=False
+CSRF_COOKIE_DOMAIN='.railway.app'
+CSRF_HEADER_NAME="HTTP_X_CSRFTOKEN"
+CSRF_COOKIE_NAME="csrftoken"
 
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+    'x-csrftoken',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

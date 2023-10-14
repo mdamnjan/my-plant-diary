@@ -14,12 +14,13 @@ const axiosInstance = axios.create({
 const performApiCall = async (method, url, body) => {
   let res;
   try {
+    console.log(url, method, body);
     res = await axiosInstance.request({
       method: method,
       url: url,
       data: body,
     });
-    console.log(url, res);
+    // console.log(url, method, body, res);
   } catch (error) {
     if (error.response.status === 401) {
       // refresh the token and try again
@@ -77,7 +78,6 @@ export const createNote = (body) => {
 };
 
 export const createTask = (body) => {
-  console.log(body);
   return performApiCall("post", "/tasks/", body);
 };
 
@@ -106,13 +106,22 @@ export const deleteTask = (taskID) => {
 };
 
 export const authenticate = (body) => {
-  return axiosInstance.post(
-    "/login/",
-    { username: body.username, password: body.password },
-    {
-      withCredentials: true,
-    }
-  );
+  return axiosInstance
+    .post(
+      "/login/",
+      { username: body.username, password: body.password },
+      {
+        withCredentials: true,
+      }
+    )
+    .then((res) => {
+      let a = `; ${document.cookie}`.match(`;\\s*csrftoken=([^;]+)`);
+      console.log("matched cookie", a, a ? a[1] : "")
+      axiosInstance.defaults.headers["X-CSRFTOKEN"] = a ? a[1] : "";
+
+      console.log("results of login", res, axiosInstance.defaults);
+      return res;
+    });
 };
 
 export const register = (body) => {

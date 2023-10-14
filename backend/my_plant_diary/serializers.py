@@ -8,7 +8,6 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     # https://stackoverflow.com/questions/28945327/django-rest-framework-with-choicefield#answer-28954424
-    status = serializers.ChoiceField(choices=Plant.PLANT_STATUS_CHOICES)
     status_display = serializers.ReadOnlyField(source='get_status_display')
 
     slug = serializers.ReadOnlyField()

@@ -6,6 +6,9 @@ from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteS
 from .models import Plant, Note, WateringEntry, Task
 from .permissions import IsOwner
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
+
 # Create your views here.
 
 from django.http import HttpResponse
