@@ -9,9 +9,8 @@ import {
 } from "@mui/material";
 
 import "../Notes/Note.css";
-import { deleteTask } from "../../api";
 
-const Task = ({ task, handleEdit }) => {
+const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
   const getTagColor = (type) => {
     switch (type) {
       case "Water":
@@ -30,29 +29,49 @@ const Task = ({ task, handleEdit }) => {
       <Card
         sx={{
           marginBottom: "20px",
-
-          display: "flex",
-          justifyContent: "space-between",
         }}
       >
-        <CardContent>
-          <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
-        </CardContent>
         <CardContent
           sx={{
-            paddingLeft: '0px',
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "space-between",
             flexGrow: 1,
-
+            justifyContent: "space-between",
           }}
         >
-          <div>
-            <h3 style={{ margin: "5px 0px 0px 10px" }}>
-              {task.plant_name || "plant name"}
-            </h3>
+          <div style={{ display: "flex" }}>
+            <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
+            <div>
+              <h3 style={{ margin: "5px 0px 0px 10px" }}>
+                {task.plant_name || "plant name"}
+              </h3>
+            </div>
           </div>
+          <CardActions>
+            <IconButton
+              onClick={() => completeTask(task)}
+              sx={{ padding: "0px" }}
+              color={task.completed ? "success" : "default"}
+            >
+              {task.completed ? <CheckCircle /> : <CircleOutlined />}
+            </IconButton>
+            <IconButton
+              onClick={handleEdit}
+              color="primary"
+              sx={{ padding: "0px" }}
+            >
+              <Edit />
+            </IconButton>
+            <IconButton
+              onClick={() => handleDelete(task.id)}
+              color="default"
+              sx={{ padding: "0px" }}
+            >
+              <Delete />
+            </IconButton>
+          </CardActions>
+        </CardContent>
+        <CardContent sx={{ paddingTop: 0 }}>
           <div>
             <Chip
               sx={{
@@ -74,28 +93,6 @@ const Task = ({ task, handleEdit }) => {
             )}
           </div>
         </CardContent>
-        <CardActions>
-          <IconButton
-            sx={{ padding: "0px" }}
-            color={task.completed ? "success" : "default"}
-          >
-            {task.completed ? <CheckCircle /> : <CircleOutlined />}
-          </IconButton>
-          <IconButton
-            onClick={handleEdit}
-            color="primary"
-            sx={{ padding: "0px" }}
-          >
-            <Edit />
-          </IconButton>
-          <IconButton
-            onClick={() => deleteTask(task.id)}
-            color="default"
-            sx={{ padding: "0px" }}
-          >
-            <Delete />
-          </IconButton>
-        </CardActions>
       </Card>
     </>
   );

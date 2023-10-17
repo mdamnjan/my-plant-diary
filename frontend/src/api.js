@@ -14,13 +14,12 @@ const axiosInstance = axios.create({
 const performApiCall = async (method, url, body) => {
   let res;
   try {
-    console.log(url, method, body);
     res = await axiosInstance.request({
       method: method,
       url: url,
       data: body,
     });
-    // console.log(url, method, body, res);
+    console.log(url, method, body, res);
   } catch (error) {
     if (error.response.status === 401) {
       // refresh the token and try again
@@ -53,7 +52,7 @@ export const fetchWateringEntries = (plant) => {
 
 export const fetchNotes = (plant) => {
   if (plant) {
-    return performApiCall("get", `/notes/plant=${plant}`);
+    return performApiCall("get", `/notes/?plant=${plant}`);
   }
   return performApiCall("get", "/notes");
 };
@@ -82,15 +81,15 @@ export const createTask = (body) => {
 };
 
 export const updatePlant = (plantID, body) => {
-  return performApiCall("put", `/plants/${plantID}/`, body);
+  return performApiCall("patch", `/plants/${plantID}/`, body);
 };
 
 export const updateWateringEntry = (entryID, body) => {
-  return performApiCall("put", `/watering/${entryID}/`, body);
+  return performApiCall("patch", `/watering/${entryID}/`, body);
 };
 
 export const updateTask = (taskID, body) => {
-  return performApiCall("put", `/tasks/${taskID}/`, body);
+  return performApiCall("patch", `/tasks/${taskID}/`, body);
 };
 
 export const deletePlant = (plantID) => {
@@ -101,6 +100,10 @@ export const deleteWateringEntry = (entryID) => {
   return performApiCall("delete", `/watering/${entryID}/`);
 };
 
+export const deleteNote = (noteID) => {
+    return performApiCall("delete", `/notes/${noteID}/`);
+  };
+  
 export const deleteTask = (taskID) => {
   return performApiCall("delete", `/tasks/${taskID}/`);
 };
@@ -115,8 +118,9 @@ export const authenticate = (body) => {
       }
     )
     .then((res) => {
+      console.log(res);
       let a = `; ${document.cookie}`.match(`;\\s*csrftoken=([^;]+)`);
-      console.log("matched cookie", a, a ? a[1] : "")
+      console.log("matched cookie", a, a ? a[1] : "");
       axiosInstance.defaults.headers["X-CSRFTOKEN"] = a ? a[1] : "";
 
       console.log("results of login", res, axiosInstance.defaults);

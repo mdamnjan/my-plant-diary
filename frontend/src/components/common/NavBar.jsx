@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 
 import { logout } from "../../api";
 
+import "./common.css"
+
 const NavBar = () => {
   const buttons = [
     {
@@ -76,8 +78,8 @@ const NavBar = () => {
   if (smallScreen) {
     return (
       <Paper className="nav-bar">
-        <Typography sx={{ padding: "20px 10px 0px 10px" }}>
-          <img id="logo" alt="plant logo" src="leaf-svgrepo-com.svg" />
+        <Typography sx={{ paddingTop: "20px" }}>
+          <img id="logo" alt="plant logo" src="plant-logo.png" />
         </Typography>
         <nav
           style={{
@@ -112,8 +114,8 @@ const NavBar = () => {
 
   return (
     <Paper className="nav-bar">
-      <Typography sx={{ padding: "10px 20px" }}>
-        <img id="logo" alt="plant logo" src="leaf-svgrepo-com.svg" />
+      <Typography sx={{ paddingTop: "20px" }}>
+        <img id="logo" alt="plant logo" src="plant-logo.png" />
         <h3>My Plant Diary</h3>
       </Typography>
       <nav style={{ padding: "0px 20px" }}>

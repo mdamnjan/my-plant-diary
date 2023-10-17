@@ -23,8 +23,6 @@ class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     plant_name=serializers.ReadOnlyField(source='plant.name')
     plant_img=serializers.ReadOnlyField(source='plant.img_url')
-
-    type = serializers.ChoiceField(choices=Task.TASK_TYPE_CHOICES)
     type_display = serializers.ReadOnlyField(source='get_type_display')
     
     class Meta:

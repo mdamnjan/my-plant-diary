@@ -13,7 +13,7 @@ import { fetchPlants } from "../../api";
 import UploadButton from "../common/UploadButton";
 import { getImageFromFile } from "../../utils";
 
-const NoteForm = ({ open, onClose, handleSubmit }) => {
+const NoteForm = ({ open, onClose, handleSubmit, isEditing }) => {
   const [plant, setPlant] = useState(null);
   const [noteContent, setNoteContent] = useState(null);
   const [plantList, setPlantList] = useState([]);

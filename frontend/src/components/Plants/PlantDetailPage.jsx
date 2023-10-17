@@ -78,8 +78,8 @@ const PlantDetailPage = () => {
   useEffect(() => {
     getWateringEntries();
     getPlant(location.state.id);
-    getNotes(location.state.name);
-    getTasks(location.state.name)
+    getNotes(location.state.id);
+    getTasks(location.state.id)
   }, [location.state]);
 
   return (

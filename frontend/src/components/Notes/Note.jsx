@@ -10,7 +10,7 @@ import {
 
 import "./Note.css";
 
-const Note = ({ note }) => {
+const Note = ({ note, handleDelete, handleEdit }) => {
   return (
     <>
       <Card
@@ -23,10 +23,10 @@ const Note = ({ note }) => {
         }}
       >
         <CardActions style={{ float: "right" }}>
-          <IconButton size="small" color="primary">
+          <IconButton size="small" color="primary" onClick={()=>handleEdit()}>
             <Edit />
           </IconButton>
-          <IconButton size="small" color="default">
+          <IconButton size="small" color="default" onClick={()=>handleDelete(note.id)}>
             <Delete />
           </IconButton>
         </CardActions>

@@ -6,32 +6,12 @@ import AddButton from "../common/AddButton";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 
-import { createTask, fetchTasks } from "../../api";
+import { createTask, fetchTasks, deleteTask, updateTask } from "../../api";
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
   const [taskList, setTaskList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-    setOpen(true);
-  };
-
-  const completedTaskList = taskList.filter((task) => task.completed);
-  const uncompletedTaskList = taskList.filter((task) => !task.completed);
-
-  let completedTasks = completedTaskList.map((task) => (
-    <Box sx={{ width: "100%" }}>
-      <Task key={task.id} task={task} handleEdit={handleEdit} />
-    </Box>
-  ));
-
-  let tasks = uncompletedTaskList.map((task) => (
-    <Box sx={{ width: "100%" }}>
-      <Task key={task.id} task={task} handleEdit={handleEdit} />
-    </Box>
-  ));
 
   const getTasks = () => {
     fetchTasks().then((response) => {
@@ -40,6 +20,46 @@ const TasksPage = () => {
       }
     });
   };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setOpen(true);
+  };
+
+  const handleDelete = (task) => {
+    deleteTask(task).then(() => getTasks());
+  };
+
+  const completeTask = (task) => {
+    updateTask(task.id, { completed: true }).then(()=>getTasks())
+  };
+
+  const completedTaskList = taskList.filter((task) => task.completed);
+  const uncompletedTaskList = taskList.filter((task) => !task.completed);
+
+  let completedTasks = completedTaskList.map((task) => (
+    <Box sx={{ width: "100%" }}>
+      <Task
+        key={task.id}
+        task={task}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        completeTask={completeTask}
+      />
+    </Box>
+  ));
+
+  let tasks = uncompletedTaskList.map((task) => (
+    <Box sx={{ width: "100%" }}>
+      <Task
+        key={task.id}
+        task={task}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        completeTask={completeTask}
+      />
+    </Box>
+  ));
 
   const handleSubmit = (e, taskType, plant, taskDate) => {
     const updatePage = () => {

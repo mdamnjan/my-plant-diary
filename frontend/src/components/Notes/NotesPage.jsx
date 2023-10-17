@@ -8,22 +8,33 @@ import "./Note.css";
 import Note from "./Note";
 import NoteForm from "./NoteForm";
 
-import { fetchNotes, createNote } from "../../api";
+import { fetchNotes, createNote, deleteNote } from "../../api";
 import { uploadFileToFirebase } from "../../utils";
 
 const NotesPage = () => {
   const [open, setOpen] = useState(false);
   const [noteList, setNoteList] = useState([]);
-
-  let notes = noteList.map((note) => (
-    <Box sx={{ width: "100%" }}>
-      <Note key={note.id} note={note} />
-    </Box>
-  ));
+  const [isEditing, setIsEditing] = useState(false)
 
   const getNotes = () => {
     fetchNotes().then((response) => setNoteList(response.data));
   };
+
+  const handleDelete = (note) => {
+    deleteNote(note).then(() => getNotes());
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setOpen(true);
+  };
+
+  let notes = noteList.map((note) => (
+    <Box sx={{ width: "100%" }}>
+      <Note key={note.id} note={note} handleDelete={handleDelete} handleEdit={handleEdit} />
+    </Box>
+  ));
+
 
   const handleSubmit = (e, text, plant, img) => {
     const updatePage = () => {
@@ -57,6 +68,7 @@ const NotesPage = () => {
       <NoteForm
         handleSubmit={handleSubmit}
         open={open}
+        isEditing={isEditing}
         onClose={() => setOpen(false)}
       />
     </>
