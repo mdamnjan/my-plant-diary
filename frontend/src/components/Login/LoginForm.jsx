@@ -27,7 +27,7 @@ const LoginPage = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={login}>
         <Typography>
-          <img alt="plant" id="logo" src="leaf-svgrepo-com.svg" />
+          <img alt="plant" id="logo" src="plant-logo.png" />
           <h2>My Plant Diary</h2>
         </Typography>
         <TextField

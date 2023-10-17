@@ -8,6 +8,7 @@
 p, nav>* {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 h2 {
@@ -20,9 +21,10 @@ nav {
     align-items: flex-start;
 }
 
+
 #logo {
-    width: 30px; 
-    margin: 10px;
+    width: 40px;
+    height: 40px;
 }
 
 .plus-button {
