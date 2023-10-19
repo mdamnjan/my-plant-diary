@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import AlertsWidget from "./AlertsWidget";
 import NumberWidget from "./NumberWidget";
-import PlantCard from "../Plants/PlantCard";
 import TaskWidget from "./TaskWidget";
 
 import { fetchPlants, fetchTasks } from "../../api";
@@ -26,11 +25,6 @@ const HomePage = () => {
       }
     });
   }, []);
-
-  let plantList = plants.length >= 3 ? plants.slice(0, 3) : plants;
-  plantList = plantList.map((plant) => (
-    <PlantCard style={{ width: "300px !important" }} plant={plant} />
-  ));
 
   return (
     <div

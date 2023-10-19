@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 
 import "./common.css";
 import NavBar from "./NavBar";
-import Aside from "./Aside";
 
 const BasePage = () => {
   const smallScreen = !useMediaQuery(`(min-width:650px)`);
