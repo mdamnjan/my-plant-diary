@@ -23,9 +23,14 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         flexDirection: "column",
         margin: "0 !important",
         position: "relative",
-        minHeight: "250px",
+        minHeight: "300px",
         minWidth: "250px",
-        maxHeight: "350px"
+        maxHeight: "500px",
+        maxWidth: "600px",
+        borderRadius: "50px",
+        backgroundColor: "#d9d9d99e",
+        border: "none",
+        flexShrink: 1
       }}
       variant="outlined"
       onClick={() =>
@@ -39,19 +44,10 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         children={<StatusTag status={plant.status_display} />}
         alt={plant.name}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardContent sx={{position: "relative"}}>
+        <Typography sx={{position: "absolute", top: "70%", left: "10%", fontWeight: "bold"}} gutterBottom variant="h5" component="div">
           {plant.name}
         </Typography>
-        {/* <Typography variant="body1" color="text.secondary">
-          Last Watered: {plant.last_watered}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Next Watering: {plant.next_watering}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Watering Frequency: {plant.watering_frequency}
-        </Typography> */}
       </CardContent>
       <CardActions
         sx={{
@@ -62,7 +58,8 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
           alignItems: "end",
           margin: "0 !important",
           position: "absolute",
-          right: 0,
+          right: 20,
+          top: 10
         }}
       >
         <Fab

@@ -1,5 +1,17 @@
-import { Autocomplete, TextField, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Divider,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { useState, useEffect } from "react";
+import { Search } from "@mui/icons-material";
 
 import "./Plants.css";
 import AddButton from "../common/AddButton";
@@ -72,18 +84,85 @@ const PlantPage = () => {
 
   return (
     <>
-      <div style={{ margin: "20px" }}>
-        <Typography variant="h4">My Plants</Typography>
+      <Box style={{ width: "80%", margin: "20px auto 10px auto" }}>
         <Autocomplete
-          style={{ marginTop: "10px" }}
           fullWidth
+          sx={{
+            marginTop: "10px",
+            margin: "auto",
+            backgroundColor: "#d9d9d99e",
+            borderRadius: "10px",
+            "& fieldset": { borderRadius: "10px" },
+            '& .MuiInputBase-root': {paddingRight: "0"}
+          }}
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Search for a plant..." />
+            <>
+              <TextField
+                {...params}
+                placeholder="Search for a plant..."
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton>
+                        <Search />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </>
           )}
         />
-      </div>
-      <div className="plant-list">
+        <FormControl sx={{ minWidth: "100px", margin: "20px" }}>
+          <InputLabel shrink id="sort-by-select">
+            Sort By
+          </InputLabel>
+          <Select
+            labelId="sort-by-select"
+            defaultValue="updated"
+            sx={{
+              backgroundColor: "#d9d9d99e",
+              marginTop: "10px",
+              borderRadius: "10px",
+              padding: "0px 6px",
+              "& .MuiSelect-select": { padding: "8px" },
+            }}
+          >
+            <MenuItem value="updated">Updated</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl
+          sx={{
+            minWidth: "150px",
+            margin: "20px",
+          }}
+        >
+          <InputLabel shrink id="status-select">
+            Status
+          </InputLabel>
+          <Select
+            labelId="status-select"
+            defaultValue="any"
+            sx={{
+              backgroundColor: "#d9d9d99e",
+              marginTop: "10px",
+              borderRadius: "10px",
+              padding: "0px 6px",
+              "& .MuiSelect-select": { padding: "8px" },
+            }}
+            style={{ padding: "1px !important" }}
+          >
+            <MenuItem value="any">Any status</MenuItem>
+            <MenuItem value="OK">Ok</MenuItem>
+            <MenuItem value="NA">Needs attention</MenuItem>
+          </Select>
+        </FormControl>{" "}
+      </Box>
+      <Divider />
+      <Box className="plant-list">
         {plants}
         <AddButton
           tooltipText="Add a plant"
@@ -92,7 +171,7 @@ const PlantPage = () => {
             setIsEditing(false);
           }}
         />
-      </div>
+      </Box>
       <NewPlantForm
         handleSubmit={handleSubmit}
         isEditing={isEditing}

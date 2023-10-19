@@ -75,26 +75,6 @@ const HomePage = () => {
           iconColor={"#f67a52"}
         />
       </Box>
-      <Box className="widgets" sx={{ verticalAlign: "baseline" }}>
-        <Typography sx={{ display: "inline-block", marginRight: "10px" }}>
-          Plants
-        </Typography>
-        <a style={{ display: "inline-block" }} href="/plants">
-          View All
-        </a>
-      </Box>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          gap: "10px",
-          overflowX: "auto",
-        }}
-      >
-        {plantList}
-      </Box>
       <Box
         className="widgets"
         sx={{

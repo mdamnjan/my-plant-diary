@@ -1,8 +1,6 @@
 .nav-bar {
-    width: 10%;
     height: 100vh;
     min-width: 250px;
-    padding-left: 50px;
 }
 
 p, nav>* {
@@ -33,17 +31,3 @@ nav {
     right: 50%;
     margin-right: -28px !important;
 }
-
-@media only screen and (max-width: 1280px) {
-    .nav-bar {
-        padding-left: 0;
-      }
-  }
-
-  @media only screen and (max-width: 750px) {
-    .nav-bar {
-      width: 0% !important;
-      min-width: 50px;
-      background-color: transparent;
-    }
-  }

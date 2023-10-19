@@ -2,7 +2,6 @@ import {
   Button,
   Paper,
   Typography,
-  useMediaQuery,
   IconButton,
 } from "@mui/material";
 import {
@@ -18,9 +17,9 @@ import { useNavigate } from "react-router-dom";
 
 import { logout } from "../../api";
 
-import "./common.css"
+import "./common.css";
 
-const NavBar = () => {
+const NavBar = ({ smallScreen }) => {
   const buttons = [
     {
       text: "Home",
@@ -73,29 +72,23 @@ const NavBar = () => {
   ];
 
   let navigate = useNavigate();
-  const smallScreen = !useMediaQuery(`(min-width:750px)`);
 
   if (smallScreen) {
     return (
-      <Paper className="nav-bar">
-        <Typography sx={{ paddingTop: "20px" }}>
-          <img id="logo" alt="plant logo" src="plant-logo.png" />
-        </Typography>
+      <Paper>
         <nav
           style={{
             padding: "0px",
             margin: "0px",
             display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
+            justifyContent: "space-around",
+            flexDirection: "row",
           }}
         >
           {buttons.map((button) => (
             <IconButton
               color={
-                window.location.pathname === button.url
-                  ? "primary"
-                  : "default"
+                window.location.pathname === button.url ? "primary" : "default"
               }
               sx={{
                 textTransform: "none",
