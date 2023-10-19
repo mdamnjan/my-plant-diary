@@ -73,7 +73,7 @@
     flex-direction: column;
     padding: 20px;
     overflow-x: hidden;
-    min-width: 400px;
+    min-width: 250px;
 }
 
 .plant-name-field, .date-picker {
