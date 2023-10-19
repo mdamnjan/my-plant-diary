@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import "./Login.css";
-import { authenticate } from "../../api";
+import { login } from "../../api";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -11,12 +11,12 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     // reset error when attempting to register/log in again so it doesn't show the old error message
     setError(null);
-    await authenticate({ username: username, password: password })
+    await login({ username: username, password: password })
       .then((res) => {
         navigate("/plants");
       })
@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={login}>
+      <form className="login-form" onSubmit={handleLogin}>
         <Typography>
           <img alt="plant" id="logo" src="plant-logo.png" />
           <h2>My Plant Diary</h2>

@@ -108,7 +108,7 @@ export const deleteTask = (taskID) => {
   return performApiCall("delete", `/tasks/${taskID}/`);
 };
 
-export const authenticate = (body) => {
+export const login = (body) => {
   return axiosInstance
     .post(
       "/login/",
