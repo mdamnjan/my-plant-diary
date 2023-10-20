@@ -100,14 +100,13 @@
 .plant-detail-container {
     height: 100vh;
     background-color: white;
-    width: 100%;
-    margin: 50px 0px;
+    width: 80%;
+    margin: 50px auto;
 }
 
 .plant-detail-container > img {
     height: 40%;
     width: 100%;
-    object-fit: cover;
 }
 
 .history-list {

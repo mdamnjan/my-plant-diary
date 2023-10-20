@@ -102,18 +102,18 @@ const PlantDetailPage = () => {
         </Tabs>
       </Box>
       {tab === 0 && (
-        <>
-          <Typography variant="body1">
+        <Box sx={{backgroundColor: "#d9d9d99e", borderRadius: "20px", padding: "20px", marginTop: "20px"}}>
+          <Typography variant="h6">
             Last Watered: {plant?.last_watered}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="h6">
             Next Watering: {plant?.next_watering}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="h6">
             Watering Frequency: {plant?.watering_frequency_display}
           </Typography>
           {entries.length > 0 && <WateringLineChart entries={entries} />}
-        </>
+        </Box>
       )}
       {tab === 1 && notes.map((note) => <Note note={note} />)}
       {tab === 2 && tasks.map((task) => <Task task={task} />)}

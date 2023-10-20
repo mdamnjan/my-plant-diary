@@ -83,7 +83,7 @@ class NoteViewSet(viewsets.ModelViewSet):
         if url_params:
             if url_params['plant']:
                 query_plant = self.request.GET['plant']
-                return Note.objects.filter(plant__owner=user, plant__name=query_plant).order_by('-updated')
+                return Note.objects.filter(plant__owner=user, plant__id=query_plant).order_by('-updated')
             
         return Note.objects.filter(plant__owner=user).order_by('-updated')
 
