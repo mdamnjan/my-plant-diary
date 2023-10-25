@@ -24,11 +24,37 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
     }
   };
 
+  const getNumDaysUntilDue = (date) => {
+    let dueDate = new Date(date)
+    let today = new Date()
+
+    let difference = new Date((today - dueDate))
+
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Convert back to days and return
+    let numDays = Math.floor(difference / ONE_DAY);
+
+    if (numDays === 0) {
+        return "Due today"
+    }
+
+    if (dueDate < today) {
+        return `${numDays} days late`
+    }
+
+    return `Due in ${numDays} days`
+
+  }
+
   return (
     <>
       <Card
         sx={{
           marginBottom: "20px",
+          borderRadius: "20px",
+          padding: "10px"
         }}
       >
         <CardContent
@@ -45,6 +71,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
               <h3 style={{ margin: "5px 0px 0px 10px" }}>
                 {task.plant_name || "plant name"}
               </h3>
+              <h5 style={{margin: "0px 0px 0px 10px"}}>{getNumDaysUntilDue(task.date)}</h5>
             </div>
           </div>
           <CardActions>
@@ -56,7 +83,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
               {task.completed ? <CheckCircle /> : <CircleOutlined />}
             </IconButton>
             <IconButton
-              onClick={handleEdit}
+              onClick={()=>handleEdit(task)}
               color="primary"
               sx={{ padding: "0px" }}
             >
@@ -86,7 +113,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
                 sx={{
                   backgroundColor: "red",
                   color: "white",
-                  margin: "3px 0px 0px 0px",
+                  margin: "3px 0px 0px 10px",
                 }}
                 label="Late"
               />

@@ -27,7 +27,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         minWidth: "250px",
         maxHeight: "500px",
         maxWidth: "600px",
-        borderRadius: "50px",
+        borderRadius: "20px",
         backgroundColor: "#d9d9d99e",
         border: "none",
         flexShrink: 1

@@ -21,6 +21,7 @@ import WateringEntryForm from "./WateringEntryForm";
 import WateringLineChart from "./WateringLineChart";
 import Task from "../Tasks/Task";
 import Note from "../Notes/Note";
+import NumberWidget from "../Home/NumberWidget";
 
 const PlantDetailPage = () => {
   const location = useLocation();
@@ -30,7 +31,7 @@ const PlantDetailPage = () => {
   const [plant, setPlant] = useState(null);
   const [entries, setEntries] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([]);
 
   const getWateringEntries = () => {
     fetchWateringEntries().then((response) => {
@@ -79,7 +80,7 @@ const PlantDetailPage = () => {
     getWateringEntries();
     getPlant(location.state.id);
     getNotes(location.state.id);
-    getTasks(location.state.id)
+    getTasks(location.state.id);
   }, [location.state]);
 
   return (
@@ -88,7 +89,11 @@ const PlantDetailPage = () => {
       <img
         alt="plant"
         src={plant?.img_url || "../../Calathea_orbifolia.jpg"}
-        style={{ objectFit: "contain", backgroundColor: "grey" }}
+        style={{
+          objectFit: "contain",
+          backgroundColor: "rgb(123 123 123 / 62%)",
+          borderRadius: "20px",
+        }}
       ></img>
       <Box sx={{ width: "100%", margin: "auto" }}>
         <Tabs
@@ -96,24 +101,40 @@ const PlantDetailPage = () => {
           onChange={handleChange}
           aria-label="icon label tabs example"
         >
-          <Tab sx={{ flex: "1 1 0" }} icon={<WaterDrop />} label="Water" />
+          <Tab sx={{ flex: "1 1 0" }} icon={<WaterDrop />} label="Overview" />
           <Tab sx={{ flex: "1 1 0" }} icon={<MuiNote />} label="Notes" />
           <Tab sx={{ flex: "1 1 0" }} icon={<MuiTask />} label="Tasks" />
         </Tabs>
       </Box>
       {tab === 0 && (
-        <Box sx={{backgroundColor: "#d9d9d99e", borderRadius: "20px", padding: "20px", marginTop: "20px"}}>
-          <Typography variant="h6">
-            Last Watered: {plant?.last_watered}
-          </Typography>
-          <Typography variant="h6">
-            Next Watering: {plant?.next_watering}
-          </Typography>
-          <Typography variant="h6">
-            Watering Frequency: {plant?.watering_frequency_display}
-          </Typography>
-          {entries.length > 0 && <WateringLineChart entries={entries} />}
-        </Box>
+        <>
+          <Box
+            sx={{
+              backgroundColor: "#d9d9d99e",
+              borderRadius: "20px",
+              padding: "20px",
+              marginTop: "20px",
+            }}
+          >
+            <Typography variant="h6">
+              Last Watered: {plant?.last_watered}
+            </Typography>
+            <Typography variant="h6">
+              Next Watering: {plant?.next_watering}
+            </Typography>
+            <Typography variant="h6">
+              Watering Frequency: {plant?.watering_frequency_display}
+            </Typography>
+            {entries.length > 0 && <WateringLineChart entries={entries} />}
+          </Box>
+          <NumberWidget
+            data={3}
+            icon={<MuiTask />}
+            subtitle={"tasks today"}
+            backgroundColor={"#c5edfa"}
+            iconColor={"#3865da"}
+          />
+        </>
       )}
       {tab === 1 && notes.map((note) => <Note note={note} />)}
       {tab === 2 && tasks.map((task) => <Task task={task} />)}

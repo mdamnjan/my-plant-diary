@@ -27,11 +27,16 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   const [taskDate, setTaskDate] = useState(null);
 
   useEffect(() => {
+    if (task) {
+        setTaskDate(new AdapterDayjs(task.date))
+        setPlant(task.plant)
+        setTaskType(task.type)
+    }
     const getPlants = async () => {
       fetchPlants().then((res) => setPlantList(res.data));
     };
     getPlants();
-  }, []);
+  }, [isEditing, task]);
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -148,6 +153,7 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
+            value={taskDate}
             sx={{ width: "100%" }}
             className="date-picker"
             label="Date"

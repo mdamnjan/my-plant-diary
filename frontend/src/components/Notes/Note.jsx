@@ -20,13 +20,18 @@ const Note = ({ note, handleDelete, handleEdit }) => {
           position: "relative",
           top: "1px",
           right: "6px",
+          borderRadius: "20px",
         }}
       >
         <CardActions style={{ float: "right" }}>
           <IconButton size="small" color="primary" onClick={()=>handleEdit()}>
             <Edit />
           </IconButton>
-          <IconButton size="small" color="default" onClick={()=>handleDelete(note.id)}>
+          <IconButton
+            size="small"
+            color="default"
+            onClick={() => handleDelete(note.id)}
+          >
             <Delete />
           </IconButton>
         </CardActions>
@@ -35,9 +40,7 @@ const Note = ({ note, handleDelete, handleEdit }) => {
             <Avatar src={note.plant_img || "../../Calathea_orbifolia.jpg"} />
           </div>
           <div>
-            <h3 style={{ margin: "5px 0px 0px 10px" }}>
-              {note.plant_name}
-            </h3>
+            <h3 style={{ margin: "5px 0px 0px 10px" }}>{note.plant_name}</h3>
             <p style={{ margin: "5px 0px 0px 10px" }}>{note.text}</p>
           </div>
         </CardContent>
@@ -54,6 +57,13 @@ const Note = ({ note, handleDelete, handleEdit }) => {
             src={note.img_url}
           />
         )}
+        <h5 style={{ float: "left", margin: "0px 20px 20px 20px" }}>
+          {new Date(note.created).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </h5>
       </Card>
     </>
   );
