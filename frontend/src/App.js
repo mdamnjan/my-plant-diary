@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { useState } from "react";
 
 import "./App.css";
 
@@ -15,7 +21,7 @@ import PlantDetailPage from "./components/Plants/PlantDetailPage";
 import NotesPage from "./components/Notes/NotesPage";
 import TasksPage from "./components/Tasks/TasksPage";
 
-import "./App.css"
+import "./App.css";
 
 function App() {
   return (

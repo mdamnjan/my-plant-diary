@@ -14,6 +14,8 @@ const NumberWidget = ({ icon, data, subtitle, iconColor, backgroundColor }) => {
         flexDirection: "column",
         padding: "40px",
         backgroundColor: backgroundColor,
+        borderRadius: "20px",
+        marginTop: "20px"
       }}
     >
       <IconButton

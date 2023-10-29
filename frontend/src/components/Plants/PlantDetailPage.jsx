@@ -127,13 +127,22 @@ const PlantDetailPage = () => {
             </Typography>
             {entries.length > 0 && <WateringLineChart entries={entries} />}
           </Box>
-          <NumberWidget
-            data={3}
-            icon={<MuiTask />}
-            subtitle={"tasks today"}
-            backgroundColor={"#c5edfa"}
-            iconColor={"#3865da"}
-          />
+          <Box sx={{display: "flex", gap: "20px"}}>
+            <NumberWidget
+              data={3}
+              icon={<MuiTask />}
+              subtitle={"tasks today"}
+              backgroundColor={"#c5edfa"}
+              iconColor={"#3865da"}
+            />
+            <NumberWidget
+              data={2}
+              icon={<MuiTask />}
+              subtitle={"overdue tasks"}
+              backgroundColor={"#c5edfa"}
+              iconColor={"#3865da"}
+            />
+          </Box>
         </>
       )}
       {tab === 1 && notes.map((note) => <Note note={note} />)}

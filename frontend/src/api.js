@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-const performApiCall = async (method, url, body) => {
+export const performApiCall = async (method, url, body) => {
   let res;
   try {
     res = await axiosInstance.request({
@@ -101,9 +101,9 @@ export const deleteWateringEntry = (entryID) => {
 };
 
 export const deleteNote = (noteID) => {
-    return performApiCall("delete", `/notes/${noteID}/`);
-  };
-  
+  return performApiCall("delete", `/notes/${noteID}/`);
+};
+
 export const deleteTask = (taskID) => {
   return performApiCall("delete", `/tasks/${taskID}/`);
 };
@@ -141,7 +141,9 @@ export const logout = () => {
 };
 
 export const refreshToken = () => {
-  return axiosInstance.post("/token/refresh/", {
-    withCredentials: true,
-  });
+  return axiosInstance
+    .post("/token/refresh/", {
+      withCredentials: true,
+    })
+    .catch((error) => (window.location = "/login"));
 };

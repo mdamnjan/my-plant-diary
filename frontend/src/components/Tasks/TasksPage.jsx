@@ -1,14 +1,14 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { useState, useEffect } from "react";
-import { Task as TaskIcon } from "@mui/icons-material";
 
 import "../Notes/Note.css";
 import AddButton from "../common/AddButton";
 import TaskForm from "./TaskForm";
-import Task from "./Task";
 
 import { createTask, fetchTasks, deleteTask, updateTask } from "../../api";
 import BaseWidget from "../common/BaseWidget";
+import TaskList from "./TaskList";
+import { performApiCall } from "../../api";
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ const TasksPage = () => {
   };
 
   const handleEdit = (task) => {
-    setTask(task)
+    setTask(task);
     setIsEditing(true);
     setOpen(true);
   };
@@ -39,57 +39,31 @@ const TasksPage = () => {
     updateTask(task.id, { completed: true }).then(() => getTasks());
   };
 
-  const TaskList = ({ tasks }) => {
-    if (tasks.length === 0) {
-      return (
-        <Box
-          sx={{
-            width: "100%",
-            minHeight: "200px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            className="empty-state"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
-            <Typography>No tasks scheduled</Typography>
-          </div>
-        </Box>
-      );
-    }
-
-    return tasks.map((task) => (
-      <Box sx={{ width: "100%" }}>
-        <Task
-          key={task.id}
-          task={task}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          completeTask={completeTask}
-        />
-      </Box>
-    ));
-  };
-
   let overdueTasks = (
-    <TaskList tasks={taskList.filter((task) => task.overdue)} />
+    <TaskList
+      tasks={taskList.filter((task) => task.overdue)}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      completeTask={completeTask}
+    />
   );
 
   let todaysTasks = (
     <TaskList
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      completeTask={completeTask}
       tasks={taskList.filter((task) => {
         let taskDate = new Date(task.date).toLocaleDateString();
         let todaysDate = new Date().toLocaleDateString();
 
-        console.log(taskDate, todaysDate);
+        console.log(
+          "dates",
+          taskDate,
+          todaysDate,
+          task,
+          new Date(Date.parse(task.date))
+        );
 
         return taskDate === todaysDate;
       })}
@@ -98,6 +72,9 @@ const TasksPage = () => {
 
   let next7DaysTasks = (
     <TaskList
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      completeTask={completeTask}
       tasks={taskList.filter((task) => {
         let taskDate = new Date(task.date);
         let todaysDate = new Date();
@@ -111,6 +88,9 @@ const TasksPage = () => {
 
   let next2WeeksTasks = (
     <TaskList
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      completeTask={completeTask}
       tasks={taskList.filter((task) => {
         let taskDate = new Date(task.date);
         let todaysDate = new Date();
@@ -124,6 +104,9 @@ const TasksPage = () => {
 
   let nextMonthsTasks = (
     <TaskList
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      completeTask={completeTask}
       tasks={taskList.filter((task) => {
         let taskDate = new Date(task.date);
         let todaysDate = new Date();
@@ -146,7 +129,8 @@ const TasksPage = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    // getTasks();
+    performApiCall("get", "/tasks?interval=week").then((res)=>setTaskList(res.data))
   }, []);
 
   return (

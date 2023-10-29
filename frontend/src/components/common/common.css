@@ -30,4 +30,5 @@ nav {
     bottom: 12%;
     right: 50%;
     margin-right: -28px !important;
+    overflow-y: auto;
 }

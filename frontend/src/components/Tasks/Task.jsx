@@ -68,7 +68,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
           <div style={{ display: "flex" }}>
             <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
             <div>
-              <h3 style={{ margin: "5px 0px 0px 10px" }}>
+              <h3 style={{ margin: "5px 0px 0px 10px", maxWidth: "100px" }}>
                 {task.plant_name || "plant name"}
               </h3>
               <h5 style={{margin: "0px 0px 0px 10px"}}>{getNumDaysUntilDue(task.date)}</h5>

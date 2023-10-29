@@ -18,7 +18,7 @@ const LoginPage = () => {
     setError(null);
     await login({ username: username, password: password })
       .then((res) => {
-        navigate("/plants");
+        navigate("/");
       })
       .catch((error) => setError(error.response.data));
   };

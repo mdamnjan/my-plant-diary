@@ -8,6 +8,7 @@ import { fetchPlants, fetchTasks } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
 import PlantCard from "../Plants/PlantCard";
+import TaskList from "../Tasks/TaskList";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
@@ -55,15 +56,15 @@ const HomePage = () => {
       sx={{
         backgroundColor: "#d9d9d99e",
         borderRadius: "10px",
-        padding: "20px",
+        padding: "10px",
       }}
     >
       <CardContent sx={{ display: "flex", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "end" }}>
           <div
             style={{
-              width: "85px",
-              height: "85px",
+              width: "65px",
+              height: "65px",
               borderRadius: "50%",
               backgroundColor: "green",
               display: "flex",
@@ -74,14 +75,14 @@ const HomePage = () => {
           >
             <TaskIcon
               width={"75px"}
-              sx={{ fill: "white", width: "75px", height: "55px" }}
+              sx={{ fill: "white", width: "65px", height: "45px" }}
             />
           </div>
           <div>
-            <Typography variant="h4">1</Typography>
+            <Typography variant="h4">{todaysTasks.length}</Typography>
             <Typography
               variant="span"
-              sx={{ maxWidth: "80px", display: "block" }}
+              sx={{ maxWidth: "50px", display: "block" }}
             >
               tasks completed
             </Typography>
@@ -91,8 +92,8 @@ const HomePage = () => {
         <div style={{ display: "flex", alignItems: "end", marginLeft: "20px" }}>
           <div
             style={{
-              width: "85px",
-              height: "85px",
+              width: "65px",
+              height: "65px",
               borderRadius: "50%",
               backgroundColor: "blue",
               display: "flex",
@@ -103,11 +104,11 @@ const HomePage = () => {
           >
             <TaskIcon
               width={"75px"}
-              sx={{ fill: "white", width: "75px", height: "55px" }}
+              sx={{ fill: "white", width: "65px", height: "45px" }}
             />
           </div>
           <div>
-            <Typography variant="h4">1</Typography>
+            <Typography variant="h4">{todaysTasks.length}</Typography>
             <Typography
               variant="span"
               sx={{ maxWidth: "80px", display: "block" }}
@@ -151,36 +152,42 @@ const HomePage = () => {
           gap: "20px",
         }}
       >
-        <Card
-          sx={{
-            backgroundColor: "#d9d9d99e",
-            borderRadius: "10px",
-            padding: "20px",
-            flexGrow: 1,
+        <BaseWidget title="Today's Tasks">
+          <TaskList tasks={tasks} />
+        </BaseWidget>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", marginBottom: "10px" }}
-          >
-            Today's Tasks
-          </Typography>
-          {todaysTasks
-            .filter((task) => !task.overdue)
-            .map((task) => (
-              <Task task={task} />
-            ))}
-        </Card>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {taskProgressWidget}
           {overdueTaskWidget}
         </div>
       </Box>
-      <Box sx={{ display: "flex", gap: "20px" }}>
-        {plants.map((plant) => (
-          <PlantCard plant={plant} />
-        ))}
-      </Box>
+      <Card
+        sx={{
+          padding: "20px",
+          backgroundColor: "#d9d9d99e",
+          borderRadius: "20px",
+          overflowX: "scroll",
+          width: "100%",
+          marginTop: "10px"
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: "bold", marginBottom: "10px" }}
+        >
+          My Plants
+        </Typography>
+        <Box sx={{ display: "flex", gap: "20px" }}>
+          {plants.map((plant) => (
+            <PlantCard plant={plant} />
+          ))}
+        </Box>
+      </Card>
     </div>
   );
 };

@@ -26,11 +26,13 @@ const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
+  const [filteredPlants, setFilteredPlants] = useState(plantList);
 
   const getPlantList = () => {
     fetchPlants().then((response) => {
       if (response.data) {
         setPlantList(response.data);
+        setFilteredPlants(response.data)
       }
     });
   };
@@ -70,7 +72,7 @@ const PlantPage = () => {
     deletePlant(plant.id).then(() => getPlantList());
   };
 
-  const plants = plantList.map((plant) => (
+  const plants = filteredPlants.map((plant) => (
     <PlantCard
       plant={plant}
       handleEdit={handleEdit}
@@ -87,13 +89,25 @@ const PlantPage = () => {
       <Box style={{ width: "80%", margin: "20px auto 10px auto" }}>
         <Autocomplete
           fullWidth
+          onInputChange={(e) => {
+            setFilteredPlants(
+              plantList.filter((plant) =>
+                plant.name.toLowerCase().includes(e.target.value.toLowerCase())
+              )
+            );
+          }}
+          onSelect={(e) => {
+            setFilteredPlants(
+              plantList.filter((plant) => plant.name.toLowerCase().includes(e.target.value.toLowerCase()))
+            );
+          }}
           sx={{
             marginTop: "10px",
             margin: "auto",
             backgroundColor: "#d9d9d99e",
             borderRadius: "10px",
             "& fieldset": { borderRadius: "10px" },
-            '& .MuiInputBase-root': {paddingRight: "0"}
+            "& .MuiInputBase-root": { paddingRight: "0" },
           }}
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => (

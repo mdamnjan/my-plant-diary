@@ -10,11 +10,12 @@ import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import StatusTag from "./StatusTag";
+import "./Plants.css"
 
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   let navigate = useNavigate();
 
-  console.log("plant", plant)
+  console.log("plant", plant);
 
   return (
     <Card
@@ -30,7 +31,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         borderRadius: "20px",
         backgroundColor: "#d9d9d99e",
         border: "none",
-        flexShrink: 1
+        flexShrink: 1,
       }}
       variant="outlined"
       onClick={() =>
@@ -44,8 +45,18 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         children={<StatusTag status={plant.status_display} />}
         alt={plant.name}
       />
-      <CardContent sx={{position: "relative"}}>
-        <Typography sx={{position: "absolute", top: "70%", left: "10%", fontWeight: "bold"}} gutterBottom variant="h5" component="div">
+      <CardContent sx={{ position: "relative" }}>
+        <Typography
+          sx={{
+            position: "absolute",
+            top: "70%",
+            left: "10%",
+            fontWeight: "bold",
+          }}
+          gutterBottom
+          variant="h5"
+          component="div"
+        >
           {plant.name}
         </Typography>
       </CardContent>
@@ -59,7 +70,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
           margin: "0 !important",
           position: "absolute",
           right: 20,
-          top: 10
+          top: 10,
         }}
       >
         <Fab

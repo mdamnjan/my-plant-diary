@@ -57,13 +57,13 @@ const Note = ({ note, handleDelete, handleEdit }) => {
             src={note.img_url}
           />
         )}
-        <h5 style={{ float: "left", margin: "0px 20px 20px 20px" }}>
+        <span style={{ float: "right", margin: "0px 20px 20px 20px" }}>
           {new Date(note.created).toLocaleDateString(undefined, {
             month: "short",
             day: "numeric",
             year: "numeric",
           })}
-        </h5>
+        </span>
       </Card>
     </>
   );

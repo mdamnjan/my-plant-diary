@@ -12,7 +12,12 @@ const BasePage = () => {
       disableGutters
       maxWidth={"none"}
       id="base-page"
-      style={{ display: "flex", height: "100vh", width: "100vw", flexDirection: smallScreen? "column": "row" }}
+      style={{
+        display: "flex",
+        height: "100vh",
+        width: "100vw",
+        flexDirection: smallScreen ? "column" : "row",
+      }}
       sx={{ height: "100vh" }}
       component={Paper}
     >

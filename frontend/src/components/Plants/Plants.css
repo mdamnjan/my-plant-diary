@@ -26,15 +26,6 @@
 }
 
 
-.plant-card {
-    min-height: 200px;
-    max-height: 300px;
-    display: flex;
-    background-color: white;
-    position: relative;
-    min-width: 250px;
-}
-
 .alert-status {
     border-radius: 20px;
     background-color: #ff0808 !important;
