@@ -25,6 +25,8 @@ const TasksPage = () => {
     });
   };
 
+  console.log(taskList)
+
   const handleEdit = (task) => {
     setTask(task);
     setIsEditing(true);
@@ -41,10 +43,10 @@ const TasksPage = () => {
 
   let overdueTasks = (
     <TaskList
-      tasks={taskList.filter((task) => task.overdue)}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       completeTask={completeTask}
+      overdue={true}
     />
   );
 
@@ -53,20 +55,7 @@ const TasksPage = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       completeTask={completeTask}
-      tasks={taskList.filter((task) => {
-        let taskDate = new Date(task.date).toLocaleDateString();
-        let todaysDate = new Date().toLocaleDateString();
-
-        console.log(
-          "dates",
-          taskDate,
-          todaysDate,
-          task,
-          new Date(Date.parse(task.date))
-        );
-
-        return taskDate === todaysDate;
-      })}
+      interval="today"
     />
   );
 
@@ -75,14 +64,7 @@ const TasksPage = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       completeTask={completeTask}
-      tasks={taskList.filter((task) => {
-        let taskDate = new Date(task.date);
-        let todaysDate = new Date();
-
-        taskDate.setDate(taskDate.getDate() - 7);
-
-        return taskDate <= todaysDate;
-      })}
+      interval="week"
     />
   );
 
@@ -91,14 +73,7 @@ const TasksPage = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       completeTask={completeTask}
-      tasks={taskList.filter((task) => {
-        let taskDate = new Date(task.date);
-        let todaysDate = new Date();
-
-        taskDate.setDate(taskDate.getDate() - 14);
-
-        return taskDate <= todaysDate;
-      })}
+      interval="2weeks"
     />
   );
 
@@ -107,21 +82,14 @@ const TasksPage = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       completeTask={completeTask}
-      tasks={taskList.filter((task) => {
-        let taskDate = new Date(task.date);
-        let todaysDate = new Date();
-
-        taskDate.setMonth(taskDate.getMonth() - 1);
-
-        return taskDate <= todaysDate;
-      })}
+      interval="month"
     />
   );
 
   const handleSubmit = (e, taskType, plant, taskDate) => {
     const updatePage = () => {
       setOpen(false);
-      getTasks();
+      window.location.reload()
     };
 
     const body = { type: taskType, plant: plant.id, date: taskDate };

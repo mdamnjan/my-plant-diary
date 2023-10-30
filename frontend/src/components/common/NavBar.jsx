@@ -107,7 +107,7 @@ const NavBar = ({ smallScreen }) => {
 
   return (
     <Paper className="nav-bar">
-      <Typography sx={{ paddingTop: "20px" }}>
+      <Typography sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
         <img id="logo" alt="plant logo" src="plant-logo.png" />
         <h3>My Plant Diary</h3>
       </Typography>

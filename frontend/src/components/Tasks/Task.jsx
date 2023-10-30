@@ -6,6 +6,7 @@ import {
   CardContent,
   Chip,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 
 import "../Notes/Note.css";
@@ -25,28 +26,27 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
   };
 
   const getNumDaysUntilDue = (date) => {
-    let dueDate = new Date(date)
-    let today = new Date()
+    let dueDate = new Date(date);
+    let today = new Date();
 
-    let difference = new Date((today - dueDate))
+    let difference = new Date(today - dueDate);
 
     // The number of milliseconds in one day
     const ONE_DAY = 1000 * 60 * 60 * 24;
 
     // Convert back to days and return
-    let numDays = Math.floor(difference / ONE_DAY);
+    let numDays = Math.abs(Math.floor(difference / ONE_DAY));
 
     if (numDays === 0) {
-        return "Due today"
+      return "Due today";
     }
 
     if (dueDate < today) {
-        return `${numDays} days late`
+      return `${numDays} days late`;
     }
 
-    return `Due in ${numDays} days`
-
-  }
+    return `Due in ${numDays} days`;
+  };
 
   return (
     <>
@@ -54,7 +54,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
         sx={{
           marginBottom: "20px",
           borderRadius: "20px",
-          padding: "10px"
+          padding: "10px",
         }}
       >
         <CardContent
@@ -71,7 +71,11 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
               <h3 style={{ margin: "5px 0px 0px 10px", maxWidth: "100px" }}>
                 {task.plant_name || "plant name"}
               </h3>
-              <h5 style={{margin: "0px 0px 0px 10px"}}>{getNumDaysUntilDue(task.date)}</h5>
+              <Tooltip title={task.date}>
+                <h5 style={{ margin: "0px 0px 0px 10px" }}>
+                  {getNumDaysUntilDue(task.date)}
+                </h5>
+              </Tooltip>
             </div>
           </div>
           <CardActions>
@@ -83,7 +87,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
               {task.completed ? <CheckCircle /> : <CircleOutlined />}
             </IconButton>
             <IconButton
-              onClick={()=>handleEdit(task)}
+              onClick={() => handleEdit(task)}
               color="primary"
               sx={{ padding: "0px" }}
             >

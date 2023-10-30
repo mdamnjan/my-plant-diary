@@ -1,14 +1,13 @@
-import { Typography, Box, Card, CardContent } from "@mui/material";
-import { ArrowForwardIos, Task as TaskIcon } from "@mui/icons-material";
+import { Typography, Box, Card } from "@mui/material";
+import { Task as TaskIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-
-import Task from "../Tasks/Task";
 
 import { fetchPlants, fetchTasks } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
 import PlantCard from "../Plants/PlantCard";
 import TaskList from "../Tasks/TaskList";
+import NumberWidget from "./NumberWidget";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
@@ -41,86 +40,6 @@ const HomePage = () => {
     return numDays === 0;
   });
 
-  const overdueTaskWidget = (
-    <BaseWidget title="Overdue Tasks">
-      {tasks
-        .filter((task) => task.overdue)
-        .map((task) => (
-          <Task task={task} />
-        ))}
-    </BaseWidget>
-  );
-
-  const taskProgressWidget = (
-    <Card
-      sx={{
-        backgroundColor: "#d9d9d99e",
-        borderRadius: "10px",
-        padding: "10px",
-      }}
-    >
-      <CardContent sx={{ display: "flex", alignItems: "center" }}>
-        <div style={{ display: "flex", alignItems: "end" }}>
-          <div
-            style={{
-              width: "65px",
-              height: "65px",
-              borderRadius: "50%",
-              backgroundColor: "green",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "10px",
-            }}
-          >
-            <TaskIcon
-              width={"75px"}
-              sx={{ fill: "white", width: "65px", height: "45px" }}
-            />
-          </div>
-          <div>
-            <Typography variant="h4">{todaysTasks.length}</Typography>
-            <Typography
-              variant="span"
-              sx={{ maxWidth: "50px", display: "block" }}
-            >
-              tasks completed
-            </Typography>
-          </div>
-        </div>
-        <ArrowForwardIos />
-        <div style={{ display: "flex", alignItems: "end", marginLeft: "20px" }}>
-          <div
-            style={{
-              width: "65px",
-              height: "65px",
-              borderRadius: "50%",
-              backgroundColor: "blue",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "10px",
-            }}
-          >
-            <TaskIcon
-              width={"75px"}
-              sx={{ fill: "white", width: "65px", height: "45px" }}
-            />
-          </div>
-          <div>
-            <Typography variant="h4">{todaysTasks.length}</Typography>
-            <Typography
-              variant="span"
-              sx={{ maxWidth: "80px", display: "block" }}
-            >
-              tasks left
-            </Typography>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
   return (
     <div
       style={{
@@ -150,21 +69,40 @@ const HomePage = () => {
           flexDirection: "row",
           justifyContent: "center",
           gap: "20px",
+          marginBottom: "10px"
+        }}
+      >
+        <NumberWidget
+          data={todaysTasks.length}
+          icon={<TaskIcon />}
+          subtitle={"tasks today"}
+          backgroundColor={"#c5edfa"}
+          iconColor={"#3865da"}
+        />
+        <NumberWidget
+          data={todaysTasks.filter((task) => task.completed).length}
+          icon={<TaskIcon />}
+          subtitle={"tasks completed"}
+          backgroundColor={"rgb(164 255 174)"}
+          iconColor={"#0fac2a"}
+        />
+      </Box>
+      <Box
+        className="widgets"
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: "20px",
         }}
       >
         <BaseWidget title="Today's Tasks">
-          <TaskList tasks={tasks} />
+          <TaskList interval="today" />
         </BaseWidget>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-          }}
-        >
-          {taskProgressWidget}
-          {overdueTaskWidget}
-        </div>
+        <BaseWidget title="Overdue Tasks">
+          <TaskList overdue={true} />
+        </BaseWidget>
       </Box>
       <Card
         sx={{

@@ -10,7 +10,7 @@ import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import StatusTag from "./StatusTag";
-import "./Plants.css"
+import "./Plants.css";
 
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   let navigate = useNavigate();
@@ -23,13 +23,12 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         display: "flex",
         flexDirection: "column",
         margin: "0 !important",
-        position: "relative",
+        position: "relative", 
         minHeight: "300px",
         minWidth: "250px",
         maxHeight: "500px",
         maxWidth: "600px",
         borderRadius: "20px",
-        backgroundColor: "#d9d9d99e",
         border: "none",
         flexShrink: 1,
       }}

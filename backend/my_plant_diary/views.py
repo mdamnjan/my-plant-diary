@@ -9,6 +9,11 @@ from .permissions import IsOwner
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 
+from django.utils import timezone
+from datetime import timedelta
+
+import json
+
 # Create your views here.
 
 from django.http import HttpResponse
@@ -51,12 +56,63 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         url_params = self.request.GET
 
+        tasks = Task.objects.filter(plant__owner=user)
+
         if url_params:
-            if url_params['plant']:
-                query_plant = self.request.GET['plant']
-                return Task.objects.filter(plant__owner=user, plant__id=query_plant).order_by('-updated')
-        
-        return Task.objects.filter(plant__owner=user).order_by('-updated')
+            query_plant = url_params.get('plant', False)
+            if query_plant:
+                tasks = tasks.filter(plant__id=query_plant)
+            
+            query_interval = url_params.get('interval', False)
+            if query_interval:
+                today = timezone.now().date()
+                
+                if query_interval == 'today':
+                    tasks = tasks.filter(plant__owner=user, date__gte=today, date__lte=today)
+                elif query_interval == 'week':
+                    tasks = tasks.filter(plant__owner=user, date__gte=today, date__lte=(today+timedelta(days=7)))
+                elif query_interval == '2weeks':
+                    tasks = tasks.filter(plant__owner=user, date__gte=(today+timedelta(days=7)), date__lte=(today+timedelta(days=14)))
+                elif query_interval == 'month':
+                    tasks = tasks.filter(plant__owner=user, date__gte=(today+timedelta(days=14)), date__lte=(today+timedelta(days=30)))
+            
+            overdue_filter = url_params.get('overdue', False)
+            if overdue_filter:
+                is_overdue=False
+                try:
+                    is_overdue = json.loads(url_params.get('overdue', 'false'))
+                except:
+                    pass
+
+                tasks = tasks.filter(plant__owner=user, overdue=is_overdue)
+
+            completed_filter = url_params.get('completed', False)
+            if completed_filter:
+                is_completed=False
+                try:
+                    is_completed = json.loads(url_params.get('completed', 'false'))
+                except:
+                    pass
+
+                tasks = tasks.filter(plant__owner=user, completed=is_completed)
+
+
+            status_filter = url_params.get('status', False)
+            if status_filter:
+                if status_filter == 'any':
+                    pass
+                if status_filter == 'OK' or status_filter == 'NW':
+                    tasks = tasks.filter(plant__status=status_filter)
+
+            sort = url_params.get('sort', False)
+            if sort:
+                try:
+                    tasks = tasks.order_by(sort)
+                except:
+                    pass
+                return tasks
+            
+        return tasks.order_by('date')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

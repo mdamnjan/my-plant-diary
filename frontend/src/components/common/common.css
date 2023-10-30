@@ -26,9 +26,9 @@ nav {
 }
 
 .plus-button {
-    position: absolute !important;
-    bottom: 12%;
-    right: 50%;
-    margin-right: -28px !important;
+    position: sticky !important;
+    bottom: 100px;
+    left: 50%;
     overflow-y: auto;
+    transform: translateX(-50%)
 }

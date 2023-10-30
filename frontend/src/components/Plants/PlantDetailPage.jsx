@@ -2,11 +2,12 @@ import {
   WaterDrop,
   Task as MuiTask,
   Note as MuiNote,
+  ArrowBack,
 } from "@mui/icons-material";
-import { Typography, Tabs, Tab, Box } from "@mui/material";
+import { Typography, Tabs, Tab, Box, IconButton } from "@mui/material";
 
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   createWateringEntry,
@@ -18,12 +19,12 @@ import {
 
 import AddButton from "../common/AddButton";
 import WateringEntryForm from "./WateringEntryForm";
-import WateringLineChart from "./WateringLineChart";
-import Task from "../Tasks/Task";
-import Note from "../Notes/Note";
-import NumberWidget from "../Home/NumberWidget";
+import NotesTab from "./PlantDetails/Tabs/NotesTab";
+import TasksTab from "./PlantDetails/Tabs/TasksTab";
+import OverviewTab from "./PlantDetails/Tabs/OverviewTab";
 
 const PlantDetailPage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState(false);
@@ -32,6 +33,8 @@ const PlantDetailPage = () => {
   const [entries, setEntries] = useState([]);
   const [notes, setNotes] = useState([]);
   const [tasks, setTasks] = useState([]);
+
+  console.log(tasks)
 
   const getWateringEntries = () => {
     fetchWateringEntries().then((response) => {
@@ -85,7 +88,15 @@ const PlantDetailPage = () => {
 
   return (
     <div className="plant-detail-container">
-      <Typography variant="h5">{plant?.name}</Typography>
+      <Typography variant="h5">
+        <IconButton
+          sx={{ marginLeft: "-20px", marginRight: "5px" }}
+          onClick={() => navigate("/plants")}
+        >
+          <ArrowBack />
+        </IconButton>
+        {plant?.name}
+      </Typography>
       <img
         alt="plant"
         src={plant?.img_url || "../../Calathea_orbifolia.jpg"}
@@ -106,47 +117,9 @@ const PlantDetailPage = () => {
           <Tab sx={{ flex: "1 1 0" }} icon={<MuiTask />} label="Tasks" />
         </Tabs>
       </Box>
-      {tab === 0 && (
-        <>
-          <Box
-            sx={{
-              backgroundColor: "#d9d9d99e",
-              borderRadius: "20px",
-              padding: "20px",
-              marginTop: "20px",
-            }}
-          >
-            <Typography variant="h6">
-              Last Watered: {plant?.last_watered}
-            </Typography>
-            <Typography variant="h6">
-              Next Watering: {plant?.next_watering}
-            </Typography>
-            <Typography variant="h6">
-              Watering Frequency: {plant?.watering_frequency_display}
-            </Typography>
-            {entries.length > 0 && <WateringLineChart entries={entries} />}
-          </Box>
-          <Box sx={{display: "flex", gap: "20px"}}>
-            <NumberWidget
-              data={3}
-              icon={<MuiTask />}
-              subtitle={"tasks today"}
-              backgroundColor={"#c5edfa"}
-              iconColor={"#3865da"}
-            />
-            <NumberWidget
-              data={2}
-              icon={<MuiTask />}
-              subtitle={"overdue tasks"}
-              backgroundColor={"#c5edfa"}
-              iconColor={"#3865da"}
-            />
-          </Box>
-        </>
-      )}
-      {tab === 1 && notes.map((note) => <Note note={note} />)}
-      {tab === 2 && tasks.map((task) => <Task task={task} />)}
+      {tab === 0 && <OverviewTab plant={plant} entries={entries}/>}
+      {tab === 1 && <NotesTab notes={notes} />}
+      {tab === 2 && <TasksTab plant={plant.id} />}
       <WateringEntryForm
         open={open}
         onClose={() => setOpen(false)}

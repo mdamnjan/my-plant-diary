@@ -24,7 +24,7 @@ const BasePage = () => {
       <NavBar smallScreen={smallScreen} />
       <Container
         disableGutters
-        maxWidth={false}
+        maxWidth={"xl"}
         style={{
           margin: "auto",
           padding: "20px",

@@ -28,7 +28,7 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
 
   useEffect(() => {
     if (task) {
-        setTaskDate(new AdapterDayjs(task.date))
+        setTaskDate(task.date)
         setPlant(task.plant)
         setTaskType(task.type)
     }
@@ -153,7 +153,6 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            value={taskDate}
             sx={{ width: "100%" }}
             className="date-picker"
             label="Date"

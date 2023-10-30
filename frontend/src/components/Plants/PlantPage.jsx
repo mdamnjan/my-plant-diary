@@ -32,7 +32,7 @@ const PlantPage = () => {
     fetchPlants().then((response) => {
       if (response.data) {
         setPlantList(response.data);
-        setFilteredPlants(response.data)
+        setFilteredPlants(response.data);
       }
     });
   };
@@ -86,9 +86,8 @@ const PlantPage = () => {
 
   return (
     <>
-      <Box style={{ width: "80%", margin: "20px auto 10px auto" }}>
+      <Box style={{ maxWidth: "800px", margin: "20px auto 10px auto" }}>
         <Autocomplete
-          fullWidth
           onInputChange={(e) => {
             setFilteredPlants(
               plantList.filter((plant) =>
@@ -98,7 +97,9 @@ const PlantPage = () => {
           }}
           onSelect={(e) => {
             setFilteredPlants(
-              plantList.filter((plant) => plant.name.toLowerCase().includes(e.target.value.toLowerCase()))
+              plantList.filter((plant) =>
+                plant.name.toLowerCase().includes(e.target.value.toLowerCase())
+              )
             );
           }}
           sx={{
@@ -107,7 +108,7 @@ const PlantPage = () => {
             backgroundColor: "#d9d9d99e",
             borderRadius: "10px",
             "& fieldset": { borderRadius: "10px" },
-            "& .MuiInputBase-root": { paddingRight: "0" },
+            "& .MuiInputBase-root": { paddingRight: "10px !important" }
           }}
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => (
@@ -129,7 +130,7 @@ const PlantPage = () => {
             </>
           )}
         />
-        <FormControl sx={{ minWidth: "100px", margin: "20px" }}>
+        <FormControl sx={{ minWidth: "100px", margin: "20px 0px" }}>
           <InputLabel shrink id="sort-by-select">
             Sort By
           </InputLabel>
@@ -176,16 +177,14 @@ const PlantPage = () => {
         </FormControl>{" "}
       </Box>
       <Divider />
-      <Box className="plant-list">
-        {plants}
-        <AddButton
-          tooltipText="Add a plant"
-          onClick={() => {
-            setOpen(true);
-            setIsEditing(false);
-          }}
-        />
-      </Box>
+      <Box className="plant-list">{plants}</Box>
+      <AddButton
+        tooltipText="Add a plant"
+        onClick={() => {
+          setOpen(true);
+          setIsEditing(false);
+        }}
+      />
       <NewPlantForm
         handleSubmit={handleSubmit}
         isEditing={isEditing}

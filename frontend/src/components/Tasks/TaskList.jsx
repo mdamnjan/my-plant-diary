@@ -1,10 +1,22 @@
 import Task from "./Task";
+import { performApiCall } from "../../api";
 
 import { Box, Typography } from "@mui/material";
 import { Task as TaskIcon } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 const TaskList = (props) => {
-  let tasks = props.tasks;
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    performApiCall(
+      "get",
+      `/tasks?plant=${props.plant || ""}&interval=${props.interval}&overdue=${
+        props.overdue || false
+      }`
+    ).then((res) => setTasks(res.data));
+  }, [props.interval, props.overdue, props.plant]);
+
   if (tasks.length === 0) {
     return (
       <Box
