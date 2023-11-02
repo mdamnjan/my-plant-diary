@@ -2,7 +2,7 @@ import { Typography, Box, Card } from "@mui/material";
 import { Task as TaskIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
-import { fetchPlants, fetchTasks, fetchUser } from "../../api";
+import { fetchPlants, fetchUser } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
 import PlantCard from "../Plants/PlantCard";
@@ -12,7 +12,6 @@ import TaskProgressBar from "../Tasks/TaskProgressBar";
 
 const HomePage = () => {
   const [plants, setPlants] = useState([]);
-  const [tasks, setTasks] = useState([]);
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -24,11 +23,6 @@ const HomePage = () => {
     fetchPlants().then((response) => {
       if (response.data) {
         setPlants(response.data);
-      }
-    });
-    fetchTasks().then((response) => {
-      if (response.data) {
-        setTasks(response.data);
       }
     });
   }, []);
