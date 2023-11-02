@@ -33,19 +33,19 @@ const HomePage = () => {
     });
   }, []);
 
-  const todaysTasks = tasks.filter((task) => {
-    let today = new Date();
-    let taskDate = new Date(task.date);
+  // const todaysTasks = tasks.filter((task) => {
+  //   let today = new Date();
+  //   let taskDate = new Date(task.date);
 
-    let difference = today - taskDate;
+  //   let difference = today - taskDate;
 
-    const ONE_DAY = 1000 * 60 * 60 * 24;
+  //   const ONE_DAY = 1000 * 60 * 60 * 24;
 
-    // Convert back to days and return
-    let numDays = Math.floor(difference / ONE_DAY);
+  //   // Convert back to days and return
+  //   let numDays = Math.floor(difference / ONE_DAY);
 
-    return numDays === 0;
-  });
+  //   return numDays === 0;
+  // });
 
   return (
     <div

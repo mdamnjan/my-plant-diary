@@ -1,20 +1,16 @@
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
-  Fab,
   Typography,
-  LinearProgress
 } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 // import StatusTag from "./StatusTag";
 import "./Plants.css";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
 
-const PlantCard = ({ plant, handleEdit, handleDelete }) => {
+const PlantCard = ({ plant }) => {
   let navigate = useNavigate();
 
   console.log("plant", plant);
