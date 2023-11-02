@@ -188,6 +188,14 @@ class UserViewSet(viewsets.ModelViewSet):
     authentication_classes=[CustomAuthentication]
 
 
+class LoggedInUserView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
+    authentication_classes=[CustomAuthentication]
+
+    def get_object(self):
+        return self.request.user
+
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.

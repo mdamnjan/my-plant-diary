@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -38,18 +39,25 @@ class Task(models.Model):
     owner = models.ForeignKey(User, related_name='tasks', on_delete=models.CASCADE)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    completed_at = models.DateTimeField(null=True)
 
     date =models.DateField(null=False)
     completed = models.BooleanField(default=False)
+
     TASK_TYPE_CHOICES=[('water', 'Water'), ('progress', 'Progress Update'), ('repot', 'Repot'), ('prune', 'Prune')]
     type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES, default='water')
+
+    def save(self, *args, **kwargs):
+        if self.completed:
+            self.completed_at=timezone.now()
+
+        super(Task, self).save(*args, **kwargs)  
 
 class Note(models.Model):
     owner = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True) 
     text = models.CharField(max_length=1000)
     img_url = models.CharField(max_length=200, null=True)
 
