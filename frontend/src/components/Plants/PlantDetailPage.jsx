@@ -10,15 +10,12 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  createWateringEntry,
   fetchPlant,
   fetchWateringEntries,
   fetchNotes,
   fetchTasks,
 } from "../../api";
 
-import AddButton from "../common/AddButton";
-import WateringEntryForm from "./WateringEntryForm";
 import NotesTab from "./PlantDetails/Tabs/NotesTab";
 import TasksTab from "./PlantDetails/Tabs/TasksTab";
 import OverviewTab from "./PlantDetails/Tabs/OverviewTab";
@@ -27,7 +24,6 @@ const PlantDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [tab, setTab] = useState(0);
-  const [open, setOpen] = useState(false);
 
   const [plant, setPlant] = useState(null);
   const [entries, setEntries] = useState([]);
@@ -65,13 +61,6 @@ const PlantDetailPage = () => {
       if (response.data) {
         setPlant(response.data);
       }
-    });
-  };
-
-  const handleSubmit = (body) => {
-    createWateringEntry(body).then(() => {
-      getWateringEntries();
-      setOpen(false);
     });
   };
 
@@ -120,16 +109,6 @@ const PlantDetailPage = () => {
       {tab === 0 && <OverviewTab plant={plant} entries={entries}/>}
       {tab === 1 && <NotesTab notes={notes} />}
       {tab === 2 && <TasksTab plant={plant.id} />}
-      <WateringEntryForm
-        open={open}
-        onClose={() => setOpen(false)}
-        plant={plant}
-        handleSubmit={handleSubmit}
-      />
-      <AddButton
-        tooltipText="Log a watering entry"
-        onClick={() => setOpen(true)}
-      />
     </div>
   );
 };

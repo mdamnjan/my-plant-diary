@@ -1,5 +1,5 @@
 import { Paper, IconButton, Typography } from "@mui/material";
-import "./HomePage.css"
+import "./HomePage.css";
 
 const NumberWidget = ({ icon, data, subtitle, iconColor, backgroundColor }) => {
   return (
@@ -17,16 +17,18 @@ const NumberWidget = ({ icon, data, subtitle, iconColor, backgroundColor }) => {
         marginTop: "20px",
       }}
     >
-      <IconButton
-        disableRipple
-        disableTouchRipple
-        sx={{ color: "white", backgroundColor: iconColor }}
-        color="primary"
-      >
-        {icon}
-      </IconButton>
-      <Typography variant="h5">{data}</Typography>
-      <span>{subtitle}</span>
+      <div style={{display: "flex", alignItems: "center"}}>
+        <IconButton
+          disableRipple
+          disableTouchRipple
+          sx={{ color: "white", backgroundColor: iconColor, marginRight: "10px" }}
+          color="primary"
+        >
+          {icon}
+        </IconButton>
+        <Typography variant="h5">{data}</Typography>
+      </div>
+      <Typography sx={{marginTop: "10px"}} variant="span">{subtitle}</Typography>
     </Paper>
   );
 };

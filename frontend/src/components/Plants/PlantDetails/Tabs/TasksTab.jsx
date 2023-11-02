@@ -1,4 +1,5 @@
 import TaskList from "../../../Tasks/TaskList";
+import AddButton from "../../../common/AddButton";
 
 import BaseWidget from "../../../common/BaseWidget";
 
@@ -20,6 +21,7 @@ const TasksTab = ({ plant }) => {
       <BaseWidget sx={{ marginTop: "20px" }} title="Next month">
         <TaskList plant={plant} interval="month"></TaskList>
       </BaseWidget>
+      <AddButton tooltipText={"Add a task"}/>
     </>
   );
 };

@@ -86,7 +86,7 @@ const PlantPage = () => {
 
   return (
     <>
-      <Box style={{ maxWidth: "800px", margin: "20px auto 10px auto" }}>
+      <Box style={{ maxWidth: "1000px", margin: "20px auto 10px auto" }}>
         <Autocomplete
           onSelect={(e) => {
             setFilteredPlants(
@@ -98,7 +98,6 @@ const PlantPage = () => {
           sx={{
             marginTop: "10px",
             margin: "auto",
-            backgroundColor: "#d9d9d99e",
             borderRadius: "10px",
             "& fieldset": { borderRadius: "10px" },
             "& .MuiInputBase-root": { paddingRight: "10px !important" }
@@ -131,7 +130,6 @@ const PlantPage = () => {
             labelId="sort-by-select"
             defaultValue="updated"
             sx={{
-              backgroundColor: "#d9d9d99e",
               marginTop: "10px",
               borderRadius: "10px",
               padding: "0px 6px",

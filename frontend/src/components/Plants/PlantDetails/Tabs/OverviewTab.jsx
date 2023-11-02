@@ -28,16 +28,16 @@ const OverviewTab = ({ plant, entries }) => {
       </Box>
       <Box sx={{ display: "flex", gap: "20px" }}>
         <NumberWidget
-          data={3}
+          data={plant?.task_count}
           icon={<MuiTask />}
           subtitle={"tasks today"}
           backgroundColor={"#c5edfa"}
           iconColor={"#3865da"}
         />
         <NumberWidget
-          data={2}
+          data={plant?.completed_task_count}
           icon={<MuiTask />}
-          subtitle={"overdue tasks"}
+          subtitle={"tasks left"}
           backgroundColor={"#c5edfa"}
           iconColor={"#3865da"}
         />

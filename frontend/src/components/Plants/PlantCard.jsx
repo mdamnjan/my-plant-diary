@@ -5,12 +5,14 @@ import {
   CardMedia,
   Fab,
   Typography,
+  LinearProgress
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 // import StatusTag from "./StatusTag";
 import "./Plants.css";
+import TaskProgressBar from "../Tasks/TaskProgressBar";
 
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
   let navigate = useNavigate();
@@ -58,8 +60,9 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         >
           {plant.name}
         </Typography>
+        <TaskProgressBar resource={plant}/>
       </CardContent>
-      <CardActions
+      {/* <CardActions
         sx={{
           flexGrow: 1,
           display: "flex",
@@ -93,7 +96,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         >
           <Delete />
         </Fab>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

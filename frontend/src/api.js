@@ -35,6 +35,10 @@ export const performApiCall = async (method, url, body) => {
   return res;
 };
 
+export const fetchUser = () => {
+    return performApiCall("get", "/me");
+  };
+
 export const fetchPlants = () => {
   return performApiCall("get", "/plants");
 };

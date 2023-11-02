@@ -2,7 +2,7 @@
   .widget {
     flex-basis: 50%;
   }
-  .widgets > * {
+  .widgets > *, .tasks > * {
     flex-basis: 50%;
   }
 }
@@ -11,7 +11,7 @@
   .widget {
     flex-basis: 100%;
   }
-  .widgets > * {
+  .widgets > *, .tasks > * {
     flex-basis: 100%;
   }
 }
