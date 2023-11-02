@@ -37,5 +37,6 @@ urlpatterns = [
     path('api/token/refresh/', auth_views.CookieTokenRefreshView.as_view(), name='token_refresh'),
     path('api/logout/', auth_views.LogoutView.as_view(), name ='logout'),
     path('api/login/', auth_views.LoginView.as_view(), name ='login'),
-    path('api/register/',auth_views.RegistrationView.as_view(), name ='register')
+    path('api/register/',auth_views.RegistrationView.as_view(), name ='register'),
+    path('api/me/', views.LoggedInUserView.as_view(), name='me')
 ]
