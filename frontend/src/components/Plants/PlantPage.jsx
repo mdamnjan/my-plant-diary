@@ -88,13 +88,6 @@ const PlantPage = () => {
     <>
       <Box style={{ maxWidth: "800px", margin: "20px auto 10px auto" }}>
         <Autocomplete
-          onInputChange={(e) => {
-            setFilteredPlants(
-              plantList.filter((plant) =>
-                plant.name.toLowerCase().includes(e.target.value.toLowerCase())
-              )
-            );
-          }}
           onSelect={(e) => {
             setFilteredPlants(
               plantList.filter((plant) =>
@@ -149,32 +142,6 @@ const PlantPage = () => {
             <MenuItem value="name">Name</MenuItem>
           </Select>
         </FormControl>
-        <FormControl
-          sx={{
-            minWidth: "150px",
-            margin: "20px",
-          }}
-        >
-          <InputLabel shrink id="status-select">
-            Status
-          </InputLabel>
-          <Select
-            labelId="status-select"
-            defaultValue="any"
-            sx={{
-              backgroundColor: "#d9d9d99e",
-              marginTop: "10px",
-              borderRadius: "10px",
-              padding: "0px 6px",
-              "& .MuiSelect-select": { padding: "8px" },
-            }}
-            style={{ padding: "1px !important" }}
-          >
-            <MenuItem value="any">Any status</MenuItem>
-            <MenuItem value="OK">Ok</MenuItem>
-            <MenuItem value="NA">Needs attention</MenuItem>
-          </Select>
-        </FormControl>{" "}
       </Box>
       <Divider />
       <Box className="plant-list">{plants}</Box>

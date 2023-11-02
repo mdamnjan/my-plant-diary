@@ -9,9 +9,6 @@ class Plant(models.Model):
     owner = models.ForeignKey(User, related_name='plants', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     slug = models.SlugField()
-    # status -> whether it needs to be watered
-    PLANT_STATUS_CHOICES = [('OK', 'Ok'), ('NA', 'Needs Attention')]
-    status = models.CharField(max_length=2, choices=PLANT_STATUS_CHOICES, default='OK')
     WATERING_FREQUENCY_CHOICES=[('EOD', 'Every Other Day'), ('OAW', 'Once a Week'), ('ETW', 'Every 2 Weeks'), ('OAM', 'Once a Month')]
     watering_frequency=models.CharField(max_length=3, choices=WATERING_FREQUENCY_CHOICES, default='OAW')
     last_watered=models.DateField(null=True)
@@ -47,16 +44,6 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     TASK_TYPE_CHOICES=[('water', 'Water'), ('progress', 'Progress Update'), ('repot', 'Repot'), ('prune', 'Prune')]
     type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES, default='water')
-    overdue = models.BooleanField(default=False)
-
-    def save(self, *args, **kwargs):
-        if datetime.date.today() > self.date:
-            # task is overdue/late
-            self.overdue = True
-            self.plant.status="NA"
-            self.plant.save()
-        
-        super(Task, self).save(*args, **kwargs)
 
 class Note(models.Model):
     owner = models.ForeignKey(User, related_name='notes', on_delete=models.CASCADE)

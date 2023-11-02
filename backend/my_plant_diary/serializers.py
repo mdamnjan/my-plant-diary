@@ -7,17 +7,13 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    # https://stackoverflow.com/questions/28945327/django-rest-framework-with-choicefield#answer-28954424
-    status_display = serializers.ReadOnlyField(source='get_status_display')
-
     slug = serializers.ReadOnlyField()
     next_watering=serializers.ReadOnlyField()
     last_watered=serializers.ReadOnlyField()
     watering_frequency_display=serializers.ReadOnlyField(source='get_watering_frequency_display')
-
     class Meta:
         model = Plant
-        fields = ('id', 'owner', 'name', 'slug', 'img_url', 'status', 'status_display', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
+        fields = ('id', 'owner', 'name', 'slug', 'img_url', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -27,7 +23,7 @@ class TaskSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Task
-        fields = ('id', 'overdue', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'type_display', 'completed')
+        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'updated', 'date', 'type', 'type_display', 'completed')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

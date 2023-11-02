@@ -75,7 +75,7 @@ class TaskViewSet(viewsets.ModelViewSet):
                     tasks = tasks.filter(plant__owner=user, date__gte=(today+timedelta(days=7)), date__lte=(today+timedelta(days=14)))
                 elif query_interval == 'month':
                     tasks = tasks.filter(plant__owner=user, date__gte=(today+timedelta(days=14)), date__lte=(today+timedelta(days=30)))
-            
+
             overdue_filter = url_params.get('overdue', False)
             if overdue_filter:
                 is_overdue=False
@@ -84,7 +84,10 @@ class TaskViewSet(viewsets.ModelViewSet):
                 except:
                     pass
 
-                tasks = tasks.filter(plant__owner=user, overdue=is_overdue)
+                if is_overdue:
+                    today = timezone.now().date()
+                    # completed tasks shouldn't be considered overdue
+                    tasks = tasks.filter(plant__owner=user, completed=False, date__lt=today)
 
             completed_filter = url_params.get('completed', False)
             if completed_filter:
@@ -96,21 +99,12 @@ class TaskViewSet(viewsets.ModelViewSet):
 
                 tasks = tasks.filter(plant__owner=user, completed=is_completed)
 
-
-            status_filter = url_params.get('status', False)
-            if status_filter:
-                if status_filter == 'any':
-                    pass
-                if status_filter == 'OK' or status_filter == 'NW':
-                    tasks = tasks.filter(plant__status=status_filter)
-
             sort = url_params.get('sort', False)
             if sort:
                 try:
                     tasks = tasks.order_by(sort)
                 except:
                     pass
-                return tasks
             
         return tasks.order_by('date')
 

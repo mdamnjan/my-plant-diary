@@ -9,7 +9,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-import StatusTag from "./StatusTag";
+// import StatusTag from "./StatusTag";
 import "./Plants.css";
 
 const PlantCard = ({ plant, handleEdit, handleDelete }) => {
@@ -41,7 +41,7 @@ const PlantCard = ({ plant, handleEdit, handleDelete }) => {
         sx={{ width: "100%", height: "70%", position: "relative" }}
         component="div"
         image={plant.img_url || "../../Calathea_orbifolia.jpg"}
-        children={<StatusTag status={plant.status_display} />}
+        // children={<StatusTag status={plant.status_display} />}
         alt={plant.name}
       />
       <CardContent sx={{ position: "relative" }}>

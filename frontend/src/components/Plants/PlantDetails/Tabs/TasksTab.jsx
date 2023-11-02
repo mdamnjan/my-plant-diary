@@ -5,6 +5,9 @@ import BaseWidget from "../../../common/BaseWidget";
 const TasksTab = ({ plant }) => {
   return (
     <>
+      <BaseWidget sx={{ marginTop: "20px" }} title="Overdue">
+        <TaskList plant={plant} overdue={true}></TaskList>
+      </BaseWidget>
       <BaseWidget sx={{ marginTop: "20px" }} title="Today">
         <TaskList plant={plant} interval="today"></TaskList>
       </BaseWidget>
