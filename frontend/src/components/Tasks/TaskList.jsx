@@ -13,7 +13,7 @@ const TaskList = (props) => {
       "get",
       `/tasks?plant=${props.plant || ""}&interval=${props.interval}&overdue=${
         props.overdue || false
-      }`
+      }&completed=false`
     ).then((res) => setTasks(res.data));
   }, [props.interval, props.overdue, props.plant]);
 
