@@ -19,6 +19,7 @@ import {
 import NotesTab from "./PlantDetails/Tabs/NotesTab";
 import TasksTab from "./PlantDetails/Tabs/TasksTab";
 import OverviewTab from "./PlantDetails/Tabs/OverviewTab";
+import TasksPage from "../Tasks/TasksPage";
 
 const PlantDetailPage = () => {
   const navigate = useNavigate();

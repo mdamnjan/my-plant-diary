@@ -9,8 +9,15 @@ import {
 } from "@mui/material";
 
 import "./Note.css";
+import NoteForm from "../Forms/NoteForm";
+import ConfirmForm from "../Forms/ConfirmForm";
+
+import { useState } from "react";
 
 const Note = ({ note, handleDelete, handleEdit }) => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <>
       <Card
@@ -24,13 +31,13 @@ const Note = ({ note, handleDelete, handleEdit }) => {
         }}
       >
         <CardActions style={{ float: "right" }}>
-          <IconButton size="small" color="primary" onClick={()=>handleEdit()}>
+          <IconButton size="small" color="primary" onClick={() => setIsEditing(true)}>
             <Edit />
           </IconButton>
           <IconButton
             size="small"
             color="default"
-            onClick={() => handleDelete(note.id)}
+            onClick={() => setConfirmDelete(true)}
           >
             <Delete />
           </IconButton>
@@ -65,6 +72,20 @@ const Note = ({ note, handleDelete, handleEdit }) => {
           })}
         </span>
       </Card>
+      <NoteForm
+        open={isEditing}
+        isEditing={isEditing}
+        onClose={() => setIsEditing(false)}
+        handleSubmit={handleEdit}
+        note={note}
+      ></NoteForm>
+      <ConfirmForm
+        title="Delete note?"
+        buttonText="Delete"
+        open={confirmDelete}
+        onClose={() => setConfirmDelete(false)}
+        handleSubmit={() => handleDelete(note.id)}
+      ></ConfirmForm>
     </>
   );
 };

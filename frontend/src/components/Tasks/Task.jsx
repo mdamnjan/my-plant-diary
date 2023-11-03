@@ -10,8 +10,16 @@ import {
 } from "@mui/material";
 
 import "../Notes/Note.css";
+import ConfirmForm from "../Forms/ConfirmForm";
+import TaskForm from "../Forms/TaskForm";
+
+import { useState } from "react";
 
 const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
+  const [confirmComplete, setConfirmComplete] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const getTagColor = (type) => {
     switch (type) {
       case "Water":
@@ -80,21 +88,21 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
           </div>
           <CardActions>
             <IconButton
-              onClick={() => completeTask(task)}
+              onClick={() => setConfirmComplete(true)}
               sx={{ padding: "0px" }}
               color={task.completed ? "success" : "default"}
             >
               {task.completed ? <CheckCircle /> : <CircleOutlined />}
             </IconButton>
             <IconButton
-              onClick={() => handleEdit(task)}
+              onClick={() => setIsEditing(true)}
               color="primary"
               sx={{ padding: "0px" }}
             >
               <Edit />
             </IconButton>
             <IconButton
-              onClick={() => handleDelete(task.id)}
+              onClick={() => setConfirmDelete(true)}
               color="default"
               sx={{ padding: "0px" }}
             >
@@ -125,6 +133,27 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
           </div>
         </CardContent>
       </Card>
+      <TaskForm
+        open={isEditing}
+        isEditing={isEditing}
+        onClose={() => setIsEditing(false)}
+        handleSubmit={handleEdit}
+        task={task}
+      ></TaskForm>
+      <ConfirmForm
+        title="Complete task?"
+        buttonText="Complete"
+        open={confirmComplete}
+        onClose={() => setConfirmComplete(false)}
+        handleSubmit={() => completeTask(task)}
+      ></ConfirmForm>
+      <ConfirmForm
+        title="Delete task?"
+        buttonText="Delete"
+        open={confirmDelete}
+        onClose={() => setConfirmDelete(false)}
+        handleSubmit={() => handleDelete(task.id)}
+      ></ConfirmForm>
     </>
   );
 };

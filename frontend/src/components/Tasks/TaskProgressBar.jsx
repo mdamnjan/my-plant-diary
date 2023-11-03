@@ -13,7 +13,7 @@ const TaskProgressBar = ({ resource }) => {
         value={progressPercentage}
         variant="determinate"
       />
-      <span>{`${progressPercentage}%`} tasks completed</span>
+      <span>{`${Math.floor(progressPercentage)}%`} tasks completed</span>
     </div>
   );
 };

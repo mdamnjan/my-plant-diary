@@ -2,6 +2,9 @@
   .widget {
     flex-basis: 50%;
   }
+  .progress-widgets > * {
+    flex-basis: 33%;
+  }
   .widgets > *, .tasks > * {
     flex-basis: 50%;
   }
@@ -11,11 +14,11 @@
   .widget {
     flex-basis: 100%;
   }
-  .widgets > *, .tasks > * {
+  .widgets > *, .tasks > *, .progress-widgets > * {
     flex-basis: 100%;
   }
 }
 
-.widgets {
+.widgets, .progress-widgets {
     flex-wrap: wrap;
 }

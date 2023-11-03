@@ -27,20 +27,7 @@ const HomePage = () => {
     });
   }, []);
 
-  // const todaysTasks = tasks.filter((task) => {
-  //   let today = new Date();
-  //   let taskDate = new Date(task.date);
-
-  //   let difference = today - taskDate;
-
-  //   const ONE_DAY = 1000 * 60 * 60 * 24;
-
-  //   // Convert back to days and return
-  //   let numDays = Math.floor(difference / ONE_DAY);
-
-  //   return numDays === 0;
-  // });
-
+  const tasksLeft = user.task_count - user.completed_task_count;
   return (
     <div
       style={{
@@ -62,12 +49,8 @@ const HomePage = () => {
           Welcome back, {user.username}!
         </Typography>
       </Box>
-      <BaseWidget sx={{marginTop: "20px"}}>
-        <Typography>{user.completed_task_count}/{user.task_count}</Typography>
-        <TaskProgressBar resource={user} />
-      </BaseWidget>
       <Box
-        className="widgets"
+        className="progress-widgets"
         sx={{
           width: "100%",
           display: "flex",
@@ -76,17 +59,25 @@ const HomePage = () => {
           gap: "20px",
         }}
       >
+        <BaseWidget sx={{ marginTop: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <Typography>
+            {user.completed_task_count}/{user.task_count}
+          </Typography>
+          <TaskProgressBar resource={user} />
+        </BaseWidget>
         <NumberWidget
-          data={user.task_count}
+          data={tasksLeft}
           icon={<TaskIcon />}
-          subtitle={"tasks today"}
+          subtitle={tasksLeft === 1 ? "task left" : "tasks left"}
           backgroundColor={"#c5edfa"}
           iconColor={"#3865da"}
         />
         <NumberWidget
           data={user.overdue_task_count}
           icon={<TaskIcon />}
-          subtitle={"overdue tasks"}
+          subtitle={
+            user.overdue_task_count === 1 ? "overdue task" : "overdue tasks"
+          }
           backgroundColor={"rgb(253 223 156)"}
           iconColor={"#ed8724"}
         />

@@ -1,31 +1,19 @@
 import { Tab, Tabs } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "../Notes/Note.css";
 import AddButton from "../common/AddButton";
 import TaskForm from "./TaskForm";
 
-import { createTask, fetchTasks, deleteTask, updateTask } from "../../api";
+import { createTask } from "../../api";
 import BaseWidget from "../common/BaseWidget";
 import TaskList from "./TaskList";
-import { performApiCall } from "../../api";
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
-  const [taskList, setTaskList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [tab, setTab] = useState(0);
   const [task, setTask] = useState(null);
-
-  const getTasks = () => {
-    fetchTasks().then((response) => {
-      if (response.data) {
-        setTaskList(response.data);
-      }
-    });
-  };
-
-  console.log(taskList)
 
   const handleEdit = (task) => {
     setTask(task);
@@ -33,73 +21,15 @@ const TasksPage = () => {
     setOpen(true);
   };
 
-  const handleDelete = (task) => {
-    deleteTask(task).then(() => getTasks());
-  };
-
-  const completeTask = (task) => {
-    updateTask(task.id, { completed: true }).then(() => getTasks());
-  };
-
-  let overdueTasks = (
-    <TaskList
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      completeTask={completeTask}
-      overdue={true}
-    />
-  );
-
-  let todaysTasks = (
-    <TaskList
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      completeTask={completeTask}
-      interval="today"
-    />
-  );
-
-  let next7DaysTasks = (
-    <TaskList
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      completeTask={completeTask}
-      interval="week"
-    />
-  );
-
-  let next2WeeksTasks = (
-    <TaskList
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      completeTask={completeTask}
-      interval="2weeks"
-    />
-  );
-
-  let nextMonthsTasks = (
-    <TaskList
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      completeTask={completeTask}
-      interval="month"
-    />
-  );
-
   const handleSubmit = (e, taskType, plant, taskDate) => {
     const updatePage = () => {
       setOpen(false);
-      window.location.reload()
+      window.location.reload();
     };
 
     const body = { type: taskType, plant: plant.id, date: taskDate };
     createTask(body).then(() => updatePage());
   };
-
-  useEffect(() => {
-    // getTasks();
-    performApiCall("get", "/tasks?interval=week").then((res)=>setTaskList(res.data))
-  }, []);
 
   return (
     <>
@@ -115,23 +45,23 @@ const TasksPage = () => {
       {tab === 0 && (
         <>
           <BaseWidget sx={{ marginTop: "20px" }} title="Overdue Tasks">
-            {overdueTasks}
+            <TaskList handleEdit={handleEdit} overdue={true} />
           </BaseWidget>
           <BaseWidget sx={{ marginTop: "20px" }} title="Today's Tasks">
-            {todaysTasks}
+            <TaskList handleEdit={handleEdit} interval="today" />
           </BaseWidget>
         </>
       )}
       {tab === 1 && (
         <>
           <BaseWidget sx={{ marginTop: "20px" }} title="Next 7 days">
-            {next7DaysTasks}
+            <TaskList handleEdit={handleEdit} interval="week" />
           </BaseWidget>
           <BaseWidget sx={{ marginTop: "20px" }} title="Next 2 weeks">
-            {next2WeeksTasks}
+            <TaskList handleEdit={handleEdit} interval="2weeks" />
           </BaseWidget>
           <BaseWidget sx={{ marginTop: "20px" }} title="Next month">
-            {nextMonthsTasks}
+            <TaskList handleEdit={handleEdit} interval="month" />
           </BaseWidget>
         </>
       )}
