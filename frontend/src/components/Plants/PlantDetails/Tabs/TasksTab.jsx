@@ -1,3 +1,4 @@
+import { createTask } from "../../../../api";
 import TaskForm from "../../../Forms/TaskForm";
 import TaskList from "../../../Tasks/TaskList";
 import AddButton from "../../../common/AddButton";
@@ -25,8 +26,15 @@ const TasksTab = ({ plant }) => {
       <BaseWidget sx={{ marginTop: "20px" }} title="Next month">
         <TaskList plant={plant} interval="month"></TaskList>
       </BaseWidget>
-      <AddButton tooltipText={"Add a task"} onClick={()=>setOpen(true)}/>
-      <TaskForm open={open}/>
+      <AddButton tooltipText={"Add a task"} onClick={() => setOpen(true)} />
+      <TaskForm
+        open={open}
+        onClose={() => setOpen(false)}
+        handleSubmit={(task) => {
+          setOpen(false);
+          createTask(task)
+        }}
+      />
     </>
   );
 };

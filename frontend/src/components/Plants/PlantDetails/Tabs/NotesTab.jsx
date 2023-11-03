@@ -3,8 +3,14 @@ import BaseWidget from "../../../common/BaseWidget";
 import { Box, Typography } from "@mui/material";
 import { Task as TaskIcon } from "@mui/icons-material";
 import AddButton from "../../../common/AddButton";
+import NoteForm from "../../../Forms/NoteForm";
+
+import { useState } from "react";
+import { createNote } from "../../../../api";
 
 const NotesTab = ({ notes }) => {
+  const [open, setOpen] = useState(false);
+
   if (notes.length === 0) {
     return (
       <>
@@ -31,7 +37,15 @@ const NotesTab = ({ notes }) => {
             </div>
           </Box>
         </BaseWidget>
-        <AddButton tooltipText={"Add a note"} />
+        <AddButton tooltipText={"Add a note"} onClick={()=>setOpen(true)}/>
+        <NoteForm
+          open={open}
+          onClose={() => setOpen(false)}
+          handleSubmit={(note) => {
+            setOpen(false);
+            createNote(note);
+          }}
+        />
       </>
     );
   }
@@ -40,7 +54,15 @@ const NotesTab = ({ notes }) => {
       {notes.map((note) => (
         <Note note={note} />
       ))}
-      <AddButton tooltipText={"Add a note"} />
+      <AddButton tooltipText={"Add a note"} onClick={()=>setOpen(true)} />
+      <NoteForm
+        open={open}
+        onClose={() => setOpen(false)}
+        handleSubmit={(note) => {
+          setOpen(false);
+          createNote(note);
+        }}
+      />
     </>
   );
 };

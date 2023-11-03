@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import "../Notes/Note.css";
 import AddButton from "../common/AddButton";
-import TaskForm from "./TaskForm";
+import TaskForm from "../Forms/TaskForm";
 
 import { createTask } from "../../api";
 import BaseWidget from "../common/BaseWidget";
