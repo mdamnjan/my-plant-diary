@@ -1,16 +1,10 @@
-import {
-  Autocomplete,
-  TextField,
-  Box,
-  Avatar,
-  Chip,
-} from "@mui/material";
+import { Autocomplete, TextField, Box, Avatar, Chip } from "@mui/material";
 import { useState, useEffect } from "react";
 import { fetchPlants } from "../../api";
 import UploadButton from "../common/UploadButton";
 import { getImageFromFile } from "../../utils";
 import BaseForm from "./BaseForm";
-import "../Notes/Note.css"
+import "../Notes/Note.css";
 
 const NoteForm = ({ open, onClose, handleSubmit }) => {
   const [plant, setPlant] = useState(null);
@@ -31,7 +25,10 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
       buttonText={"Create note"}
       open={open}
       onClose={onClose}
-      handleSubmit={handleSubmit}
+      handleSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e, noteContent, plant, img);
+      }}
     >
       <Autocomplete
         fullWidth

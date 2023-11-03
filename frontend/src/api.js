@@ -77,6 +77,7 @@ export const createWateringEntry = (body) => {
 };
 
 export const createNote = (body) => {
+    console.log("body", body)
   return performApiCall("post", "/notes/", body);
 };
 
