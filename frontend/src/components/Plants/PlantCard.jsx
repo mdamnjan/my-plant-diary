@@ -41,15 +41,17 @@ const PlantCard = ({ plant }) => {
       />
       <CardContent sx={{ position: "relative" }}>
         <Typography
+          noWrap
           sx={{
             position: "absolute",
             top: "70%",
-            left: "10%",
             fontWeight: "bold",
+            textOverflow: "ellipsis",
+            width: "calc(88%)"
           }}
           gutterBottom
           variant="h5"
-          component="div"
+          component="h5"
         >
           {plant.name}
         </Typography>
