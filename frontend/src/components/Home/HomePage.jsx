@@ -107,7 +107,7 @@ const HomePage = () => {
         >
           View All
         </a>
-        <Box sx={{ display: "flex", gap: "20px", overflowX: "scroll" }}>
+        <Box sx={{ display: "flex", gap: "20px", overflowX: "scroll", padding: "10px" }}>
           {plants.map((plant) => (
             <PlantCard plant={plant} />
           ))}
