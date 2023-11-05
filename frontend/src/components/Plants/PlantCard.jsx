@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // import StatusTag from "./StatusTag";
@@ -21,7 +16,7 @@ const PlantCard = ({ plant }) => {
         display: "flex",
         flexDirection: "column",
         margin: "0 !important",
-        position: "relative", 
+        position: "relative",
         minHeight: "300px",
         minWidth: "250px",
         maxHeight: "500px",
@@ -29,6 +24,8 @@ const PlantCard = ({ plant }) => {
         borderRadius: "20px",
         border: "none",
         flexShrink: 1,
+        boxShadow:
+          "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
       }}
       variant="outlined"
       onClick={() =>
@@ -56,7 +53,7 @@ const PlantCard = ({ plant }) => {
         >
           {plant.name}
         </Typography>
-        <TaskProgressBar resource={plant}/>
+        <TaskProgressBar resource={plant} />
       </CardContent>
       {/* <CardActions
         sx={{
