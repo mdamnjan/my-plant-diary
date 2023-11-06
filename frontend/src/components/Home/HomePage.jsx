@@ -37,11 +37,6 @@ const HomePage = () => {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <img
-          src="plant-logo.png"
-          alt="a potted plant illustration"
-          style={{ width: "50px", height: "50px" }}
-        ></img>
         <Typography
           variant="h5"
           sx={{ display: "inline-block", verticalAlign: "bottom" }}

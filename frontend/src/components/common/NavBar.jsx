@@ -76,10 +76,10 @@ const NavBar = ({ smallScreen }) => {
 
   if (smallScreen) {
     return (
-      <Paper>
+      <Paper sx={{ backgroundColor: "rgba(71, 161, 92, 0.389)" }}>
         <nav
           style={{
-            padding: "0px",
+            padding: "5px",
             margin: "0px",
             display: "flex",
             justifyContent: "space-around",
@@ -96,6 +96,7 @@ const NavBar = ({ smallScreen }) => {
                 textTransform: "none",
                 borderRadius: "20px",
                 display: "flex",
+                backgroundColor: window.location.pathname === button.url ? "white !important" : "default"
               }}
               onClick={button.onClick}
             >
@@ -108,7 +109,10 @@ const NavBar = ({ smallScreen }) => {
   }
 
   return (
-    <Paper className="nav-bar">
+    <Paper
+      sx={{ backgroundColor: "rgba(71, 161, 92, 0.389)" }}
+      className="nav-bar"
+    >
       <Typography sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
         <img id="logo" alt="plant logo" src="plant-logo.png" />
         <h3>My Plant Diary</h3>
@@ -119,11 +123,21 @@ const NavBar = ({ smallScreen }) => {
             fullWidth
             variant={window.location.pathname === button.url ? "contained" : ""}
             sx={{
+              marginBottom: "2px",
               textTransform: "none",
               borderRadius: "20px",
               display: "flex",
               justifyContent: "flex-start",
-              padding: "5px 20px",
+              padding: "2px 20px",
+              backgroundColor:
+                window.location.pathname === button.url ? "white" : "inherit",
+              color:
+                window.location.pathname === button.url ? "black" : "inherit",
+              "&:hover": {
+                backgroundColor: "white",
+                boxShadow:
+                  "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+              },
             }}
             onClick={button.onClick}
           >

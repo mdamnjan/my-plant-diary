@@ -26,10 +26,10 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <Typography>
+        <div style={{display: "flex", alignItems: "center", marginBottom: "25px"}}>
           <img alt="plant" id="logo" src="plant-logo.png" />
-          <h2>My Plant Diary</h2>
-        </Typography>
+          <Typography variant="h4">My Plant Diary</Typography>
+        </div>
         <TextField
           id="outlined-basic"
           className="text-field"
