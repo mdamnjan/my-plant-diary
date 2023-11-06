@@ -36,6 +36,7 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   }, [isEditing, task]);
 
   const PlantTag = (plant) => {
+    console.log("plant", plant, plant.plant, plant.name);
     return (
       <div
         style={{
@@ -80,12 +81,13 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
         onClose();
         setPlant(null);
       }}
-      handleSubmit={() =>
-        handleSubmit(task.id, { plant: plant, type: taskType, date: taskDate })
+      handleSubmit={(e) =>
+        handleSubmit(e, taskType, plant, taskDate )
       }
     >
       <Autocomplete
         fullWidth
+        value={plant}
         style={{
           margin: "10px 0px",
           alignSelf: "flex-start",
@@ -132,17 +134,19 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
           </Box>
         )}
         onChange={(e, newValue) => {
+          console.log(newValue);
           setPlant(newValue);
         }}
       />
-      {plant && <PlantTag plant={plant} />}
+      {plant && <PlantTag plant={plant.plant} />}
       <FormControl fullWidth sx={{ margin: "10px 0px 20px 0px" }}>
         <InputLabel id="demo-simple-select-label">Type</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Type"
-          value={taskType}
+        //   value={taskType}
+          defaultValue={"water"}
           onChange={(e) => setTaskType(e.target.value)}
         >
           <MenuItem value={"water"}>Water</MenuItem>
