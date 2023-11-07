@@ -9,30 +9,24 @@ from django.utils import timezone
 class PlantSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     slug = serializers.ReadOnlyField()
-    next_watering=serializers.ReadOnlyField()
-    last_watered=serializers.ReadOnlyField()
-    watering_frequency_display=serializers.ReadOnlyField(source='get_watering_frequency_display')
 
     task_count = serializers.SerializerMethodField()
     completed_task_count = serializers.SerializerMethodField()
     class Meta:
         model = Plant
-        fields = ('id', 'created', 'task_count', 'completed_task_count', 'owner', 'name', 'slug', 'img_url', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
+        fields = ('id', 'task_count', 'completed_task_count', 'owner', 'name', 'slug', 'img_url')
     
     def get_task_count(self, obj):
-        today = timezone.now().date()
-        tasks_due_today = Task.objects.filter(plant__id=obj.pk, date__gte=today, date__lte=today).count()
-        overdue_tasks = Task.objects.filter(plant__id=obj.pk, date__lt=today, completed=False).count()
-        overdue_tasks_completed = Task.objects.filter(plant__id=obj.pk, date__lt=today, completed_at__date__gte=today, completed_at__date__lte=today, completed=True).count()
+        tasks_due_today = Task.objects.due_today().count()
+        overdue_tasks = Task.objects.overdue().count()
+        overdue_tasks_completed = Task.objects.completed_today().count()
 
         # all tasks due today + overdue tasks (not completed)
         return tasks_due_today + overdue_tasks + overdue_tasks_completed
     
     def get_completed_task_count(self, obj):
-        today = timezone.now().date()
-
-        tasks_due_today_completed = Task.objects.filter(plant__id=obj.pk, date__gte=today, date__lte=today, completed=True).count()
-        overdue_tasks_completed = Task.objects.filter(plant__id=obj.pk, date__lt=today, completed_at__date__gte=today, completed_at__date__lte=today, completed=True).count()
+        tasks_due_today_completed = Task.objects.due_today_completed().count()
+        overdue_tasks_completed = Task.objects.completed_today().count()
 
         return tasks_due_today_completed + overdue_tasks_completed
     
@@ -44,7 +38,7 @@ class TaskSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Task
-        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'completed_at', 'date', 'type', 'type_display', 'completed')
+        fields = ('id', 'plant', 'plant_name', 'plant_img', 'owner', 'created', 'completed_at', 'date', 'type', 'type_display', 'completed', 'frequency')
 
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
