@@ -74,7 +74,7 @@ const TaskList = (props) => {
     );
   }
 
-  if (tasks.length === 0) {
+  if (!tasks || tasks.length === 0) {
     return (
       <StyledTaskList empty>
         <TaskIcon />
