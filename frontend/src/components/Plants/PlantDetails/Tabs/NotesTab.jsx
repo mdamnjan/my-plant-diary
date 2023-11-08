@@ -50,7 +50,7 @@ const NotesTab = ({ notes }) => {
     );
   }
   return (
-    <>
+    <Box sx={{marginTop: "20px"}}>
       {notes.map((note) => (
         <Note note={note} />
       ))}
@@ -63,7 +63,7 @@ const NotesTab = ({ notes }) => {
           createNote(note);
         }}
       />
-    </>
+    </Box>
   );
 };
 export default NotesTab;

@@ -1,8 +1,9 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import "./Login.css";
+import Logo from "../common/Logo";
 import { login } from "../../api";
 
 const LoginPage = () => {
@@ -26,10 +27,7 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <div style={{display: "flex", alignItems: "center", marginBottom: "25px"}}>
-          <img alt="plant" id="logo" src="plant-logo.png" />
-          <Typography variant="h4">My Plant Diary</Typography>
-        </div>
+        <Logo/>
         <TextField
           id="outlined-basic"
           className="text-field"

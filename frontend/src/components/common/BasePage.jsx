@@ -11,28 +11,24 @@ const BasePage = () => {
     <Container
       disableGutters
       maxWidth={"none"}
-      id="base-page"
-      style={{
+      sx={{
         display: "flex",
         height: "100vh",
-        width: "100vw",
         flexDirection: smallScreen ? "column" : "row",
       }}
-      sx={{ height: "100vh" }}
       component={Paper}
     >
       <NavBar smallScreen={smallScreen} />
       <Container
         disableGutters
         maxWidth={"xl"}
-        style={{
-          margin: "auto",
+        sx={{
           padding: "20px",
           height: "100vh",
           width: "100%",
           overflowY: "auto",
+          position: "relative !important",
         }}
-        sx={{ position: "relative !important", height: "100vh" }}
       >
         <Outlet />
       </Container>

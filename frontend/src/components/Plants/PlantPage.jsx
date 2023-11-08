@@ -98,8 +98,6 @@ const PlantPage = () => {
           sx={{
             marginTop: "10px",
             margin: "auto",
-            borderRadius: "10px",
-            "& fieldset": { borderRadius: "10px" },
             "& .MuiInputBase-root": { paddingRight: "10px !important" }
           }}
           options={plantList.map((plant) => plant.name)}

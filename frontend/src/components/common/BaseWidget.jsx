@@ -4,7 +4,7 @@ const BaseWidget = (props) => {
   return (
     <Card
       sx={{
-        backgroundColor: "#d9d9d99e",
+        backgroundColor: "#dadada9e",
         borderRadius: "10px",
         padding: "20px",
         flexGrow: 1,
