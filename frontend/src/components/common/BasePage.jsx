@@ -16,7 +16,6 @@ const BasePage = () => {
         height: "100vh",
         flexDirection: smallScreen ? "column" : "row",
       }}
-      component={Paper}
     >
       <NavBar smallScreen={smallScreen} />
       <Container

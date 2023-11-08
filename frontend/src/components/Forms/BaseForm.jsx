@@ -14,7 +14,7 @@ const BaseForm = ({
   children,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog color="primary" open={open} onClose={onClose}>
       <form
         onSubmit={handleSubmit}
         style={{

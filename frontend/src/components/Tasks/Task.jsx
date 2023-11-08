@@ -78,7 +78,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask, isLoading }) => {
               ) : (
                 <Tooltip title={task.date}>
                   <TaskDueDate variant="p">
-                    {getNumDaysUntilDate(task.date)} d
+                    {getNumDaysUntilDate(task.date)}
                   </TaskDueDate>
                 </Tooltip>
               )}

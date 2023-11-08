@@ -39,17 +39,27 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#f7f7f7",
+      main: "#3c8bd9",
+      contrastText: "#000000",
     },
     secondary: {
       main: "#d9d9d99e",
+      contrastText: "#000000",
     },
     tertiary: {
-      main: "#3c8bd9"
+      main: "#3c8bd9",
+      contrastText: "#000000",
     },
     background: "rgba(71, 161, 92, 0.389)",
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#f7f7f7",
+        }
+      },
+    },
     MuiIconButton: {
       styleOverrides: {
         root: {

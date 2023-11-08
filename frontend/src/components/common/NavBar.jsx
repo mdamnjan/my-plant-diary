@@ -112,9 +112,12 @@ const NavBar = ({ smallScreen }) => {
         <StyledNav smallScreen>
           {buttons.map((button) => (
             <StyledIconButton
+              variant="contained"
               key={button.key}
               color={
-                window.location.pathname === button.url ? "primary" : "default"
+                window.location.pathname === button.url
+                  ? "secondary"
+                  : "default"
               }
               onClick={button.onClick}
             >
@@ -132,6 +135,9 @@ const NavBar = ({ smallScreen }) => {
       <StyledNav>
         {buttons.map((button) => (
           <StyledButton
+            color={
+              window.location.pathname === button.url ? "secondary" : "default"
+            }
             key={button.key}
             disableElevation
             fullWidth
