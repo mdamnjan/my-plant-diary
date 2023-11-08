@@ -1,11 +1,17 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Skeleton,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // import StatusTag from "./StatusTag";
 import "./Plants.css";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
 
-const PlantCard = ({ plant }) => {
+const PlantCard = ({ plant, isLoading }) => {
   let navigate = useNavigate();
 
   console.log("plant", plant);
@@ -32,30 +38,44 @@ const PlantCard = ({ plant }) => {
         navigate(`/plants/${plant.slug}/`, { replace: false, state: plant })
       }
     >
-      <CardMedia
-        sx={{ width: "100%", height: "70%", position: "relative" }}
-        component="div"
-        image={plant.img_url || "../../Calathea_orbifolia.jpg"}
-        // children={<StatusTag status={plant.status_display} />}
-        alt={plant.name}
-      />
+      {isLoading ? (
+        <Skeleton
+          sx={{ height: "70%" }}
+          animation="wave"
+          variant="rectangular"
+        />
+      ) : (
+        <CardMedia
+          sx={{ width: "100%", height: "70%", position: "relative" }}
+          component="div"
+          image={plant.img_url || "../../Calathea_orbifolia.jpg"}
+          // children={<StatusTag status={plant.status_display} />}
+          alt={plant.name}
+        />
+      )}
       <CardContent sx={{ position: "relative" }}>
+        {isLoading ? (
+          <>
+            <Skeleton />
+          </>
+        ) : (
+          <TaskProgressBar resource={plant} />
+        )}
         <Typography
           noWrap
           sx={{
-            position: "absolute",
-            top: "70%",
+            position: isLoading ? "relative" : "absolute",
+            top: isLoading? "unset": "70%",
             fontWeight: "bold",
             textOverflow: "ellipsis",
-            width: "calc(88%)"
+            width: isLoading? "100%": "calc(88%)",
           }}
           gutterBottom
           variant="h5"
           component="h5"
         >
-          {plant.name}
+          {isLoading ? <Skeleton /> : plant.name}
         </Typography>
-        <TaskProgressBar resource={plant} />
       </CardContent>
       {/* <CardActions
         sx={{

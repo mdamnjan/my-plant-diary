@@ -5,7 +5,8 @@ import { Box, Typography, styled } from "@mui/material";
 import { Task as MuiTaskIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
-import { updateTask, deleteTask } from "../../api";
+import { fetchTasks, updateTask, deleteTask } from "../../api";
+import { useQuery, useQueryClient } from "react-query";
 
 const StyledTaskList = styled(Box)(({ empty }) => ({
   width: "100%",
@@ -23,40 +24,36 @@ const TaskIcon = styled(MuiTaskIcon)(() => ({
 }));
 
 const TaskList = (props) => {
-  const [tasks, setTasks] = useState([]);
+  const {
+    data: tasks,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["tasks", props.plant],
+    queryFn: () =>
+      fetchTasks(props.plant, props.overdue, props.interval, false),
+    initialData: []
+  });
 
-  const getTasks = (plant, overdue, interval) => {
-    performApiCall(
-      "get",
-      `/tasks?plant=${plant || ""}&interval=${interval}&overdue=${
-        overdue || false
-      }&completed=false`
-    ).then((res) => setTasks(res?.data));
-  };
-
-  useEffect(() => {
-    getTasks(props.plant, props.overdue, props.interval);
-  }, [props.interval, props.overdue, props.plant]);
+  const queryClient = useQueryClient();
 
   const handleDelete = (task) => {
-    deleteTask(task).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
-    );
+    deleteTask(task).then(() => queryClient.invalidateQueries([props.plant]));
   };
 
   const completeTask = (task) => {
     updateTask(task.id, { completed: true }).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
+      queryClient.invalidateQueries([props.plant])
     );
   };
 
   const handleEdit = (task, body) => {
     updateTask(task.id, body).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
+      queryClient.invalidateQueries([props.plant])
     );
   };
 
-  if (tasks.length === 0) {
+  if (!isLoading && tasks.length === 0) {
     return (
       <StyledTaskList empty>
         <TaskIcon />

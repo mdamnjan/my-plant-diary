@@ -7,11 +7,17 @@ import reportWebVitals from "./reportWebVitals";
 import { theme } from "./theme.js";
 import { ThemeProvider } from "@mui/material";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

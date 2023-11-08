@@ -9,23 +9,33 @@ import PlantCard from "../Plants/PlantCard";
 import TaskList from "../Tasks/TaskList";
 import NumberWidget from "./NumberWidget";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
+import { useQuery } from "react-query";
 
 const HomePage = () => {
-  const [plants, setPlants] = useState([]);
-  const [user, setUser] = useState([]);
+  const {
+    data: plants,
+    error: plantError,
+    isLoading: plantsLoading,
+  } = useQuery({
+    queryKey: ["plants"],
+    queryFn: () => fetchPlants(),
+    initialData: [],
+  });
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUser(),
+    initialData: {
+      task_count: 0,
+      completed_task_count: 0,
+      overdue_task_count: 0,
+    },
+  });
 
-  useEffect(() => {
-    fetchUser().then((response) => {
-      if (response && response.data) {
-        setUser(response.data);
-      }
-    });
-    fetchPlants().then((response) => {
-      if (response && response.data) {
-        setPlants(response.data);
-      }
-    });
-  }, []);
+  console.log("user", user, plants);
 
   const tasksLeft = user.task_count - user.completed_task_count;
   return (
@@ -54,7 +64,14 @@ const HomePage = () => {
           gap: "20px",
         }}
       >
-        <BaseWidget sx={{ marginTop: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <BaseWidget
+          sx={{
+            marginTop: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
           <Typography>
             {user.completed_task_count}/{user.task_count}
           </Typography>
@@ -102,9 +119,16 @@ const HomePage = () => {
         >
           View All
         </a>
-        <Box sx={{ display: "flex", gap: "20px", overflowX: "scroll", padding: "10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "20px",
+            overflowX: "scroll",
+            padding: "10px",
+          }}
+        >
           {plants.map((plant) => (
-            <PlantCard plant={plant} />
+            <PlantCard plant={plant} isLoading={plantsLoading} />
           ))}
         </Box>
       </Card>
