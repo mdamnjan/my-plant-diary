@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@mui/material";
+import { Tab, Tabs, styled } from "@mui/material";
 import { useState } from "react";
 
 import "../Notes/Note.css";
@@ -8,6 +8,14 @@ import TaskForm from "../Forms/TaskForm";
 import { createTask } from "../../api";
 import BaseWidget from "../common/BaseWidget";
 import TaskList from "./TaskList";
+
+const StyledWidget = styled(BaseWidget)(() => ({
+  marginTop: "20px",
+}));
+
+const StyledTab = styled(Tab)(() => ({
+  flex: "1 1 0",
+}));
 
 const TasksPage = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +30,6 @@ const TasksPage = () => {
   };
 
   const handleSubmit = (e, taskType, plant, taskDate) => {
-    console.log("is this running")
     const updatePage = () => {
       setOpen(false);
       window.location.reload();
@@ -40,30 +47,30 @@ const TasksPage = () => {
         onChange={(e, selectedTab) => setTab(selectedTab)}
         aria-label="icon label tabs example"
       >
-        <Tab sx={{ flex: "1 1 0" }} label="Today" />
-        <Tab sx={{ flex: "1 1 0" }} label="Upcoming" />
+        <StyledTab label="Today" />
+        <StyledTab label="Upcoming" />
       </Tabs>
       {tab === 0 && (
         <>
-          <BaseWidget sx={{ marginTop: "20px" }} title="Overdue Tasks">
+          <StyledWidget title="Overdue Tasks">
             <TaskList handleEdit={handleEdit} overdue={true} />
-          </BaseWidget>
-          <BaseWidget sx={{ marginTop: "20px" }} title="Today's Tasks">
+          </StyledWidget>
+          <StyledWidget title="Today's Tasks">
             <TaskList handleEdit={handleEdit} interval="today" />
-          </BaseWidget>
+          </StyledWidget>
         </>
       )}
       {tab === 1 && (
         <>
-          <BaseWidget sx={{ marginTop: "20px" }} title="Next 7 days">
+          <StyledWidget title="Next 7 days">
             <TaskList handleEdit={handleEdit} interval="week" />
-          </BaseWidget>
-          <BaseWidget sx={{ marginTop: "20px" }} title="Next 2 weeks">
+          </StyledWidget>
+          <StyledWidget title="Next 2 weeks">
             <TaskList handleEdit={handleEdit} interval="2weeks" />
-          </BaseWidget>
-          <BaseWidget sx={{ marginTop: "20px" }} title="Next month">
+          </StyledWidget>
+          <StyledWidget title="Next month">
             <TaskList handleEdit={handleEdit} interval="month" />
-          </BaseWidget>
+          </StyledWidget>
         </>
       )}
       <AddButton onClick={() => setOpen(true)} tooltipText={"Add a task"} />
