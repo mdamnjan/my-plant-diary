@@ -117,19 +117,21 @@ const HomePage = () => {
             padding: "10px",
           }}
         >
-          {(plantsLoading || !plants || plants.length === 0) ? (
+          {(plantsLoading || !plants || plants.length === 0) && (
             <>
               <PlantCard isLoading />
-              <PlantCard isLoading/>
-              <PlantCard isLoading/>
-              <PlantCard isLoading/>
-              <PlantCard isLoading/>
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+              <PlantCard isLoading />
             </>
-          ) : (
+          )}
+          {!plantsLoading &&
+            plants &&
+            plants.length > 0 &&
             plants.map((plant) => (
               <PlantCard plant={plant} isLoading={plantsLoading} />
-            ))
-          )}
+            ))}
         </Box>
       </Card>
       <Box
