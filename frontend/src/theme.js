@@ -44,6 +44,9 @@ export const theme = createTheme({
     secondary: {
       main: "#d9d9d99e",
     },
+    tertiary: {
+      main: "#3c8bd9"
+    },
     background: "rgba(71, 161, 92, 0.389)",
   },
   components: {
