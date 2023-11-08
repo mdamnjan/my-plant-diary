@@ -19,7 +19,6 @@ const NotesTab = ({ plant }) => {
 
   const {
     data: notes,
-    error,
     isLoading,
   } = useQuery({
     queryKey: [`plant${plant.id}Notes`],

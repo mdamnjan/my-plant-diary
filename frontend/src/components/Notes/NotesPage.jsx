@@ -21,7 +21,6 @@ const NotesPage = () => {
 
   const {
     data: noteList,
-    error,
     isLoading,
   } = useQuery({
     queryKey: [`notes`],

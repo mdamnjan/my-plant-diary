@@ -2,12 +2,8 @@ import {
   Autocomplete,
   Box,
   Divider,
-  FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
@@ -26,8 +22,6 @@ import { useQuery, useQueryClient } from "react-query";
 const PlantPage = () => {
   const {
     data: plantList,
-    error,
-    isError,
     isLoading,
   } = useQuery({
     queryKey: ["plants"],

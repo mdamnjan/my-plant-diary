@@ -13,7 +13,6 @@ import { useQuery } from "react-query";
 const HomePage = () => {
   const {
     data: plants,
-    error: plantError,
     isLoading: plantsLoading,
   } = useQuery({
     queryKey: ["plants"],
@@ -22,8 +21,6 @@ const HomePage = () => {
   });
   const {
     data: user,
-    error,
-    isLoading,
   } = useQuery({
     queryKey: ["user"],
     queryFn: () => fetchUser(),

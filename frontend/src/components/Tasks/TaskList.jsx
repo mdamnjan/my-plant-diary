@@ -24,7 +24,6 @@ const TaskIcon = styled(MuiTaskIcon)(() => ({
 const TaskList = (props) => {
   const {
     data: tasks,
-    error,
     isLoading,
   } = useQuery({
     queryKey: ["tasks", props.plant],

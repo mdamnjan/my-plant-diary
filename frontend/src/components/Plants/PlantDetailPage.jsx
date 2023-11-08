@@ -32,7 +32,6 @@ const PlantDetailPage = () => {
 
   const {
     data: plant,
-    error,
     isLoading,
   } = useQuery({
     queryKey: [`plant${plantId}`],

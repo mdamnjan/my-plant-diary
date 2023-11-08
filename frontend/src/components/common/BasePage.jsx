@@ -1,4 +1,4 @@
-import { Container, Paper, useMediaQuery } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import "./common.css";
