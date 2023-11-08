@@ -16,7 +16,7 @@ const TaskList = (props) => {
       `/tasks?plant=${plant || ""}&interval=${interval}&overdue=${
         overdue || false
       }&completed=false`
-    ).then((res) => setTasks(res.data));
+    ).then((res) => setTasks(res?.data));
   };
 
   useEffect(() => {

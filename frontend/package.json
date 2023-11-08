@@ -8,7 +8,6 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.14.12",
     "@mui/material": "^5.10.3",
-    "@mui/x-charts": "^6.0.0-alpha.14",
     "@mui/x-date-pickers": "^6.0.0-beta.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -48,6 +47,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "frontend/node_modules/(?!d3-shape)"
     ]
   }
 }

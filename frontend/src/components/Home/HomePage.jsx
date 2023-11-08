@@ -16,12 +16,12 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchUser().then((response) => {
-      if (response.data) {
+      if (response && response.data) {
         setUser(response.data);
       }
     });
     fetchPlants().then((response) => {
-      if (response.data) {
+      if (response && response.data) {
         setPlants(response.data);
       }
     });

@@ -1,12 +1,14 @@
-name: Django CI
+name: Backend tests
 
 on:
+  workflow_dispatch:
+    branches: ["*"]
+
   pull_request:
     branches: [ "*" ]
-
+  
 jobs:
-  build:
-
+  reusable_workflow_job:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
