@@ -1,11 +1,26 @@
 import Task from "./Task";
 import { performApiCall } from "../../api";
 
-import { Box, Typography } from "@mui/material";
-import { Task as TaskIcon } from "@mui/icons-material";
+import { Box, Typography, styled } from "@mui/material";
+import { Task as MuiTaskIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
 import { updateTask, deleteTask } from "../../api";
+
+const StyledTaskList = styled(Box)(({ empty }) => ({
+  width: "100%",
+  minHeight: "200px",
+  display: empty ? "flex" : "initial",
+  justifyContent: empty ? "center" : "initial",
+  alignItems: empty ? "center" : "initial",
+  flexDirection: empty ? "column" : "inherit",
+}));
+
+const TaskIcon = styled(MuiTaskIcon)(() => ({
+  fill: "grey",
+  height: "35px",
+  width: "55px",
+}));
 
 const TaskList = (props) => {
   const [tasks, setTasks] = useState([]);
@@ -43,32 +58,15 @@ const TaskList = (props) => {
 
   if (tasks.length === 0) {
     return (
-      <Box
-        sx={{
-          width: "100%",
-          minHeight: "200px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          className="empty-state"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
-          <Typography>No tasks scheduled</Typography>
-        </div>
-      </Box>
+      <StyledTaskList empty>
+        <TaskIcon />
+        <Typography>No tasks scheduled</Typography>
+      </StyledTaskList>
     );
   }
 
   return tasks.map((task) => (
-    <Box sx={{ width: "100%" }}>
+    <StyledTaskList>
       <Task
         key={task.id}
         task={task}
@@ -77,7 +75,7 @@ const TaskList = (props) => {
         completeTask={completeTask}
         handleEdit={handleEdit}
       />
-    </Box>
+    </StyledTaskList>
   ));
 };
 export default TaskList;
