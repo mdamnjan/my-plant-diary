@@ -12,7 +12,7 @@ import TaskList from "./TaskList";
 // uses sx because the styling isn't being passed down with styled
 // See https://mui.com/system/styled/#difference-with-the-sx-prop
 const StyledWidget = (props) => (
-  <BaseWidget sx={{ marginTop: "20px" }}>{props.children}</BaseWidget>
+  <BaseWidget sx={{ marginTop: "20px" }} {...props}>{props.children}</BaseWidget>
 );
 
 const StyledTab = styled(Tab)(() => ({
