@@ -50,6 +50,7 @@ const TaskDetails = styled(Box)(() => ({
 
 const TaskDueDate = styled(Typography)(() => ({
   margin: "0px 0px 0px 10px",
+  fontWeight: "bold"
 }));
 
 const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
@@ -66,7 +67,7 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
             <div>
               <PlantName variant="h6">{task.plant_name}</PlantName>
               <Tooltip title={task.date}>
-                <TaskDueDate variant="h5">
+                <TaskDueDate variant="p">
                   {getNumDaysUntilDate(task.date)}
                 </TaskDueDate>
               </Tooltip>
