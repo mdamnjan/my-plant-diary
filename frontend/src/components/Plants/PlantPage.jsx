@@ -122,24 +122,6 @@ const PlantPage = () => {
             </>
           )}
         />
-        <FormControl sx={{ minWidth: "100px", margin: "20px 0px" }}>
-          <InputLabel shrink id="sort-by-select">
-            Sort By
-          </InputLabel>
-          <Select
-            labelId="sort-by-select"
-            defaultValue="updated"
-            sx={{
-              marginTop: "10px",
-              borderRadius: "10px",
-              padding: "0px 6px",
-              "& .MuiSelect-select": { padding: "8px" },
-            }}
-          >
-            <MenuItem value="updated">Updated</MenuItem>
-            <MenuItem value="name">Name</MenuItem>
-          </Select>
-        </FormControl>
       </Box>
       <Divider />
       <Box className="plant-list">{plants}</Box>
