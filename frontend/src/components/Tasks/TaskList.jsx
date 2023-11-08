@@ -24,7 +24,6 @@ const TaskIcon = styled(MuiTaskIcon)(() => ({
 const TaskList = (props) => {
   const {
     data: tasks,
-    isLoading,
   } = useQuery({
     queryKey: ["tasks", props.plant],
     queryFn: () =>
@@ -49,30 +48,6 @@ const TaskList = (props) => {
       queryClient.invalidateQueries([props.plant])
     );
   };
-
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          width: "100%",
-        }}
-      >
-        <div
-          className="empty-state"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Task isLoading={true} />
-          <Task isLoading={true} />
-          <Task isLoading={true} />
-          <Task isLoading={true} />
-        </div>
-      </Box>
-    );
-  }
 
   if (!tasks || tasks.length === 0) {
     return (
