@@ -2,7 +2,6 @@ import { Box, Typography } from "@mui/material";
 import { Task as MuiTask } from "@mui/icons-material";
 
 import NumberWidget from "../../../Home/NumberWidget";
-import WateringLineChart from "../../WateringLineChart";
 
 const OverviewTab = ({ plant, entries }) => {
   return (
@@ -24,7 +23,6 @@ const OverviewTab = ({ plant, entries }) => {
         <Typography variant="h6">
           Watering Frequency: {plant?.watering_frequency_display}
         </Typography>
-        {entries.length > 0 && <WateringLineChart entries={entries} />}
       </Box>
       <Box sx={{ display: "flex", gap: "20px" }}>
         <NumberWidget

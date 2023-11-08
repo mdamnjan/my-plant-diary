@@ -1,9 +1,4 @@
-import {
-  Button,
-  Paper,
-  Typography,
-  IconButton,
-} from "@mui/material";
+import { Button, Paper, Typography, IconButton } from "@mui/material";
 import {
   AccountCircle,
   Home,
@@ -22,6 +17,7 @@ import "./common.css";
 const NavBar = ({ smallScreen }) => {
   const buttons = [
     {
+      key: "home-button",
       text: "Home",
       icon: <Home fontSize="large" />,
       url: "/",
@@ -30,6 +26,7 @@ const NavBar = ({ smallScreen }) => {
       },
     },
     {
+      key: "plants-button",
       text: "Plants",
       icon: <LocalFlorist fontSize="large" />,
       url: "/plants",
@@ -38,6 +35,7 @@ const NavBar = ({ smallScreen }) => {
       },
     },
     {
+      key: "tasks-button",
       text: "Tasks",
       icon: <Task fontSize="large" />,
       url: "/tasks",
@@ -46,6 +44,7 @@ const NavBar = ({ smallScreen }) => {
       },
     },
     {
+      key: "notes-button",
       text: "Notes",
       icon: <Note fontSize="large" />,
       url: "/notes",
@@ -54,6 +53,7 @@ const NavBar = ({ smallScreen }) => {
       },
     },
     {
+      key: "profile-button",
       text: "Profile",
       icon: <AccountCircle fontSize="large" />,
       url: "/profile",
@@ -62,6 +62,7 @@ const NavBar = ({ smallScreen }) => {
       },
     },
     {
+      key: "logout-button",
       text: "Log Out",
       icon: <Logout fontSize="large" />,
       onClick: function () {
@@ -87,6 +88,7 @@ const NavBar = ({ smallScreen }) => {
         >
           {buttons.map((button) => (
             <IconButton
+              key={button.key}
               color={
                 window.location.pathname === button.url ? "primary" : "default"
               }
