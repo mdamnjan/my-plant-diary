@@ -9,9 +9,11 @@ import { createTask } from "../../api";
 import BaseWidget from "../common/BaseWidget";
 import TaskList from "./TaskList";
 
-const StyledWidget = styled(BaseWidget)(() => ({
-  marginTop: "20px",
-}));
+// uses sx because the styling isn't being passed down with styled
+// See https://mui.com/system/styled/#difference-with-the-sx-prop
+const StyledWidget = (props) => (
+  <BaseWidget sx={{ marginTop: "20px" }}>{props.children}</BaseWidget>
+);
 
 const StyledTab = styled(Tab)(() => ({
   flex: "1 1 0",
