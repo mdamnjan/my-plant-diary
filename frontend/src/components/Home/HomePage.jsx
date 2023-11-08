@@ -11,17 +11,12 @@ import TaskProgressBar from "../Tasks/TaskProgressBar";
 import { useQuery } from "react-query";
 
 const HomePage = () => {
-  const {
-    data: plants,
-    isLoading: plantsLoading,
-  } = useQuery({
+  const { data: plants, isLoading: plantsLoading } = useQuery({
     queryKey: ["plants"],
     queryFn: () => fetchPlants(),
     initialData: [],
   });
-  const {
-    data: user,
-  } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => fetchUser(),
     initialData: {
@@ -64,6 +59,7 @@ const HomePage = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            backgroundColor: "#c5edfa",
           }}
         >
           <Typography>
@@ -121,9 +117,19 @@ const HomePage = () => {
             padding: "10px",
           }}
         >
-          {plants.map((plant) => (
-            <PlantCard plant={plant} isLoading={plantsLoading} />
-          ))}
+          {(plantsLoading || !plants || plants.length === 0) ? (
+            <>
+              <PlantCard isLoading />
+              <PlantCard isLoading/>
+              <PlantCard isLoading/>
+              <PlantCard isLoading/>
+              <PlantCard isLoading/>
+            </>
+          ) : (
+            plants.map((plant) => (
+              <PlantCard plant={plant} isLoading={plantsLoading} />
+            ))
+          )}
         </Box>
       </Card>
       <Box
