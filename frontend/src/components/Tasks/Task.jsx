@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   IconButton,
+  Skeleton,
   Tooltip,
   Typography,
   styled,
@@ -50,10 +51,10 @@ const TaskDetails = styled(Box)(() => ({
 
 const TaskDueDate = styled(Typography)(() => ({
   margin: "0px 0px 0px 10px",
-  fontWeight: "bold"
+  fontWeight: "bold",
 }));
 
-const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
+const Task = ({ task, handleEdit, handleDelete, completeTask, isLoading }) => {
   const [confirmComplete, setConfirmComplete] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -63,35 +64,49 @@ const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
       <TaskContainer>
         <TaskContent>
           <TaskDetails>
-            <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
+            )}
             <div>
-              <PlantName variant="h6">{task.plant_name}</PlantName>
-              <Tooltip title={task.date}>
-                <TaskDueDate variant="p">
-                  {getNumDaysUntilDate(task.date)}
-                </TaskDueDate>
-              </Tooltip>
+              <PlantName variant="h6">
+                {isLoading ? <Skeleton /> : task.plant_name}
+              </PlantName>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Tooltip title={task.date}>
+                  <TaskDueDate variant="p">
+                    {getNumDaysUntilDate(task.date)} d
+                  </TaskDueDate>
+                </Tooltip>
+              )}
             </div>
           </TaskDetails>
-          <CardActions>
-            <ActionButton
-              onClick={() => setConfirmComplete(true)}
-              color={task.completed ? "success" : "default"}
-            >
-              {task.completed ? <CheckCircle /> : <CircleOutlined />}
-            </ActionButton>
-            <ActionButton onClick={() => setIsEditing(true)} color="primary">
-              <Edit />
-            </ActionButton>
-            <ActionButton onClick={() => setConfirmDelete(true)}>
-              <Delete />
-            </ActionButton>
-          </CardActions>
+          {!isLoading && (
+            <CardActions>
+              <ActionButton
+                onClick={() => setConfirmComplete(true)}
+                color={task.completed ? "success" : "default"}
+              >
+                {task.completed ? <CheckCircle /> : <CircleOutlined />}
+              </ActionButton>
+              <ActionButton onClick={() => setIsEditing(true)} color="primary">
+                <Edit />
+              </ActionButton>
+              <ActionButton onClick={() => setConfirmDelete(true)}>
+                <Delete />
+              </ActionButton>
+            </CardActions>
+          )}
         </TaskContent>
-        <TaskTags>
-          <TaskTag type={task.type_display} label={task.type_display} />
-          {task.overdue && <TaskTag type="Late" label={task.type_display} />}
-        </TaskTags>
+        {!isLoading && (
+          <TaskTags>
+            <TaskTag type={task.type_display} label={task.type_display} />
+            {task.overdue && <TaskTag type="Late" label={task.type_display} />}
+          </TaskTags>
+        )}
       </TaskContainer>
       <TaskForm
         open={isEditing}

@@ -30,7 +30,7 @@ const TaskList = (props) => {
     queryKey: ["tasks", props.plant],
     queryFn: () =>
       fetchTasks(props.plant, props.overdue, props.interval, false),
-    initialData: []
+    initialData: [],
   });
 
   const queryClient = useQueryClient();
@@ -51,7 +51,31 @@ const TaskList = (props) => {
     );
   };
 
-  if (!isLoading && tasks.length === 0) {
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <div
+          className="empty-state"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Task isLoading={true} />
+          <Task isLoading={true} />
+          <Task isLoading={true} />
+          <Task isLoading={true} />
+        </div>
+      </Box>
+    );
+  }
+
+  if (tasks.length === 0) {
     return (
       <StyledTaskList empty>
         <TaskIcon />

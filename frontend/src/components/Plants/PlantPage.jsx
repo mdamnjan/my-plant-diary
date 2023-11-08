@@ -113,7 +113,7 @@ const PlantPage = () => {
       </Box>
       <Divider />
       <Box className="plant-list">
-        {isLoading && (
+        {(!plantList || plantList.length===0 || isLoading) && (
           <>
             <PlantCard isLoading={true} />
             <PlantCard isLoading={true} />
