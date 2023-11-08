@@ -1,138 +1,97 @@
 import { Delete, Edit, CheckCircle, CircleOutlined } from "@mui/icons-material";
 import {
   Avatar,
+  Box,
   Card,
   CardActions,
   CardContent,
-  Chip,
   IconButton,
   Tooltip,
+  Typography,
+  styled,
 } from "@mui/material";
+import { useState } from "react";
 
 import "../Notes/Note.css";
 import ConfirmForm from "../Forms/ConfirmForm";
 import TaskForm from "../Forms/TaskForm";
+import TaskTag from "./TaskTag";
 
-import { useState } from "react";
+import { getNumDaysUntilDate } from "../../utils";
+
+const PlantName = styled(Typography)(() => ({
+  margin: "5px 0px 0px 10px",
+  fontWeight: "bold",
+}));
+
+const TaskContainer = styled(Card)(() => ({
+  marginBottom: "20px",
+  borderRadius: "20px",
+  padding: "10px",
+}));
+
+const ActionButton = styled(IconButton)(() => ({
+  padding: "0px",
+}));
+
+const TaskTags = styled(CardContent)(() => ({
+  paddingTop: 0,
+}));
+
+const TaskContent = styled(CardContent)(() => ({
+  display: "flex",
+  flexGrow: 1,
+  justifyContent: "space-between",
+}));
+
+const TaskDetails = styled(Box)(() => ({
+  display: "flex",
+}));
+
+const TaskDueDate = styled(Typography)(() => ({
+  margin: "0px 0px 0px 10px",
+}));
 
 const Task = ({ task, handleEdit, handleDelete, completeTask }) => {
   const [confirmComplete, setConfirmComplete] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const getTagColor = (type) => {
-    switch (type) {
-      case "Water":
-        return "#4444ff";
-      case "Repot":
-        return "#a03f0b";
-      case "Prune":
-        return "#7ca118";
-      default:
-        return "#ff7d20";
-    }
-  };
-
-  const getNumDaysUntilDue = (date) => {
-    let dueDate = new Date(date);
-    let today = new Date();
-
-    let difference = new Date(today - dueDate);
-
-    // The number of milliseconds in one day
-    const ONE_DAY = 1000 * 60 * 60 * 24;
-
-    // Convert back to days and return
-    let numDays = Math.abs(Math.floor(difference / ONE_DAY));
-
-    if (numDays === 0) {
-      return "Due today";
-    }
-
-    if (dueDate < today) {
-      return `${numDays} days late`;
-    }
-
-    return `Due in ${numDays} days`;
-  };
-
   return (
     <>
-      <Card
-        sx={{
-          marginBottom: "20px",
-          borderRadius: "20px",
-          padding: "10px",
-        }}
-      >
-        <CardContent
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            flexGrow: 1,
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex" }}>
+      <TaskContainer>
+        <TaskContent>
+          <TaskDetails>
             <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
             <div>
-              <h3 style={{ margin: "5px 0px 0px 10px", maxWidth: "100px" }}>
-                {task.plant_name || "plant name"}
-              </h3>
+              <PlantName variant="h6">{task.plant_name}</PlantName>
               <Tooltip title={task.date}>
-                <h5 style={{ margin: "0px 0px 0px 10px" }}>
-                  {getNumDaysUntilDue(task.date)}
-                </h5>
+                <TaskDueDate variant="h5">
+                  {getNumDaysUntilDate(task.date)}
+                </TaskDueDate>
               </Tooltip>
             </div>
-          </div>
+          </TaskDetails>
           <CardActions>
-            <IconButton
+            <ActionButton
               onClick={() => setConfirmComplete(true)}
-              sx={{ padding: "0px" }}
               color={task.completed ? "success" : "default"}
             >
               {task.completed ? <CheckCircle /> : <CircleOutlined />}
-            </IconButton>
-            <IconButton
-              onClick={() => setIsEditing(true)}
-              color="primary"
-              sx={{ padding: "0px" }}
-            >
+            </ActionButton>
+            <ActionButton onClick={() => setIsEditing(true)} color="primary">
               <Edit />
-            </IconButton>
-            <IconButton
-              onClick={() => setConfirmDelete(true)}
-              color="default"
-              sx={{ padding: "0px" }}
-            >
+            </ActionButton>
+            <ActionButton onClick={() => setConfirmDelete(true)}>
               <Delete />
-            </IconButton>
+            </ActionButton>
           </CardActions>
-        </CardContent>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <div>
-            <Chip
-              sx={{
-                backgroundColor: getTagColor(task.type_display),
-                color: "white",
-                margin: "3px 0px 0px 0px",
-              }}
-              label={task.type_display}
-            />
-            {task.overdue && (
-              <Chip
-                sx={{
-                  backgroundColor: "red",
-                  color: "white",
-                  margin: "3px 0px 0px 10px",
-                }}
-                label="Late"
-              />
-            )}
-          </div>
-        </CardContent>
-      </Card>
+        </TaskContent>
+        <TaskTags>
+          <TaskTag type={task.type_display} label={task.type_display} />
+          {task.overdue && <TaskTag type="Late" label={task.type_display} />}
+        </TaskTags>
+      </TaskContainer>
       <TaskForm
         open={isEditing}
         isEditing={isEditing}
