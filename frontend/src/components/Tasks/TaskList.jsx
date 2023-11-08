@@ -1,9 +1,7 @@
 import Task from "./Task";
-import { performApiCall } from "../../api";
 
 import { Box, Typography, styled } from "@mui/material";
 import { Task as MuiTaskIcon } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 
 import { fetchTasks, updateTask, deleteTask } from "../../api";
 import { useQuery, useQueryClient } from "react-query";

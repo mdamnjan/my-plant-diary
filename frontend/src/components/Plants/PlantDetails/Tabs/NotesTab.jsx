@@ -15,7 +15,7 @@ import { useQuery, useQueryClient } from "react-query";
 const NotesTab = ({ plant }) => {
   const [open, setOpen] = useState(false);
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const {
     data: notes,
@@ -30,7 +30,7 @@ const NotesTab = ({ plant }) => {
   const handleSubmit = (e, text, plant, img) => {
     const updatePage = () => {
       setOpen(false);
-      queryClient.invalidateQueries(['notes'])
+      queryClient.invalidateQueries(["notes"]);
     };
 
     let body = { text: text, plant: plant.id };
@@ -43,6 +43,36 @@ const NotesTab = ({ plant }) => {
       createNote(body).then(() => updatePage());
     }
   };
+
+  if (isLoading) {
+    return (
+      <>
+        <BaseWidget sx={{ marginTop: "20px" }}>
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: "200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="empty-state"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
+              <Typography>No notes</Typography>
+            </div>
+          </Box>
+        </BaseWidget>
+      </>
+    );
+  }
 
   if (notes.length === 0) {
     return (

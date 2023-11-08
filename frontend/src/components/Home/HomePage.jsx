@@ -1,6 +1,5 @@
 import { Typography, Box, Card } from "@mui/material";
 import { Task as TaskIcon } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 
 import { fetchPlants, fetchUser } from "../../api";
 import "./HomePage.css";
@@ -34,8 +33,6 @@ const HomePage = () => {
       overdue_task_count: 0,
     },
   });
-
-  console.log("user", user, plants);
 
   const tasksLeft = user.task_count - user.completed_task_count;
   return (

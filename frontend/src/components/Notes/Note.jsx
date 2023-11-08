@@ -6,6 +6,7 @@ import {
   CardContent,
   CardMedia,
   IconButton,
+  Skeleton,
 } from "@mui/material";
 
 import "./Note.css";
@@ -14,7 +15,7 @@ import ConfirmForm from "../Forms/ConfirmForm";
 
 import { useState } from "react";
 
-const Note = ({ note, handleDelete, handleEdit }) => {
+const Note = ({ note, handleDelete, handleEdit, isLoading }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -30,28 +31,40 @@ const Note = ({ note, handleDelete, handleEdit }) => {
           borderRadius: "20px",
         }}
       >
-        <CardActions style={{ float: "right" }}>
-          <IconButton size="small" color="primary" onClick={() => setIsEditing(true)}>
-            <Edit />
-          </IconButton>
-          <IconButton
-            size="small"
-            color="default"
-            onClick={() => setConfirmDelete(true)}
-          >
-            <Delete />
-          </IconButton>
-        </CardActions>
+        {!isLoading && (
+          <CardActions style={{ float: "right" }}>
+            <IconButton
+              size="small"
+              color="primary"
+              onClick={() => setIsEditing(true)}
+            >
+              <Edit />
+            </IconButton>
+            <IconButton
+              size="small"
+              color="default"
+              onClick={() => setConfirmDelete(true)}
+            >
+              <Delete />
+            </IconButton>
+          </CardActions>
+        )}
         <CardContent sx={{ display: "flex" }}>
           <div>
-            <Avatar src={note.plant_img || "../../Calathea_orbifolia.jpg"} />
+            {isLoading ? (
+              <Skeleton sx={{width: "50px", height: "50px"}} variant="circular" />
+            ) : (
+              <Avatar src={note.plant_img || "../../Calathea_orbifolia.jpg"} />
+            )}
           </div>
-          <div>
-            <h3 style={{ margin: "5px 0px 0px 10px" }}>{note.plant_name}</h3>
-            <p style={{ margin: "5px 0px 0px 10px" }}>{note.text}</p>
-          </div>
+          <div style={{width: isLoading? "100%": "auto"}}>
+            <h3 style={{ margin: "5px 0px 0px 10px" }}>
+              {isLoading ? <Skeleton variant="text"/> : note.plant_name}
+            </h3>
+            <p style={{ margin: "5px 0px 0px 10px", justifyContent: "flex-start" }}>{isLoading? <Skeleton variant="text" sx={{width: "100%"}}/> : note.text}</p>
+          </div> 
         </CardContent>
-        {note.img_url && (
+        {!isLoading && note.img_url && (
           <CardMedia
             sx={{
               objectFit: "contain",
@@ -64,12 +77,13 @@ const Note = ({ note, handleDelete, handleEdit }) => {
             src={note.img_url}
           />
         )}
-        <span style={{ float: "right", margin: "0px 20px 20px 20px" }}>
-          {new Date(note.created).toLocaleDateString(undefined, {
+        <span style={{ float: "right", margin: "0px 20px 20px 20px", width: isLoading? "30%": "auto" }}>
+          {isLoading && <Skeleton variant="text"/>}
+          {!isLoading && (new Date(note.created).toLocaleDateString(undefined, {
             month: "short",
             day: "numeric",
             year: "numeric",
-          })}
+          }))}
         </span>
       </Card>
       <NoteForm

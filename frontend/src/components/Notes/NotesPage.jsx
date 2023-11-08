@@ -49,6 +49,20 @@ const NotesPage = () => {
     </Box>
   ));
 
+  if (isLoading) {
+    notes = (
+      <>
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+      </>
+    );
+  }
+
   const handleSubmit = (e, text, plant, img) => {
     const updatePage = () => {
       setOpen(false);
