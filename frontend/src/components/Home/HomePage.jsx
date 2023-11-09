@@ -1,6 +1,5 @@
 import { Typography, Box, Card } from "@mui/material";
 import { Task as TaskIcon } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 
 import { fetchPlants, fetchUser } from "../../api";
 import "./HomePage.css";
@@ -9,23 +8,23 @@ import PlantCard from "../Plants/PlantCard";
 import TaskList from "../Tasks/TaskList";
 import NumberWidget from "./NumberWidget";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
+import { useQuery } from "react-query";
 
 const HomePage = () => {
-  const [plants, setPlants] = useState([]);
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    fetchUser().then((response) => {
-      if (response && response.data) {
-        setUser(response.data);
-      }
-    });
-    fetchPlants().then((response) => {
-      if (response && response.data) {
-        setPlants(response.data);
-      }
-    });
-  }, []);
+  const { data: plants, isLoading: plantsLoading } = useQuery({
+    queryKey: ["plants"],
+    queryFn: () => fetchPlants(),
+    initialData: [],
+  });
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUser(),
+    initialData: {
+      task_count: 0,
+      completed_task_count: 0,
+      overdue_task_count: 0,
+    },
+  });
 
   const tasksLeft = user.task_count - user.completed_task_count;
   return (
@@ -37,11 +36,6 @@ const HomePage = () => {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <img
-          src="plant-logo.png"
-          alt="a potted plant illustration"
-          style={{ width: "50px", height: "50px" }}
-        ></img>
         <Typography
           variant="h5"
           sx={{ display: "inline-block", verticalAlign: "bottom" }}
@@ -59,7 +53,15 @@ const HomePage = () => {
           gap: "20px",
         }}
       >
-        <BaseWidget sx={{ marginTop: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <BaseWidget
+          sx={{
+            marginTop: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            backgroundColor: "#c5edfa",
+          }}
+        >
           <Typography>
             {user.completed_task_count}/{user.task_count}
           </Typography>
@@ -107,10 +109,29 @@ const HomePage = () => {
         >
           View All
         </a>
-        <Box sx={{ display: "flex", gap: "20px", overflowX: "scroll", padding: "10px" }}>
-          {plants.map((plant) => (
-            <PlantCard plant={plant} />
-          ))}
+        <Box
+          sx={{
+            display: "flex",
+            gap: "20px",
+            overflowX: "scroll",
+            padding: "10px",
+          }}
+        >
+          {(plantsLoading || !plants || plants.length === 0) && (
+            <>
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+              <PlantCard isLoading />
+            </>
+          )}
+          {!plantsLoading &&
+            plants &&
+            plants.length > 0 &&
+            plants.map((plant) => (
+              <PlantCard plant={plant} isLoading={plantsLoading} />
+            ))}
         </Box>
       </Card>
       <Box

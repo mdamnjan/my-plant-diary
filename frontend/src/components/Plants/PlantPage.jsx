@@ -2,15 +2,11 @@ import {
   Autocomplete,
   Box,
   Divider,
-  FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Search } from "@mui/icons-material";
 
 import "./Plants.css";
@@ -21,21 +17,24 @@ import NewPlantForm from "./NewPlantForm";
 import { fetchPlants, createPlant, deletePlant, updatePlant } from "../../api";
 import { uploadFileToFirebase } from "../../utils";
 
+import { useQuery, useQueryClient } from "react-query";
+
 const PlantPage = () => {
+  const {
+    data: plantList,
+    isLoading,
+  } = useQuery({
+    queryKey: ["plants"],
+    queryFn: () => fetchPlants(),
+    initialData: [],
+  });
+
   const [open, setOpen] = useState(false);
-  const [plantList, setPlantList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [plant, setPlant] = useState({ name: "", watering_frequency: "OAW" });
-  const [filteredPlants, setFilteredPlants] = useState(plantList);
+  const [filterTerm, setFilterTerm] = useState("");
 
-  const getPlantList = () => {
-    fetchPlants().then((response) => {
-      if (response.data) {
-        setPlantList(response.data);
-        setFilteredPlants(response.data);
-      }
-    });
-  };
+  const queryClient = useQueryClient();
 
   const handleEdit = (plant) => {
     setIsEditing(true);
@@ -46,7 +45,7 @@ const PlantPage = () => {
   const handleSubmit = (e, name, wateringFreq, plantID, img) => {
     const updatePage = () => {
       setOpen(false);
-      getPlantList();
+      queryClient.invalidateQueries(["plants"]);
       setIsEditing(false);
     };
 
@@ -68,38 +67,21 @@ const PlantPage = () => {
     }
   };
 
+  console.log("plant list", plantList, isLoading);
   const handleDelete = (plant) => {
-    deletePlant(plant.id).then(() => getPlantList());
+    deletePlant(plant.id).then(() => queryClient.invalidateQueries(["plants"]));
   };
-
-  const plants = filteredPlants.map((plant) => (
-    <PlantCard
-      plant={plant}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    />
-  ));
-
-  useEffect(() => {
-    getPlantList();
-  }, []);
 
   return (
     <>
       <Box style={{ maxWidth: "1000px", margin: "20px auto 10px auto" }}>
         <Autocomplete
           onSelect={(e) => {
-            setFilteredPlants(
-              plantList.filter((plant) =>
-                plant.name.toLowerCase().includes(e.target.value.toLowerCase())
-              )
-            );
+            setFilterTerm(e.target.value.toLowerCase());
           }}
           sx={{
             marginTop: "10px",
             margin: "auto",
-            borderRadius: "10px",
-            "& fieldset": { borderRadius: "10px" },
             "& .MuiInputBase-root": { paddingRight: "10px !important" }
           }}
           options={plantList.map((plant) => plant.name)}
@@ -124,7 +106,27 @@ const PlantPage = () => {
         />
       </Box>
       <Divider />
-      <Box className="plant-list">{plants}</Box>
+      <Box className="plant-list">
+        {(!plantList || plantList.length===0 || isLoading) && (
+          <>
+            <PlantCard isLoading={true} />
+            <PlantCard isLoading={true} />
+            <PlantCard isLoading={true} />
+            <PlantCard isLoading={true} />
+            <PlantCard isLoading={true} />
+            <PlantCard isLoading={true} />
+          </>
+        )}
+        {plantList
+          .filter((plant) => plant.name.toLowerCase().includes(filterTerm))
+          .map((plant) => (
+            <PlantCard
+              plant={plant}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          ))}
+      </Box>
       <AddButton
         tooltipText="Add a plant"
         onClick={() => {

@@ -4,76 +4,43 @@ import {
   Note as MuiNote,
   ArrowBack,
 } from "@mui/icons-material";
-import { Typography, Tabs, Tab, Box, IconButton } from "@mui/material";
-
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
 import {
-  fetchPlant,
-  fetchWateringEntries,
-  fetchNotes,
-  fetchTasks,
-} from "../../api";
+  Typography,
+  Tabs,
+  Tab,
+  Box,
+  IconButton,
+  Skeleton,
+} from "@mui/material";
+
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import NotesTab from "./PlantDetails/Tabs/NotesTab";
 import TasksTab from "./PlantDetails/Tabs/TasksTab";
 import OverviewTab from "./PlantDetails/Tabs/OverviewTab";
 
+import { useQuery } from "react-query";
+
+import { fetchPlant } from "../../api";
+
 const PlantDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [tab, setTab] = useState(0);
+  const plantId = location.state.id;
 
-  const [plant, setPlant] = useState(null);
-  const [entries, setEntries] = useState([]);
-  const [notes, setNotes] = useState([]);
-  const [tasks, setTasks] = useState([]);
-
-  console.log(tasks)
-
-  const getWateringEntries = () => {
-    fetchWateringEntries().then((response) => {
-      if (response.data) {
-        setEntries(response.data);
-      }
-    });
-  };
-
-  const getNotes = (plant) => {
-    fetchNotes(plant).then((response) => {
-      if (response.data) {
-        setNotes(response.data);
-      }
-    });
-  };
-
-  const getTasks = (plant) => {
-    fetchTasks(plant).then((response) => {
-      if (response.data) {
-        setTasks(response.data);
-      }
-    });
-  };
-
-  const getPlant = (plantID) => {
-    fetchPlant(plantID).then((response) => {
-      if (response.data) {
-        setPlant(response.data);
-      }
-    });
-  };
+  const {
+    data: plant,
+    isLoading,
+  } = useQuery({
+    queryKey: [`plant${plantId}`],
+    queryFn: () => fetchPlant(plantId),
+  });
 
   const handleChange = (e, newValue) => {
     setTab(newValue);
   };
-
-  useEffect(() => {
-    getWateringEntries();
-    getPlant(location.state.id);
-    getNotes(location.state.id);
-    getTasks(location.state.id);
-  }, [location.state]);
 
   return (
     <div className="plant-detail-container">
@@ -84,17 +51,28 @@ const PlantDetailPage = () => {
         >
           <ArrowBack />
         </IconButton>
-        {plant?.name}
+        {isLoading ? (
+          <Skeleton sx={{ width: 300, display: "inline-block" }} />
+        ) : (
+          plant.name
+        )}
       </Typography>
-      <img
-        alt="plant"
-        src={plant?.img_url || "../../Calathea_orbifolia.jpg"}
-        style={{
-          objectFit: "contain",
-          backgroundColor: "rgb(123 123 123 / 62%)",
-          borderRadius: "20px",
-        }}
-      ></img>
+      {isLoading ? (
+        <Skeleton
+          variant="rectangular"
+          sx={{ maxHeight: 700, minHeight: 400, borderRadius: "20px" }}
+        />
+      ) : (
+        <img
+          alt="plant"
+          src={plant.img_url}
+          style={{
+            objectFit: "contain",
+            backgroundColor: "rgb(123 123 123 / 62%)",
+            borderRadius: "20px",
+          }}
+        ></img>
+      )}
       <Box sx={{ width: "100%", margin: "auto" }}>
         <Tabs
           value={tab}
@@ -106,9 +84,10 @@ const PlantDetailPage = () => {
           <Tab sx={{ flex: "1 1 0" }} icon={<MuiTask />} label="Tasks" />
         </Tabs>
       </Box>
-      {tab === 0 && <OverviewTab plant={plant} entries={entries}/>}
-      {tab === 1 && <NotesTab notes={notes} />}
-      {tab === 2 && <TasksTab plant={plant.id} />}
+      {isLoading && <Skeleton variant="rectangular" sx={{ height: 500 }} />}
+      {tab === 0 && !isLoading && <OverviewTab plant={plant} />}
+      {tab === 1 && !isLoading && <NotesTab plant={plant.id} />}
+      {tab === 2 && !isLoading && <TasksTab plant={plant.id} />}
     </div>
   );
 };

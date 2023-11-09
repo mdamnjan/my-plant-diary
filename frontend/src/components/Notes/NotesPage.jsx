@@ -1,6 +1,6 @@
 import { Divider, Box, Typography } from "@mui/material";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import AddButton from "../common/AddButton";
 
@@ -11,17 +11,25 @@ import NoteForm from "./NoteForm";
 import { fetchNotes, createNote, deleteNote } from "../../api";
 import { uploadFileToFirebase } from "../../utils";
 
+import { useQuery, useQueryClient } from "react-query";
+
 const NotesPage = () => {
   const [open, setOpen] = useState(false);
-  const [noteList, setNoteList] = useState([]);
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
-  const getNotes = () => {
-    fetchNotes().then((response) => setNoteList(response.data));
-  };
+  const queryClient = useQueryClient();
+
+  const {
+    data: noteList,
+    isLoading,
+  } = useQuery({
+    queryKey: [`notes`],
+    queryFn: () => fetchNotes(),
+    initialData: [],
+  });
 
   const handleDelete = (note) => {
-    deleteNote(note).then(() => getNotes());
+    deleteNote(note).then(() => queryClient.invalidateQueries(["notes"]));
   };
 
   const handleEdit = () => {
@@ -31,15 +39,33 @@ const NotesPage = () => {
 
   let notes = noteList.map((note) => (
     <Box sx={{ width: "100%" }}>
-      <Note key={note.id} note={note} handleDelete={handleDelete} handleEdit={handleEdit} />
+      <Note
+        key={note.id}
+        note={note}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </Box>
   ));
 
+  if (isLoading) {
+    notes = (
+      <>
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+        <Note isLoading={true} />
+      </>
+    );
+  }
 
   const handleSubmit = (e, text, plant, img) => {
     const updatePage = () => {
       setOpen(false);
-      getNotes();
+      queryClient.invalidateQueries(["notes"]);
     };
 
     let body = { text: text, plant: plant.id };
@@ -52,10 +78,6 @@ const NotesPage = () => {
       createNote(body).then(() => updatePage());
     }
   };
-
-  useEffect(() => {
-    getNotes();
-  }, []);
 
   return (
     <>

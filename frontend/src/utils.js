@@ -19,3 +19,26 @@ export const getImageFromFile = (file) => {
     return;
   }
 };
+
+export const getNumDaysUntilDate = (inputDate) => {
+  let date = new Date(inputDate);
+  let today = new Date();
+
+  let difference = new Date(today - date);
+
+  // The number of milliseconds in one day
+  const ONE_DAY = 1000 * 60 * 60 * 24;
+
+  // Convert back to days and return
+  let numDays = Math.abs(Math.floor(difference / ONE_DAY));
+
+  if (numDays === 0) {
+    return "Due today";
+  }
+
+  if (date < today) {
+    return `${numDays} days late`;
+  }
+
+  return `Due in ${numDays} days`;
+};

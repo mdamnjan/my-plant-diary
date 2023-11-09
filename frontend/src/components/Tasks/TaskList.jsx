@@ -1,74 +1,65 @@
 import Task from "./Task";
-import { performApiCall } from "../../api";
 
-import { Box, Typography } from "@mui/material";
-import { Task as TaskIcon } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { Box, Typography, styled } from "@mui/material";
+import { Task as MuiTaskIcon } from "@mui/icons-material";
 
-import { updateTask, deleteTask } from "../../api";
+import { fetchTasks, updateTask, deleteTask } from "../../api";
+import { useQuery, useQueryClient } from "react-query";
+
+const StyledTaskList = styled(Box)(({ empty }) => ({
+  width: "100%",
+  minHeight: "200px",
+  display: empty ? "flex" : "initial",
+  justifyContent: empty ? "center" : "initial",
+  alignItems: empty ? "center" : "initial",
+  flexDirection: empty ? "column" : "inherit",
+}));
+
+const TaskIcon = styled(MuiTaskIcon)(() => ({
+  fill: "grey",
+  height: "35px",
+  width: "55px",
+}));
 
 const TaskList = (props) => {
-  const [tasks, setTasks] = useState([]);
+  const {
+    data: tasks,
+  } = useQuery({
+    queryKey: ["tasks", props.plant],
+    queryFn: () =>
+      fetchTasks(props.plant, props.overdue, props.interval, false),
+    initialData: [],
+  });
 
-  const getTasks = (plant, overdue, interval) => {
-    performApiCall(
-      "get",
-      `/tasks?plant=${plant || ""}&interval=${interval}&overdue=${
-        overdue || false
-      }&completed=false`
-    ).then((res) => setTasks(res?.data));
-  };
-
-  useEffect(() => {
-    getTasks(props.plant, props.overdue, props.interval);
-  }, [props.interval, props.overdue, props.plant]);
+  const queryClient = useQueryClient();
 
   const handleDelete = (task) => {
-    deleteTask(task).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
-    );
+    deleteTask(task).then(() => queryClient.invalidateQueries([props.plant]));
   };
 
   const completeTask = (task) => {
     updateTask(task.id, { completed: true }).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
+      queryClient.invalidateQueries([props.plant])
     );
   };
 
   const handleEdit = (task, body) => {
     updateTask(task.id, body).then(() =>
-      getTasks(props.plant, props.overdue, props.interval)
+      queryClient.invalidateQueries([props.plant])
     );
   };
 
-  if (tasks.length === 0) {
+  if (!tasks || tasks.length === 0) {
     return (
-      <Box
-        sx={{
-          width: "100%",
-          minHeight: "200px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          className="empty-state"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
-          <Typography>No tasks scheduled</Typography>
-        </div>
-      </Box>
+      <StyledTaskList empty>
+        <TaskIcon />
+        <Typography>No tasks scheduled</Typography>
+      </StyledTaskList>
     );
   }
 
   return tasks.map((task) => (
-    <Box sx={{ width: "100%" }}>
+    <StyledTaskList>
       <Task
         key={task.id}
         task={task}
@@ -77,7 +68,7 @@ const TaskList = (props) => {
         completeTask={completeTask}
         handleEdit={handleEdit}
       />
-    </Box>
+    </StyledTaskList>
   ));
 };
 export default TaskList;

@@ -1,4 +1,4 @@
-import { Button, Paper, Typography, IconButton } from "@mui/material";
+import { Button, Paper, Typography, IconButton, styled } from "@mui/material";
 import {
   AccountCircle,
   Home,
@@ -13,13 +13,45 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../api";
 
 import "./common.css";
+import Logo from "./Logo";
+
+const StyledNav = styled("nav")(({ smallScreen }) => ({
+  display: "flex",
+  flexDirection: smallScreen ? "row" : "column",
+  ...(smallScreen && {
+    margin: "0px",
+    justifyContent: "space-around",
+    padding: "5px",
+  }),
+  ...(!smallScreen && { alignItems: "flex-start" }),
+}));
+
+const StyledNavContainer = styled(Paper)(({ smallScreen }) => ({
+  backgroundColor: "rgba(71, 161, 92, 0.389)",
+  ...(!smallScreen && { height: "100vh", minWidth: "250px", padding: "20px" }),
+}));
+
+const StyledButton = styled(Button)(() => ({
+  marginBottom: "2px",
+  textTransform: "none",
+  borderRadius: "20px",
+  display: "flex",
+  justifyContent: "flex-start",
+  padding: "2px 20px",
+}));
+
+const StyledIconButton = styled(IconButton)(() => ({
+  textTransform: "none",
+  borderRadius: "20px",
+  display: "flex",
+}));
 
 const NavBar = ({ smallScreen }) => {
   const buttons = [
     {
       key: "home-button",
       text: "Home",
-      icon: <Home fontSize="large" />,
+      icon: <Home />,
       url: "/",
       onClick: function () {
         navigate("/");
@@ -28,7 +60,7 @@ const NavBar = ({ smallScreen }) => {
     {
       key: "plants-button",
       text: "Plants",
-      icon: <LocalFlorist fontSize="large" />,
+      icon: <LocalFlorist />,
       url: "/plants",
       onClick: function () {
         navigate("/plants");
@@ -37,7 +69,7 @@ const NavBar = ({ smallScreen }) => {
     {
       key: "tasks-button",
       text: "Tasks",
-      icon: <Task fontSize="large" />,
+      icon: <Task />,
       url: "/tasks",
       onClick: function () {
         navigate("/tasks");
@@ -46,7 +78,7 @@ const NavBar = ({ smallScreen }) => {
     {
       key: "notes-button",
       text: "Notes",
-      icon: <Note fontSize="large" />,
+      icon: <Note />,
       url: "/notes",
       onClick: function () {
         navigate("/notes");
@@ -55,7 +87,7 @@ const NavBar = ({ smallScreen }) => {
     {
       key: "profile-button",
       text: "Profile",
-      icon: <AccountCircle fontSize="large" />,
+      icon: <AccountCircle />,
       url: "/profile",
       onClick: function () {
         navigate("/profile");
@@ -64,7 +96,7 @@ const NavBar = ({ smallScreen }) => {
     {
       key: "logout-button",
       text: "Log Out",
-      icon: <Logout fontSize="large" />,
+      icon: <Logout />,
       onClick: function () {
         logout();
         navigate("/login");
@@ -76,65 +108,53 @@ const NavBar = ({ smallScreen }) => {
 
   if (smallScreen) {
     return (
-      <Paper>
-        <nav
-          style={{
-            padding: "0px",
-            margin: "0px",
-            display: "flex",
-            justifyContent: "space-around",
-            flexDirection: "row",
-          }}
-        >
+      <StyledNavContainer smallScreen>
+        <StyledNav smallScreen>
           {buttons.map((button) => (
-            <IconButton
+            <StyledIconButton
+              variant="contained"
               key={button.key}
               color={
-                window.location.pathname === button.url ? "primary" : "default"
+                window.location.pathname === button.url
+                  ? "secondary"
+                  : "default"
               }
-              sx={{
-                textTransform: "none",
-                borderRadius: "20px",
-                display: "flex",
-              }}
               onClick={button.onClick}
             >
               {button.icon}
-            </IconButton>
+            </StyledIconButton>
           ))}
-        </nav>
-      </Paper>
+        </StyledNav>
+      </StyledNavContainer>
     );
   }
 
   return (
-    <Paper className="nav-bar">
-      <Typography sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
-        <img id="logo" alt="plant logo" src="plant-logo.png" />
-        <h3>My Plant Diary</h3>
-      </Typography>
-      <nav style={{ padding: "0px 20px" }}>
+    <StyledNavContainer>
+      <Logo />
+      <StyledNav>
         {buttons.map((button) => (
-          <Button
+          <StyledButton
+            color={
+              window.location.pathname === button.url ? "secondary" : "default"
+            }
+            key={button.key}
+            disableElevation
             fullWidth
             variant={window.location.pathname === button.url ? "contained" : ""}
-            sx={{
-              textTransform: "none",
-              borderRadius: "20px",
-              display: "flex",
-              justifyContent: "flex-start",
-              padding: "5px 20px",
-            }}
             onClick={button.onClick}
+            startIcon={button.icon}
           >
-            {button.icon}
-            <h3 className="nav-text" style={{ marginLeft: "10px" }}>
+            <Typography
+              variant="h4"
+              sx={{ margin: "10px 10px 10px 0px", fontWeight: "bold" }}
+            >
               {button.text}
-            </h3>
-          </Button>
+            </Typography>
+          </StyledButton>
         ))}
-      </nav>
-    </Paper>
+      </StyledNav>
+    </StyledNavContainer>
   );
 };
 export default NavBar;

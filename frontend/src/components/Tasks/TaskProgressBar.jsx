@@ -10,6 +10,7 @@ const TaskProgressBar = ({ resource }) => {
     <div>
       <LinearProgress
         sx={{ borderRadius: "50px" }}
+        color="tertiary"
         value={progressPercentage}
         variant="determinate"
       />

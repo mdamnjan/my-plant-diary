@@ -12,32 +12,33 @@ const axiosInstance = axios.create({
 });
 
 export const performApiCall = async (method, url, body) => {
-  let res;
-  try {
-    res = await axiosInstance.request({
+  return await axiosInstance
+    .request({
       method: method,
       url: url,
       data: body,
-    });
-    console.log(url, method, body, res);
-  } catch (error) {
-    if (error.response.status === 401) {
-      // refresh the token and try again
-      return refreshToken().then(() => {
-        return axiosInstance.request({
-          method: method,
-          url: url,
-          data: body,
+    })
+    .then((res) => {
+      console.log(url, method, res.data, body);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        // refresh the token and try again
+        return refreshToken().then(() => {
+          return axiosInstance.request({
+            method: method,
+            url: url,
+            data: body,
+          });
         });
-      });
-    }
-  }
-  return res;
+      }
+    });
 };
 
 export const fetchUser = () => {
-    return performApiCall("get", "/me");
-  };
+  return performApiCall("get", "/me");
+};
 
 export const fetchPlants = () => {
   return performApiCall("get", "/plants");
@@ -61,11 +62,12 @@ export const fetchNotes = (plant) => {
   return performApiCall("get", "/notes");
 };
 
-export const fetchTasks = (plant) => {
-  if (plant) {
-    return performApiCall("get", `/tasks/?plant=${plant}`);
-  }
-  return performApiCall("get", "/tasks");
+export const fetchTasks = (plant, overdue, interval, completed) => {
+  let queryString = `/tasks?plant=${plant || ""}&interval=${interval}&overdue=${
+    overdue || false
+  }&completed=${completed}`;
+
+  return performApiCall("get", queryString);
 };
 
 export const createPlant = (body) => {
@@ -77,7 +79,7 @@ export const createWateringEntry = (body) => {
 };
 
 export const createNote = (body) => {
-    console.log("body", body)
+  console.log("body", body);
   return performApiCall("post", "/notes/", body);
 };
 
