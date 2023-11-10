@@ -25,13 +25,17 @@ export const performApiCall = async (method, url, body) => {
     .catch((error) => {
       if (error.response.status === 401) {
         // refresh the token and try again
-        return refreshToken().then(() => {
-          return axiosInstance.request({
-            method: method,
-            url: url,
-            data: body,
+        return refreshToken()
+          .then(() => {
+            return axiosInstance.request({
+              method: method,
+              url: url,
+              data: body,
+            });
+          })
+          .then((res) => {
+            return res.data;
           });
-        });
       }
     });
 };
