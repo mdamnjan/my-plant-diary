@@ -17,7 +17,7 @@ class PlantSerializer(serializers.ModelSerializer):
     completed_task_count = serializers.SerializerMethodField()
     class Meta:
         model = Plant
-        fields = ('id', 'task_count', 'completed_task_count', 'owner', 'name', 'slug', 'img_url', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
+        fields = ('id', 'created', 'task_count', 'completed_task_count', 'owner', 'name', 'slug', 'img_url', 'watering_frequency', 'watering_frequency_display', 'last_watered', 'next_watering')
     
     def get_task_count(self, obj):
         today = timezone.now().date()

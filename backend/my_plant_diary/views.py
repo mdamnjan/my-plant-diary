@@ -32,7 +32,7 @@ class PlantViewSet(viewsets.ModelViewSet):
 
         """
         user = self.request.user
-        return Plant.objects.filter(owner=user)
+        return Plant.objects.filter(owner=user).order_by('-created')
                       
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
