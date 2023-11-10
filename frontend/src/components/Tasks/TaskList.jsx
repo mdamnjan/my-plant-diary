@@ -25,7 +25,7 @@ const TaskList = (props) => {
   const {
     data: tasks,
   } = useQuery({
-    queryKey: ["tasks", props.plant],
+    queryKey: ["tasks", props.plant, props.interval, props.overdue],
     queryFn: () =>
       fetchTasks(props.plant, props.overdue, props.interval, false),
     initialData: [],
