@@ -1,5 +1,11 @@
 # my-plant-diary
-A blog/diary style website to keep track of your houseplants' progress.
+A web app that helps you keep your houseplants alive. 
 
-This article about making a todo app with Django DRF and React was super useful:  https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04,
-as was the official tutorial from Django: https://www.django-rest-framework.org/tutorial/
+Lets you schedule and keep track of plant care tasks (e.g. watering, repotting, pruning), take notes and make progress updates.
+
+### Tech Stack
+**Frontend**: React, Material-UI
+
+**Backend**: Django, Django Rest Framework
+
+**Database/Storage**: PostgreSQL, Firebase Cloud Storage (for images)
