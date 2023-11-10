@@ -70,7 +70,7 @@ class TaskViewSet(viewsets.ModelViewSet):
                 if query_interval == 'today':
                     tasks = tasks.filter(plant__owner=user, date__gte=today, date__lte=today)
                 elif query_interval == 'week':
-                    tasks = tasks.filter(plant__owner=user, date__gte=today, date__lte=(today+timedelta(days=7)))
+                    tasks = tasks.filter(plant__owner=user, date__gt=today, date__lte=(today+timedelta(days=7)))
                 elif query_interval == '2weeks':
                     tasks = tasks.filter(plant__owner=user, date__gte=(today+timedelta(days=7)), date__lte=(today+timedelta(days=14)))
                 elif query_interval == 'month':
