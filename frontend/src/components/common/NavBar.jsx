@@ -14,6 +14,7 @@ import { logout } from "../../api";
 
 import "./common.css";
 import Logo from "./Logo";
+import { useQueryClient } from "react-query";
 
 const StyledNav = styled("nav")(({ smallScreen }) => ({
   display: "flex",
@@ -99,12 +100,15 @@ const NavBar = ({ smallScreen }) => {
       icon: <Logout />,
       onClick: function () {
         logout();
+        queryClient.removeQueries();
         navigate("/login");
       },
     },
   ];
 
   let navigate = useNavigate();
+
+  const queryClient = useQueryClient()
 
   if (smallScreen) {
     return (
