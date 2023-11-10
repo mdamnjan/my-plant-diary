@@ -1,8 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
@@ -13,8 +9,8 @@ import LoginForm from "./components/Login/LoginForm";
 import ProfilePage from "./components/Profile/ProfilePage";
 import RegistrationForm from "./components/Login/RegistrationForm";
 
-import PlantPage from "./components/Plants/PlantPage";
-import PlantDetailPage from "./components/Plants/PlantDetailPage";
+import PlantListPage from "./components/Plants/PlantListPage/PlantListPage";
+import PlantDetailPage from "./components/Plants/PlantDetails/PlantDetailPage";
 
 import NotesPage from "./components/Notes/NotesPage";
 import TasksPage from "./components/Tasks/TasksPage";
@@ -33,7 +29,7 @@ function App() {
           </Route>
           <Route element={<BasePage />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/plants" element={<PlantPage />} />
+            <Route path="/plants" element={<PlantListPage />} />
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/tasks" element={<TasksPage />} />
             <Route path="/plants/:slug/" element={<PlantDetailPage />} />

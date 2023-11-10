@@ -128,7 +128,6 @@ const HomePage = () => {
           )}
           {!plantsLoading &&
             plants &&
-            plants.length > 0 &&
             plants.map((plant) => (
               <PlantCard plant={plant} isLoading={plantsLoading} />
             ))}

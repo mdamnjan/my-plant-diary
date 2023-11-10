@@ -23,7 +23,7 @@ const FreqChoices = {
   OAM: "Once a Month",
 };
 
-const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
+const PlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
   const defaultWatering = "OAW";
   const [name, setName] = useState("");
   const [wateringFreq, setWateringFreq] = useState(defaultWatering);
@@ -117,4 +117,4 @@ const NewPlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
     </Dialog>
   );
 };
-export default NewPlantForm;
+export default PlantForm;

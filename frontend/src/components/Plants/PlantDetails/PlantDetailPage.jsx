@@ -16,13 +16,13 @@ import {
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import NotesTab from "./PlantDetails/Tabs/NotesTab";
-import TasksTab from "./PlantDetails/Tabs/TasksTab";
-import OverviewTab from "./PlantDetails/Tabs/OverviewTab";
+import NotesTab from "./Tabs/NotesTab";
+import TasksTab from "./Tabs/TasksTab";
+import OverviewTab from "./Tabs/OverviewTab";
 
 import { useQuery } from "react-query";
 
-import { fetchPlant } from "../../api";
+import { fetchPlant } from "../../../api";
 
 const PlantDetailPage = () => {
   const navigate = useNavigate();

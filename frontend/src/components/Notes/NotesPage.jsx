@@ -6,7 +6,7 @@ import AddButton from "../common/AddButton";
 
 import "./Note.css";
 import Note from "./Note";
-import NoteForm from "./NoteForm";
+import NoteForm from "../Forms/NoteForm";
 
 import { fetchNotes, createNote, deleteNote } from "../../api";
 import { uploadFileToFirebase } from "../../utils";

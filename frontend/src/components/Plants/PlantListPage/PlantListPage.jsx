@@ -9,17 +9,17 @@ import {
 import { useState } from "react";
 import { Search } from "@mui/icons-material";
 
-import "./Plants.css";
-import AddButton from "../common/AddButton";
-import PlantCard from "./PlantCard";
-import NewPlantForm from "./NewPlantForm";
+import "../Plants.css";
+import AddButton from "../../common/AddButton";
+import PlantCard from "../PlantCard";
+import PlantForm from "../../Forms/PlantForm";
 
-import { fetchPlants, createPlant, deletePlant, updatePlant } from "../../api";
-import { uploadFileToFirebase } from "../../utils";
+import { fetchPlants, createPlant, deletePlant, updatePlant } from "../../../api";
+import { uploadFileToFirebase } from "../../../utils";
 
 import { useQuery, useQueryClient } from "react-query";
 
-const PlantPage = () => {
+const PlantListPage = () => {
   const {
     data: plantList,
     isLoading,
@@ -134,7 +134,7 @@ const PlantPage = () => {
           setIsEditing(false);
         }}
       />
-      <NewPlantForm
+      <PlantForm
         handleSubmit={handleSubmit}
         isEditing={isEditing}
         plant={plant}
@@ -146,4 +146,4 @@ const PlantPage = () => {
     </>
   );
 };
-export default PlantPage;
+export default PlantListPage;

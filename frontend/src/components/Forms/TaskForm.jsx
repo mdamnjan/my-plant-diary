@@ -1,9 +1,5 @@
 import {
-  Autocomplete,
   TextField,
-  Box,
-  Avatar,
-  Chip,
   FormControl,
   InputLabel,
   Select,
@@ -12,65 +8,21 @@ import {
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { fetchPlants } from "../../api";
 import BaseForm from "./BaseForm";
+import PlantSelectField from "./PlantSelectField";
 
 const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   const [plant, setPlant] = useState(null);
   const [taskType, setTaskType] = useState(null);
-  const [plantList, setPlantList] = useState([]);
   const [taskDate, setTaskDate] = useState(null);
 
-  useEffect(() => {
-    if (task) {
-      setTaskDate(task.date);
-      setPlant(task.plant);
-      setTaskType(task.type);
-    }
-    const getPlants = async () => {
-      fetchPlants().then((res) => setPlantList(res.data));
-    };
-    getPlants();
-  }, [isEditing, task]);
-
-  const PlantTag = (plant) => {
-    console.log("plant", plant, plant.plant, plant.name);
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          borderRadius: "30px",
-          backgroundColor: "rgb(225 223 223)",
-          margin: "10px 0px",
-          padding: "5px 10px 5px 5px",
-          position: "relative",
-          justifyContent: "space-between",
-          alignSelf: "flex-start",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={plant.img_url || "../../Calathea_orbifolia.jpg"}
-            alt="plant"
-            style={{
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              marginRight: "5px",
-            }}
-          ></img>
-          {plant.name}
-        </div>
-      </div>
-    );
+  const clearForm = () => {
+    setPlant(null);
+    setTaskType(null);
+    setTaskDate(null);
   };
-
-  //   if (isEditing) {
-  //     return ()
-  //   }
 
   return (
     <BaseForm
@@ -78,74 +30,21 @@ const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
       buttonText={isEditing ? "Update task" : "Create task"}
       open={open}
       onClose={() => {
+        clearForm();
         onClose();
-        setPlant(null);
       }}
-      handleSubmit={(e) =>
-        handleSubmit(e, taskType, plant, taskDate )
-      }
+      handleSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e, taskType, plant, taskDate);
+      }}
     >
-      <Autocomplete
-        fullWidth
-        value={plant}
-        style={{
-          margin: "10px 0px",
-          alignSelf: "flex-start",
-        }}
-        renderTags={(value, getTagProps) =>
-          value.map((option, index) => (
-            <Chip
-              variant="outlined"
-              label={option.name}
-              size="small"
-              {...getTagProps({ index })}
-            />
-          ))
-        }
-        getOptionLabel={(option) => option.name}
-        options={plantList}
-        renderInput={(params) => (
-          <TextField {...params} placeholder="Search for a plant..." />
-        )}
-        renderOption={(props, option) => (
-          <Box
-            {...props}
-            style={{
-              alignSelf: "flex-start",
-              // backgroundColor: "rgb(225 223 223)",
-              borderRadius: "60px",
-              padding: "10px",
-              display: "inline-block",
-              marginBottom: "10px",
-              width: "100%",
-            }}
-          >
-            <Avatar
-              sx={{
-                marginRight: "10px",
-                display: "inline-block",
-                verticalAlign: "middle",
-              }}
-              src={option.img_url || "../../Calathea_orbifolia.jpg"}
-            />
-            <p style={{ display: "inline-block" }} className="username">
-              {option.name}
-            </p>
-          </Box>
-        )}
-        onChange={(e, newValue) => {
-          console.log(newValue);
-          setPlant(newValue);
-        }}
-      />
-      {plant && <PlantTag plant={plant.plant} />}
+      <PlantSelectField plant={plant} setPlant={setPlant} />
       <FormControl fullWidth sx={{ margin: "10px 0px 20px 0px" }}>
         <InputLabel id="demo-simple-select-label">Type</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Type"
-        //   value={taskType}
           defaultValue={"water"}
           onChange={(e) => setTaskType(e.target.value)}
         >

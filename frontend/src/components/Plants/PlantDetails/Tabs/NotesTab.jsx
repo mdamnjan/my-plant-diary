@@ -21,7 +21,7 @@ const NotesTab = ({ plant }) => {
     data: notes,
     isLoading,
   } = useQuery({
-    queryKey: [`plant${plant.id}Notes`],
+    queryKey: [`notes`, plant.id],
     queryFn: () => fetchNotes(plant),
     initialData: [],
   });
