@@ -68,7 +68,7 @@ const PlantDetailPage = () => {
           src={plant.img_url}
           style={{
             objectFit: "contain",
-            backgroundColor: "rgb(123 123 123 / 62%)",
+            backgroundColor: "rgba(0, 0, 0, 0.11)",
             borderRadius: "20px",
           }}
         ></img>

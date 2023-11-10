@@ -43,7 +43,8 @@ export const theme = createTheme({
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#d9d9d99e",
+      // main: "#d9d9d99e",
+      main: "rgba(0, 0, 0, 0.11)",
       contrastText: "#000000",
     },
     tertiary: {

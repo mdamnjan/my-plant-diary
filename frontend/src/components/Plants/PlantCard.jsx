@@ -14,8 +14,6 @@ import TaskProgressBar from "../Tasks/TaskProgressBar";
 const PlantCard = ({ plant, isLoading }) => {
   let navigate = useNavigate();
 
-  console.log("plant", plant);
-
   return (
     <Card
       sx={{

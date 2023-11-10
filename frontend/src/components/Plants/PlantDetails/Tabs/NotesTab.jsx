@@ -118,9 +118,9 @@ const NotesTab = ({ plant }) => {
       ))}
       <AddButton tooltipText={"Add a note"} onClick={() => setOpen(true)} />
       <NoteForm
+        handleSubmit={handleSubmit}
         open={open}
         onClose={() => setOpen(false)}
-        handleSubmit={handleSubmit}
       />
     </Box>
   );

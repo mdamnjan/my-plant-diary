@@ -87,7 +87,7 @@ const HomePage = () => {
       <Card
         sx={{
           padding: "20px",
-          backgroundColor: "#d9d9d99e",
+          backgroundColor: "rgba(0, 0, 0, 0.11)",
           borderRadius: "20px",
           width: "100%",
           marginTop: "20px",
