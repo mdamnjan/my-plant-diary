@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 import datetime
 
-class PlantTestCase(TestCase):
+class PlantModelTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(email="testerton@test.com", username="tester", password="abc123")
 
@@ -21,7 +21,7 @@ class PlantTestCase(TestCase):
         plant = Plant.objects.create(owner=self.user, name="Calathea orbifolia")
         self.assertEqual(plant.slug, "calathea-orbifolia")
 
-class TaskTestCase(TestCase):
+class TaskModelTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(email="bob@.example.com", username="bob", password="password")
         self.plant = Plant.objects.create(owner=self.user, name="Peperomia hope")
@@ -52,7 +52,7 @@ class TaskTestCase(TestCase):
         # TODO: completed_at should be set to null again
         # self.assertIsNone(task.completed_at)
 
-class NoteTestCase(TestCase):
+class NoteModelTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(email="abc123@example.com", username="abe", password="ukhwekfer")
         self.plant = Plant.objects.create(owner=self.user, name="Peperomia obtusifolia")

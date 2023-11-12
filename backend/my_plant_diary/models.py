@@ -16,9 +16,6 @@ class Plant(models.Model):
     next_watering=models.DateField(null=True)
     img_url=models.CharField(max_length=200, null=True)
 
-    updated = models.DateTimeField(auto_now=True) 
-    created = models.DateTimeField(auto_now_add=True)
-
     def get_next_watering(self):
         if not self.last_watered:
             pass

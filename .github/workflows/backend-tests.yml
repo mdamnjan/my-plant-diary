@@ -39,3 +39,5 @@ jobs:
 
       run: |
         python manage.py test --no-input my_plant_diary.tests.test_models
+        python manage.py test --no-input my_plant_diary.tests.test_serializers
+        python manage.py test --no-input my_plant_diary.tests.test_views
