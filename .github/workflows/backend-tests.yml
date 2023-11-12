@@ -38,4 +38,4 @@ jobs:
         DB_PORT: ${{ secrets.DB_PORT }}
 
       run: |
-        python manage.py test my_plant_diary.tests.model_tests
+        python manage.py test my_plant_diary.tests.test_models
