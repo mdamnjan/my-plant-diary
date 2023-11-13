@@ -28,6 +28,19 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Task',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('completed_at', models.DateTimeField(null=True)),
+                ('date', models.DateField()),
+                ('completed', models.BooleanField(default=False)),
+                ('type', models.CharField(choices=[('water', 'Water'), ('progress', 'Progress Update'), ('repot', 'Repot'), ('prune', 'Prune')], default='water', max_length=20)),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tasks', to=settings.AUTH_USER_MODEL)),
+                ('plant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_plant_diary.plant')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Note',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
