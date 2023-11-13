@@ -2,8 +2,8 @@ from django.contrib.auth.models import User, Group
 from .authenticate import CustomAuthentication
 
 from rest_framework import viewsets, permissions, generics
-from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, WateringEntrySerializer, TaskSerializer
-from .models import Plant, Note, WateringEntry, Task
+from .serializers import UserSerializer, GroupSerializer, PlantSerializer, NoteSerializer, TaskSerializer
+from .models import Plant, Note, Task
 from .permissions import IsOwner
 
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -143,32 +143,6 @@ class NoteViewSet(viewsets.ModelViewSet):
 class NoteDetailViewSet(generics.RetrieveAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-
-class WateringViewSet(viewsets.ModelViewSet):
-    authentication_classes=[CustomAuthentication]
-    serializer_class = WateringEntrySerializer
-    permission_classes = [permissions.IsAuthenticated,
-                      IsOwner]
-    
-    def get_queryset(self):
-        """
-        Return a list of all watering entries owned by the current user.
-
-        """
-        user = self.request.user
-
-        url_params = self.request.GET
-
-        if url_params:
-            if url_params['plant']:
-                query_plant = self.request.GET['plant']
-                return WateringEntry.objects.filter(plant__owner=user, plant__name=query_plant).order_by('-updated')
-            
-        return WateringEntry.objects.filter(plant__owner=user).order_by('-watered_on')
-
-class WateringDetailViewSet(generics.RetrieveAPIView):
-    queryset = WateringEntry.objects.all()
-    serializer_class = WateringEntrySerializer
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()

@@ -29,15 +29,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='WateringEntry',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('watered_on', models.DateField()),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('plant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_plant_diary.plant')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Note',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

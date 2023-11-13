@@ -63,15 +63,3 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True) 
     text = models.CharField(max_length=1000)
     img_url = models.CharField(max_length=200, null=True)
-
-class WateringEntry(models.Model):
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
-    watered_on = models.DateField()
-    created = models.DateTimeField(auto_now_add=True)
-    
-    def save(self, *args, **kwargs):
-        if not self.plant.last_watered or self.plant.last_watered < self.watered_on:
-            self.plant.last_watered=self.watered_on
-            self.plant.next_watering = self.plant.get_next_watering()
-            self.plant.save()
-        super(WateringEntry, self).save(*args, **kwargs)    
