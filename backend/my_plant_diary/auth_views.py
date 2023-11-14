@@ -95,7 +95,6 @@ class LoginView(views.APIView):
 
             res = set_refresh_token(response=res, new_token=tokens['refresh'])
 
-            res.data = tokens
             return res
 
         else:
