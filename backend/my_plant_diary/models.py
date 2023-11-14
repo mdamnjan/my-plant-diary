@@ -67,7 +67,7 @@ class TaskManager(models.Manager):
 class Task(models.Model):
     objects = TaskManager()
     owner = models.ForeignKey(User, related_name='tasks', on_delete=models.CASCADE)
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    plant = models.ForeignKey(Plant, related_name="tasks", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True)
 

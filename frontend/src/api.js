@@ -11,12 +11,14 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-export const performApiCall = async (method, url, body) => {
+export const performApiCall = async ({ method, url, body, params }) => {
+  console.log("params in performApicall", params);
   return await axiosInstance
     .request({
       method: method,
       url: url,
       data: body,
+      params: params,
     })
     .then((res) => {
       console.log(url, method, res.data, body);
@@ -31,6 +33,7 @@ export const performApiCall = async (method, url, body) => {
               method: method,
               url: url,
               data: body,
+              params: params,
             });
           })
           .then((res) => {
@@ -41,82 +44,85 @@ export const performApiCall = async (method, url, body) => {
 };
 
 export const fetchUser = () => {
-  return performApiCall("get", "/me");
+  return performApiCall({ method: "get", url: "/me" });
 };
 
 export const fetchPlants = () => {
-  return performApiCall("get", "/plants");
+  return performApiCall({ method: "get", url: "/plants" });
 };
 
 export const fetchPlant = (id) => {
-  return performApiCall("get", `/plants/${id}`);
+  return performApiCall({ method: "get", url: `/plants/${id}` });
 };
 
 export const fetchWateringEntries = (plant) => {
   if (plant) {
-    return performApiCall("get", `/watering/?plant=${plant}`);
+    return performApiCall({ method: "get", url: `/watering/?plant=${plant}` });
   }
-  return performApiCall("get", `/watering`);
+  return performApiCall({ method: "get", url: `/watering` });
 };
 
 export const fetchNotes = (plant) => {
   if (plant) {
-    return performApiCall("get", `/notes/?plant=${plant}`);
+    return performApiCall({ method: "get", url: `/notes/?plant=${plant}` });
   }
-  return performApiCall("get", "/notes");
+  return performApiCall({ method: "get", url: "/notes" });
 };
 
-export const fetchTasks = (plant, overdue, interval, completed) => {
-  let queryString = `/tasks?plant=${plant || ""}&interval=${interval}&overdue=${
-    overdue || false
-  }&completed=${completed}`;
+export const fetchTasks = (plant, overdue = false, interval, completed) => {
+  const params = {
+    plant: plant,
+    overdue: overdue,
+    interval: interval,
+    completed: completed,
+  };
 
-  return performApiCall("get", queryString);
+  return performApiCall({ method: "get", url: "/tasks/", params: params });
 };
 
 export const createPlant = (body) => {
-  return performApiCall("post", "/plants/", body);
-};
-
-export const createWateringEntry = (body) => {
-  return performApiCall("post", "/watering/", body);
+  return performApiCall({ method: "post", url: "/plants/", body: body });
 };
 
 export const createNote = (body) => {
   console.log("body", body);
-  return performApiCall("post", "/notes/", body);
+  return performApiCall({ method: "post", url: "/notes/", body: body });
 };
 
 export const createTask = (body) => {
-  return performApiCall("post", "/tasks/", body);
+  return performApiCall({ method: "post", url: "/tasks/", body: body });
 };
 
 export const updatePlant = (plantID, body) => {
-  return performApiCall("patch", `/plants/${plantID}/`, body);
-};
-
-export const updateWateringEntry = (entryID, body) => {
-  return performApiCall("patch", `/watering/${entryID}/`, body);
+  return performApiCall({
+    method: "patch",
+    url: `/plants/${plantID}/`,
+    body: body,
+  });
 };
 
 export const updateTask = (taskID, body) => {
-  return performApiCall("patch", `/tasks/${taskID}/`, body);
+  return performApiCall({
+    method: "patch",
+    url: `/tasks/${taskID}/`,
+    body: body,
+  });
 };
 
 export const deletePlant = (plantID) => {
-  return performApiCall("delete", `/plants/${plantID}/`);
+  return performApiCall({ method: "delete", url: `/plants/${plantID}/` });
 };
 
 export const deleteWateringEntry = (entryID) => {
-  return performApiCall("delete", `/watering/${entryID}/`);
+  return performApiCall({ method: "delete", url: `/watering/${entryID}/` });
 };
 
 export const deleteNote = (noteID) => {
-  return performApiCall("delete", `/notes/${noteID}/`);
+  return performApiCall({ method: "delete", url: `/notes/${noteID}/` });
 };
 
 export const deleteTask = (taskID) => {
-  return performApiCall("delete", `/tasks/${taskID}/`);
+  return performApiCall({ method: "delete", url: `/tasks/${taskID}/` });
 };
 
 export const login = (body) => {
