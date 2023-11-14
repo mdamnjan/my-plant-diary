@@ -18,7 +18,7 @@ class TaskFilter(filters.FilterSet):
     plant = filters.CharFilter(field_name="plant", method="filter_by_plant")
 
     def filter_by_plant(self, queryset, name, value):
-        return queryset.filter(plant__name__icontains=value)
+        return queryset.filter(plant__id=value)
 
     def filter_by_overdue(self, queryset, name, value):
         today = timezone.now().date()
