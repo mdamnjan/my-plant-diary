@@ -17,10 +17,7 @@ const NotesTab = ({ plant }) => {
 
   const queryClient = useQueryClient();
 
-  const {
-    data: notes,
-    isLoading,
-  } = useQuery({
+  const { data: notes, isLoading } = useQuery({
     queryKey: [`notes`, plant.id],
     queryFn: () => fetchNotes(plant),
     initialData: [],
@@ -101,18 +98,15 @@ const NotesTab = ({ plant }) => {
         </BaseWidget>
         <AddButton tooltipText={"Add a note"} onClick={() => setOpen(true)} />
         <NoteForm
+          handleSubmit={handleSubmit}
           open={open}
           onClose={() => setOpen(false)}
-          handleSubmit={(note) => {
-            setOpen(false);
-            createNote({ text: note.text, plant: note.plant });
-          }}
         />
       </>
     );
   }
   return (
-    <Box sx={{marginTop: "20px"}}>
+    <Box sx={{ marginTop: "20px" }}>
       {notes.map((note) => (
         <Note note={note} />
       ))}
