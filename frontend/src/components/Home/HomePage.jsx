@@ -145,10 +145,10 @@ const HomePage = () => {
           flexWrap: "wrap",
         }}
       >
-        <BaseWidget title="Today's Tasks">
+        <BaseWidget title="Today's Tasks" sx={{flexBasis: "45%"}}>
           <TaskList interval="today" />
         </BaseWidget>
-        <BaseWidget title="Overdue Tasks">
+        <BaseWidget title="Overdue Tasks" sx={{flexBasis: "45%"}}>
           <TaskList overdue={true} />
         </BaseWidget>
       </Box>
