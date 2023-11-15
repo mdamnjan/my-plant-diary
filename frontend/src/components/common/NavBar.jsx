@@ -100,6 +100,7 @@ const NavBar = ({ smallScreen }) => {
       icon: <Logout />,
       onClick: function () {
         logout();
+        localStorage.setItem("isLoggedIn", false);
         queryClient.removeQueries();
         navigate("/login");
       },
@@ -108,7 +109,7 @@ const NavBar = ({ smallScreen }) => {
 
   let navigate = useNavigate();
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   if (smallScreen) {
     return (

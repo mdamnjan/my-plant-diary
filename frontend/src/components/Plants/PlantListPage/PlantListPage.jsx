@@ -67,7 +67,7 @@ const PlantListPage = () => {
     }
   };
 
-  console.log("plant list", plantList, isLoading);
+
   const handleDelete = (plant) => {
     deletePlant(plant.id).then(() => queryClient.invalidateQueries(["plants"]));
   };

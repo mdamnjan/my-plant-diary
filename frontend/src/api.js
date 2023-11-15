@@ -12,7 +12,6 @@ const axiosInstance = axios.create({
 });
 
 export const performApiCall = async ({ method, url, body, params }) => {
-  console.log("params in performApicall", params);
   return await axiosInstance
     .request({
       method: method,
@@ -85,7 +84,6 @@ export const createPlant = (body) => {
 };
 
 export const createNote = (body) => {
-  console.log("body", body);
   return performApiCall({ method: "post", url: "/notes/", body: body });
 };
 
@@ -135,12 +133,9 @@ export const login = (body) => {
       }
     )
     .then((res) => {
-      console.log(res);
       let a = `; ${document.cookie}`.match(`;\\s*csrftoken=([^;]+)`);
-      console.log("matched cookie", a, a ? a[1] : "");
       axiosInstance.defaults.headers["X-CSRFTOKEN"] = a ? a[1] : "";
 
-      console.log("results of login", res, axiosInstance.defaults);
       return res;
     });
 };
@@ -162,5 +157,8 @@ export const refreshToken = () => {
     .post("/token/refresh/", {
       withCredentials: true,
     })
-    .catch((error) => (window.location = "/login"));
+    .catch((error) => {
+      localStorage.setItem("isLoggedIn", false)
+      window.location = "/login";
+    });
 };

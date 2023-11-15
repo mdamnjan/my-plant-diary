@@ -6,7 +6,7 @@ import "./Login.css";
 import Logo from "../common/Logo";
 import { login } from "../../api";
 
-const LoginPage = () => {
+const LoginPage = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -18,7 +18,9 @@ const LoginPage = () => {
     // reset error when attempting to register/log in again so it doesn't show the old error message
     setError(null);
     await login({ username: username, password: password })
-      .then((res) => {
+      .then(() => {
+        localStorage.setItem("isLoggedIn", true);
+        setIsLoggedIn(localStorage.getItem("isLoggedIn") || true);
         navigate("/");
       })
       .catch((error) => setError(error.response.data));
@@ -27,7 +29,7 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <Logo/>
+        <Logo />
         <TextField
           id="outlined-basic"
           className="text-field"

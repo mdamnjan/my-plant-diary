@@ -66,7 +66,6 @@ const PlantSelectField = ({ plant, setPlant }) => {
           <TextField {...params} placeholder="Search for a plant..." />
         )}
         renderOption={(props, option) => {
-          console.log("option", option.img_url);
           return (
             <Box
               {...props}

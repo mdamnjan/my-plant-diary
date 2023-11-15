@@ -32,7 +32,6 @@ const TasksPage = () => {
   };
 
   const handleSubmit = (e, taskType, plant, taskDate) => {
-    console.log("is this running")
     const updatePage = () => {
       setOpen(false);
       window.location.reload();
