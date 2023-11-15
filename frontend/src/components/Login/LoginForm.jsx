@@ -6,6 +6,16 @@ import "./Login.css";
 import Logo from "../common/Logo";
 import { login } from "../../api";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0();
+
+  return <button onClick={(e) => {
+    e.preventDefault()
+    loginWithRedirect()}}>Log In</button>;
+};
+
 const LoginPage = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +68,8 @@ const LoginPage = ({ setIsLoggedIn }) => {
           Don't have an account?{" "}
           <Button onClick={() => navigate("/signup")}>Sign Up</Button>
         </div>
+        AUTH0 LOGIN
+        <LoginButton />
       </form>
     </div>
   );
