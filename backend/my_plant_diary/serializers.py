@@ -17,16 +17,16 @@ class PlantSerializer(serializers.ModelSerializer):
         fields = ('id', 'created', 'task_count', 'completed_task_count', 'owner', 'name', 'slug', 'img_url')
     
     def get_task_count(self, obj):
-        tasks_due_today = Task.objects.due_today().count()
-        overdue_tasks = Task.objects.overdue().count()
-        overdue_tasks_completed = Task.objects.completed_today().count()
+        tasks_due_today = Task.objects.due_today(plant=obj.id).count()
+        overdue_tasks = Task.objects.overdue(plant=obj.id).count()
+        overdue_tasks_completed = Task.objects.completed_today(plant=obj.id).count()
 
         # all tasks due today + overdue tasks (not completed)
         return tasks_due_today + overdue_tasks + overdue_tasks_completed
     
     def get_completed_task_count(self, obj):
-        tasks_due_today_completed = Task.objects.due_today_completed().count()
-        overdue_tasks_completed = Task.objects.completed_today().count()
+        tasks_due_today_completed = Task.objects.due_today_completed(plant=obj.id).count()
+        overdue_tasks_completed = Task.objects.completed_today(plant=obj.id).count()
 
         return tasks_due_today_completed + overdue_tasks_completed
     

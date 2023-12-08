@@ -47,20 +47,28 @@ class Plant(models.Model):
         super(Plant, self).save(*args, **kwargs)  
 
 class TaskManager(models.Manager):
-    def overdue(self):
+    def overdue(self, plant=None):
         today = timezone.now().date()
+        if plant:
+            return self.filter(plant=plant, date__lt=today, completed=False)
         return self.filter(date__lt=today, completed=False)
     
-    def due_today(self):
+    def due_today(self, plant=None):
         today = timezone.now().date()
+        if plant:
+            return self.filter(plant=plant, date__gte=today, date__lte=today)
         return self.filter(date__gte=today, date__lte=today)
     
-    def due_today_completed(self):
+    def due_today_completed(self, plant=None):
         today = timezone.now().date()
+        if plant:
+            return self.filter(plant=plant, date__gte=today, date__lte=today, completed=True)
         return self.filter(date__gte=today, date__lte=today, completed=True)
     
-    def completed_today(self):
+    def completed_today(self, plant=None):
         today = timezone.now().date()
+        if plant:
+            return self.filter(plant=plant, date__lt=today, completed_at__date__gte=today, completed_at__date__lte=today, completed=True)  
         return self.filter(date__lt=today, completed_at__date__gte=today, completed_at__date__lte=today, completed=True)  
 
 
