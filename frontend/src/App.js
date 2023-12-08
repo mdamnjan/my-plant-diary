@@ -35,8 +35,10 @@ const ProtectedRoute = ({ isLoggedIn, children }) => {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === true
+    localStorage.getItem("isLoggedIn") === "true"
   );
+
+  console.log(isLoggedIn, localStorage.getItem('isLoggedIn'))
 
   return (
     <div className="App">

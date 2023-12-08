@@ -6,6 +6,7 @@ import BaseForm from "./BaseForm";
 import "../Notes/Note.css";
 
 import PlantSelectField from "./PlantSelectField";
+import ImageUpload from "../common/ImageUpload";
 
 const NoteForm = ({ open, onClose, handleSubmit }) => {
   const [plant, setPlant] = useState(null);
@@ -33,17 +34,7 @@ const NoteForm = ({ open, onClose, handleSubmit }) => {
       }}
     >
       <PlantSelectField plant={plant} setPlant={setPlant} />
-      <img
-        style={{
-          height: "200px",
-          objectFit: "contain",
-          backgroundColor: "#b5b5b5",
-          width: "100%",
-        }}
-        alt="uploaded"
-        src={getImageFromFile(img) || ""}
-      ></img>
-      <UploadButton setFile={setImg} />
+      <ImageUpload img={img} setImg={setImg} />
       <TextField
         sx={{ marginBottom: "20px" }}
         onChange={(e) => setNoteContent(e.target.value)}

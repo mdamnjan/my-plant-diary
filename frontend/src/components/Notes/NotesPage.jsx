@@ -28,7 +28,8 @@ const NotesPage = () => {
     initialData: [],
   });
 
-  const handleDelete = (note) => {
+  const handleDelete = (e, note) => {
+    e.preventDefault()
     deleteNote(note).then(() => queryClient.invalidateQueries(["notes"]));
   };
 
@@ -63,6 +64,7 @@ const NotesPage = () => {
   }
 
   const handleSubmit = (e, text, plant, img) => {
+    e.preventDefault()
     const updatePage = () => {
       setOpen(false);
       queryClient.invalidateQueries(["notes"]);

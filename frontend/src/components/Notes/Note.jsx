@@ -98,7 +98,7 @@ const Note = ({ note, handleDelete, handleEdit, isLoading }) => {
         buttonText="Delete"
         open={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        handleSubmit={() => handleDelete(note.id)}
+        handleSubmit={(e) => handleDelete(e, note.id)}
       ></ConfirmForm>
     </>
   );

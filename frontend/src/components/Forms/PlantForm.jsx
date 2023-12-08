@@ -15,6 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import UploadButton from "../common/UploadButton";
 import { getImageFromFile } from "../../utils";
+import ImageUpload from "../common/ImageUpload";
 
 const FreqChoices = {
   EOD: "Every Other Day",
@@ -55,18 +56,7 @@ const PlantForm = ({ open, isEditing, onClose, plant, handleSubmit }) => {
         }}
         className="new-plant-form-container"
       >
-        <img
-          style={{
-            height: "200px",
-            objectFit: "contain",
-            backgroundColor: "#b5b5b5",
-            width: "100%",
-          }}
-          className="plant-profile-img"
-          src={isEditing ? plant.img_url : getImageFromFile(img) || ""}
-          alt="plant"
-        ></img>
-        <UploadButton setFile={setImg} />
+        <ImageUpload img={img} setImg={setImg}/>
         <TextField
           onChange={(e) => setName(e.target.value)}
           className="plant-name-field"
