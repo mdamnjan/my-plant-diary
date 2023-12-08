@@ -13,8 +13,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import UploadButton from "../common/UploadButton";
-import { getImageFromFile } from "../../utils";
 import ImageUpload from "../common/ImageUpload";
 
 const FreqChoices = {

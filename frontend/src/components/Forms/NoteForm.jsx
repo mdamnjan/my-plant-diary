@@ -1,7 +1,5 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
-import UploadButton from "../common/UploadButton";
-import { getImageFromFile } from "../../utils";
 import BaseForm from "./BaseForm";
 import "../Notes/Note.css";
 
