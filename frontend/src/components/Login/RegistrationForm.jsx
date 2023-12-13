@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
 import { register } from "../../api";
+import Logo from "../common/Logo";
 
 const RegistrationForm = () => {
   const [username, setUsername] = useState("");
@@ -29,10 +30,7 @@ const RegistrationForm = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={registerUser}>
-        <Typography>
-          <img alt="plant" id="logo" src="plant-logo.png" />
-          <h2>My Plant Diary</h2>
-        </Typography>
+        <Logo/>
         {signUpSuccess && (
           <Alert
             style={{ marginBottom: "20px" }}
