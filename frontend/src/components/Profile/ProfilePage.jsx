@@ -1,10 +1,4 @@
-import {
-  Typography,
-  Box,
-  Avatar,
-  Divider,
-  TextField,
-} from "@mui/material";
+import { Typography, Box, Avatar, Divider, TextField } from "@mui/material";
 
 import { useQuery } from "react-query";
 import { fetchUser } from "../../api";
@@ -15,7 +9,7 @@ const ProfilePage = () => {
     queryFn: () => fetchUser(),
     initialData: {
       username: "",
-      email: ""
+      email: "",
     },
   });
   return (
@@ -32,24 +26,36 @@ const ProfilePage = () => {
         <Divider />
         <div
           style={{
-            display: "block",
-            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            gap: "20px",
             marginTop: "20px",
             marginBottom: "20px",
           }}
         >
-          <div>
-            <Typography variant="h5">email</Typography>{" "}
-            <TextField disabled value={user.email} />
-          </div>
-          <div>
-            <Typography variant="h5">username</Typography>{" "}
-            <TextField disabled value={user.username} />
-          </div>
-          <div>
-            <Typography variant="h5">password</Typography>{" "}
-            <TextField disabled type="password" value="password" />
-          </div>
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            disabled
+            variant="filled"
+            value={user.email}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Username"
+            disabled
+            variant="filled"
+            value={user.username}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            disabled
+            variant="filled"
+            type="password"
+            value="password"
+          />
         </div>
       </Box>
     </div>

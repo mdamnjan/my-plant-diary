@@ -77,6 +77,28 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          ":hover": {
+            backgroundColor: "#f7f7f7",
+          },
+          ":focus": {
+            backgroundColor: "#f7f7f7",
+          },
+          ":focus-within": {
+            backgroundColor: "#f7f7f7",
+          },
+          ":disabled": {
+            backgroundColor: "#f7f7f7",
+          },
+          ".Mui-disabled": {
+            backgroundColor: "#f7f7f7",
+          },
+          backgroundColor: "#f7f7f7",
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -86,6 +108,10 @@ export const theme = createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
+        inputRoot: {
+            paddingTop: "10px !important",
+            paddingBottom: "10px !important"
+        },
         popper: {
           backgroundColor: "#f7f7f7",
         },

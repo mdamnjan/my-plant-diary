@@ -5,8 +5,6 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import "./App.css";
-
 import BasePage from "./components/common/BasePage";
 import HomePage from "./components/Home/HomePage";
 
@@ -19,8 +17,6 @@ import PlantDetailPage from "./components/Plants/PlantDetails/PlantDetailPage";
 
 import NotesPage from "./components/Notes/NotesPage";
 import TasksPage from "./components/Tasks/TasksPage";
-
-import "./App.css";
 
 import { createContext, useState } from "react";
 

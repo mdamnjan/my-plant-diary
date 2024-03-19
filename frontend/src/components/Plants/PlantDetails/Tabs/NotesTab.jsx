@@ -61,7 +61,7 @@ const NotesTab = ({ plant }) => {
                 flexDirection: "column",
               }}
             >
-              <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
+              <TaskIcon sx={{ height: "35px", width: "55px" }} />
               <Typography>No notes</Typography>
             </div>
           </Box>
@@ -91,7 +91,7 @@ const NotesTab = ({ plant }) => {
                 flexDirection: "column",
               }}
             >
-              <TaskIcon sx={{ fill: "grey", height: "35px", width: "55px" }} />
+              <TaskIcon sx={{ height: "35px", width: "55px" }} />
               <Typography>No notes</Typography>
             </div>
           </Box>

@@ -80,7 +80,7 @@ const PlantListPage = () => {
             setFilterTerm(e.target.value.toLowerCase());
           }}
           sx={{
-            marginTop: "10px",
+            marginTop: "0px",
             margin: "auto",
             "& .MuiInputBase-root": { paddingRight: "10px !important" }
           }}
@@ -88,6 +88,7 @@ const PlantListPage = () => {
           renderInput={(params) => (
             <>
               <TextField
+              variant="filled"
                 {...params}
                 placeholder="Search for a plant..."
                 InputProps={{

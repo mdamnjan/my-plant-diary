@@ -45,7 +45,7 @@ const RegistrationForm = () => {
           className="text-field"
           label="Email"
           value={email}
-          variant="outlined"
+          variant="filled"
           onChange={(e) => setEmail(e.target.value)}
           error={error}
           helperText={error}
@@ -55,7 +55,7 @@ const RegistrationForm = () => {
           className="text-field"
           label="Username"
           value={username}
-          variant="outlined"
+          variant="filled"
           onChange={(e) => setUsername(e.target.value)}
           error={error}
           helperText={error}
@@ -64,7 +64,7 @@ const RegistrationForm = () => {
           id="outlined-basic"
           className="text-field"
           label="Password"
-          variant="outlined"
+          variant="filled"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -16,7 +16,6 @@ const StyledTaskList = styled(Box)(({ empty }) => ({
 }));
 
 const TaskIcon = styled(MuiTaskIcon)(() => ({
-  fill: "grey",
   height: "35px",
   width: "55px",
 }));
