@@ -25,9 +25,10 @@ export const theme = createTheme({
     },
     fontSize: "1.7rem",
     fontFamily: [
-      "Futura",
+      "Tahoma",
+      "Arial Black",
+      "Verdana",
       "sans-serif",
-      "Verdana"
     ].join(","),
   },
   palette: {
