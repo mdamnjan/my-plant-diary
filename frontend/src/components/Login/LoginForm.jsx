@@ -29,7 +29,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <Logo />
+        <Logo height={"120px"} width={"120px"} marginLeft="-20px" />
         <TextField
           id="outlined-basic"
           className="text-field"
