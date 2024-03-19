@@ -25,16 +25,9 @@ export const theme = createTheme({
     },
     fontSize: "1.7rem",
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
+      "Futura",
       "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      "Verdana"
     ].join(","),
   },
   palette: {
