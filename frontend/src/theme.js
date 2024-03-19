@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import "@fontsource/nunito";
 
 export const theme = createTheme({
   typography: {
@@ -25,9 +26,7 @@ export const theme = createTheme({
     },
     fontSize: "1.7rem",
     fontFamily: [
-      "Tahoma",
-      "Arial Black",
-      "Verdana",
+      "Nunito",
       "sans-serif",
     ].join(","),
   },
