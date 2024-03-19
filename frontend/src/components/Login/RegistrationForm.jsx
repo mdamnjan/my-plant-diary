@@ -30,7 +30,7 @@ const RegistrationForm = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={registerUser}>
-        <Logo height={"120px"} width={"120px"} marginLeft="-20px" />
+      <Logo height={"96px"} width={"96px"} />
         {signUpSuccess && (
           <Alert
             style={{ marginBottom: "20px" }}

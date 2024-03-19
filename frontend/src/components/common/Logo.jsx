@@ -5,6 +5,7 @@ const StyledImage = styled("img")(({ width, height }) => ({
   height: height,
   display: "inline",
   verticalAlign: "middle",
+  marginRight: "10px"
 }));
 
 const AppTitle = styled(Typography)(() => ({
@@ -13,14 +14,13 @@ const AppTitle = styled(Typography)(() => ({
   verticalAlign: "middle",
 }));
 
-const Logo = ({ width="80px", height="80px", marginLeft="-10px" }) => {
+const Logo = ({ width="65px", height="65px"}) => {
   return (
     <Box
       sx={{
         padding: "20px 0px 20px 0px",
         display: "flex",
         alignItems: "center",
-        marginLeft: marginLeft,
       }}
     >
       <StyledImage
