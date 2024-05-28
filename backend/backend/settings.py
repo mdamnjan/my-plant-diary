@@ -34,7 +34,7 @@ SECRET_KEY = env('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['my-plant-diary-api.up.railway.app']
+ALLOWED_HOSTS = [env('HOST')]
 
 # Application definition
 
