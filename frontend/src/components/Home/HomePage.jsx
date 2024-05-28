@@ -1,15 +1,12 @@
 import { Typography, Box, Card } from "@mui/material";
-import { Task as TaskIcon } from "@mui/icons-material";
 
 import { fetchPlants, fetchUser } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
 import PlantCard from "../Plants/PlantCard";
 import TaskList from "../Tasks/TaskList";
-import NumberWidget from "./NumberWidget";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
 import { useQuery } from "react-query";
-import { DateCalendar } from "@mui/x-date-pickers";
 import Calendar from "../common/Calendar";
 
 const HomePage = () => {
@@ -86,7 +83,7 @@ const HomePage = () => {
         }}
       >
         <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
-          <TaskList overdue={true} />
+          <TaskList interval="today" />
         </BaseWidget>
         {/* <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
           <TaskList interval="today" />

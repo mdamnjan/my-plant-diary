@@ -5,7 +5,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 const Calendar = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar slotProps={{ textField: { fullWidth: true } }} />
+      <DateCalendar />
     </LocalizationProvider>
   );
 };
