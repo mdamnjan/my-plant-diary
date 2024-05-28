@@ -137,13 +137,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CORS_ALLOWED_ORIGINS = [env('CLIENT_URL'), env('SERVER_URL')]
+CORS_ALLOWED_ORIGINS = ['https://my-plant-diary-testing.up.railway.app', 'https://my-plant-diary-api-testing.up.railway.app']
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
 # https://stackoverflow.com/questions/74424912/react-and-django-csrf-token-is-not-set-on-production-and-especially-for-create
 # CSRF_COOKIE_SAMESITE = 'None'
-CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary-testing.up.railway.app', 'https://my-plant-diary-api-testing.up.railway.app', env('CLIENT_URL'), env('SERVER_URL')]
+CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary-testing.up.railway.app', 'https://my-plant-diary-api-testing.up.railway.app', env('CSRF_ORIGIN')]
 CSRF_COOKIE_SECURE=True
 CSRF_COOKIE_HTTP_ONLY=False
 CSRF_COOKIE_DOMAIN='.railway.app'
