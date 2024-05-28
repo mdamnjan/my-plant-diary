@@ -137,7 +137,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CORS_ALLOWED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app']
+CORS_ALLOWED_ORIGINS = [env('CORS_ORIGIN')]
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
