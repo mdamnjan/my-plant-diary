@@ -1,22 +1,14 @@
-@media only screen and (max-width: 1280px) {
-  .widget {
-    flex-basis: 50%;
-  }
-  .progress-widgets > * {
-    flex-basis: 33%;
-  }
-  .widgets > *, .tasks > * {
-    flex-basis: 50%;
+@media only screen and (max-width: 1030px) {
+  .widget, .progress-widgets > * {
+    flex-basis: 100%;
   }
 }
 
 @media only screen and (max-width: 850px) {
-  .widget {
+
+  /* .widgets > *, .tasks > *, .progress-widgets > * {
     flex-basis: 100%;
-  }
-  .widgets > *, .tasks > *, .progress-widgets > * {
-    flex-basis: 100%;
-  }
+  } */
 }
 
 .widgets, .progress-widgets {

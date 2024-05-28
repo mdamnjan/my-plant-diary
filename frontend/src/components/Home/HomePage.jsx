@@ -44,50 +44,35 @@ const HomePage = () => {
       <Box
         className="progress-widgets"
         sx={{
-          width: "40%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "20px"
-        }}
-      >
-        <BaseWidget
-          sx={{
-            marginTop: "20px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            backgroundColor: "#c5edfa",
-            gap: "20px"
-          }}
-        >
-          <Typography>
-            {user.completed_task_count}/{user.task_count}
-          </Typography>
-          <TaskProgressBar resource={user} />
-        </BaseWidget>
-        <BaseWidget title="Calendar">
-          <Calendar/>
-        </BaseWidget>
-      </Box>
-      <Box
-        className="tasks"
-        sx={{
+          width: "100%",
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
           gap: "20px",
-          marginTop: "20px",
-          flexWrap: "wrap",
-          flexGrow: 1
         }}
       >
-        <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
+        <Box sx={{display: "flex", flexDirection: "column", gap: "20px"}}>
+          <BaseWidget
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              backgroundColor: "#c5edfa",
+              gap: "20px",
+            }}
+          >
+            <Typography>
+              {user.completed_task_count}/{user.task_count}
+            </Typography>
+            <TaskProgressBar resource={user} />
+          </BaseWidget>
+          <BaseWidget title="Calendar">
+            <Calendar />
+          </BaseWidget>
+        </Box>
+        <BaseWidget title="Today's Tasks">
           <TaskList interval="today" />
         </BaseWidget>
-        {/* <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
-          <TaskList interval="today" />
-        </BaseWidget> */}
       </Box>
       <Card
         sx={{
@@ -115,7 +100,7 @@ const HomePage = () => {
           View All
         </a>
         <Box className="plant-list">
-          {(plantsLoading || !plants || plants.length === 0) && (
+          {(plantsLoading || !plants) && (
             <>
               <PlantCard isLoading />
               <PlantCard isLoading />
@@ -125,6 +110,7 @@ const HomePage = () => {
               <PlantCard isLoading />
             </>
           )}
+          {plants.length === 0 && <span>You have no plants yet!</span>}
           {!plantsLoading &&
             plants &&
             plants.map((plant) => (
