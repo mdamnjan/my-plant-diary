@@ -143,7 +143,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 # https://stackoverflow.com/questions/74424912/react-and-django-csrf-token-is-not-set-on-production-and-especially-for-create
 # CSRF_COOKIE_SAMESITE = 'None'
-CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app', env('CSRF_ORIGIN')]
+CSRF_TRUSTED_ORIGINS = ['https://my-plant-diary.up.railway.app', 'https://my-plant-diary-api.up.railway.app', env('CLIENT_URL'), env('DOMAIN_URL')]
 CSRF_COOKIE_SECURE=True
 CSRF_COOKIE_HTTP_ONLY=False
 CSRF_COOKIE_DOMAIN='.railway.app'
