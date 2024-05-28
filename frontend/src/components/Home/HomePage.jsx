@@ -9,6 +9,8 @@ import TaskList from "../Tasks/TaskList";
 import NumberWidget from "./NumberWidget";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
 import { useQuery } from "react-query";
+import { DateCalendar } from "@mui/x-date-pickers";
+import Calendar from "../common/Calendar";
 
 const HomePage = () => {
   const { data: plants, isLoading: plantsLoading } = useQuery({
@@ -26,13 +28,12 @@ const HomePage = () => {
     },
   });
 
-  const tasksLeft = user.task_count - user.completed_task_count;
   return (
     <div
       style={{
         display: "flex",
         flexWrap: "wrap",
-        gap: "10px",
+        gap: "20px",
       }}
     >
       <Box sx={{ width: "100%" }}>
@@ -46,11 +47,11 @@ const HomePage = () => {
       <Box
         className="progress-widgets"
         sx={{
-          width: "100%",
+          width: "40%",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "center",
-          gap: "20px",
+          gap: "20px"
         }}
       >
         <BaseWidget
@@ -60,6 +61,7 @@ const HomePage = () => {
             flexDirection: "column",
             justifyContent: "center",
             backgroundColor: "#c5edfa",
+            gap: "20px"
           }}
         >
           <Typography>
@@ -67,22 +69,28 @@ const HomePage = () => {
           </Typography>
           <TaskProgressBar resource={user} />
         </BaseWidget>
-        <NumberWidget
-          data={tasksLeft}
-          icon={<TaskIcon />}
-          subtitle={tasksLeft === 1 ? "task left" : "tasks left"}
-          backgroundColor={"#c5edfa"}
-          iconColor={"#3865da"}
-        />
-        <NumberWidget
-          data={user.overdue_task_count}
-          icon={<TaskIcon />}
-          subtitle={
-            user.overdue_task_count === 1 ? "overdue task" : "overdue tasks"
-          }
-          backgroundColor={"rgb(253 223 156)"}
-          iconColor={"#ed8724"}
-        />
+        <BaseWidget title="Calendar">
+          <Calendar/>
+        </BaseWidget>
+      </Box>
+      <Box
+        className="tasks"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: "20px",
+          marginTop: "20px",
+          flexWrap: "wrap",
+          flexGrow: 1
+        }}
+      >
+        <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
+          <TaskList overdue={true} />
+        </BaseWidget>
+        {/* <BaseWidget title="Today's Tasks" sx={{ flexBasis: "45%" }}>
+          <TaskList interval="today" />
+        </BaseWidget> */}
       </Box>
       <Card
         sx={{
@@ -109,16 +117,10 @@ const HomePage = () => {
         >
           View All
         </a>
-        <Box
-          sx={{
-            display: "flex",
-            gap: "20px",
-            overflowX: "scroll",
-            padding: "10px",
-          }}
-        >
+        <Box className="plant-list">
           {(plantsLoading || !plants || plants.length === 0) && (
             <>
+              <PlantCard isLoading />
               <PlantCard isLoading />
               <PlantCard isLoading />
               <PlantCard isLoading />
@@ -133,25 +135,6 @@ const HomePage = () => {
             ))}
         </Box>
       </Card>
-      <Box
-        className="tasks"
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: "20px",
-          marginTop: "20px",
-          flexWrap: "wrap",
-        }}
-      >
-        <BaseWidget title="Today's Tasks" sx={{flexBasis: "45%"}}>
-          <TaskList interval="today" />
-        </BaseWidget>
-        <BaseWidget title="Overdue Tasks" sx={{flexBasis: "45%"}}>
-          <TaskList overdue={true} />
-        </BaseWidget>
-      </Box>
     </div>
   );
 };
