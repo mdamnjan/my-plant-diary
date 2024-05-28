@@ -8,31 +8,31 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 # Create your models here.
-def validate_plant_name(self):
-    if self.name == '':
+def validate_plant_name(name):
+    if name == '':
         raise ValidationError('Plant name cannot be empty.')
     
-    if Plant.objects.filter(name=self.name).exists():
+    if Plant.objects.filter(name=name).exists():
         raise ValidationError('Plant with this name already exists.')
     
 
-def validate_plant_owner(self):
-    if not self.owner:
+def validate_plant_owner(owner):
+    if not owner:
         raise ValidationError('Plant owner must be provided.')
     
-    if not Plant.objects.filter(owner=self.owner).exists():
+    if not Plant.objects.filter(owner=owner).exists():
         raise ValidationError('Plant owner does not exist.')
     
 
-def validate_task_owner(self):
-    if not self.owner:
+def validate_task_owner(owner, plant):
+    if not owner:
         raise ValidationError('Plant owner must be provided.')
     
-    if not Task.objects.filter(owner=self.owner).exists():
+    if not Task.objects.filter(owner=owner).exists():
         raise ValidationError('Task owner does not exist.')
     
     # Task owner must be the same as the plant owner
-    if self.owner != self.plant.owner:
+    if owner != plant.owner:
         raise ValidationError('')
     
 class Plant(models.Model):
