@@ -3,11 +3,11 @@ import { Typography, Box, Card } from "@mui/material";
 import { fetchPlants, fetchUser } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
-import PlantCard from "../Plants/PlantCard";
 import TaskList from "../Tasks/TaskList";
 import TaskProgressBar from "../Tasks/TaskProgressBar";
 import { useQuery } from "react-query";
 import Calendar from "../common/Calendar";
+import PlantList from "../Plants/PlantList";
 
 const HomePage = () => {
   const { data: plants, isLoading: plantsLoading } = useQuery({
@@ -51,7 +51,7 @@ const HomePage = () => {
           gap: "20px",
         }}
       >
-        <Box sx={{display: "flex", flexDirection: "column", gap: "20px"}}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <BaseWidget
             sx={{
               display: "flex",
@@ -99,24 +99,7 @@ const HomePage = () => {
         >
           View All
         </a>
-        <Box className="plant-list">
-          {(plantsLoading || !plants) && (
-            <>
-              <PlantCard isLoading />
-              <PlantCard isLoading />
-              <PlantCard isLoading />
-              <PlantCard isLoading />
-              <PlantCard isLoading />
-              <PlantCard isLoading />
-            </>
-          )}
-          {plants.length === 0 && <span>You have no plants yet!</span>}
-          {!plantsLoading &&
-            plants &&
-            plants.map((plant) => (
-              <PlantCard plant={plant} isLoading={plantsLoading} />
-            ))}
-        </Box>
+        <PlantList plantList={plants} isLoading={plantsLoading} />
       </Card>
     </div>
   );

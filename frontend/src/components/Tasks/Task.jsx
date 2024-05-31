@@ -1,4 +1,4 @@
-import { Delete, Edit, CheckCircle, CircleOutlined } from "@mui/icons-material";
+import { Delete, Edit, CheckCircle, CircleOutlined, LocalFlorist } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -67,7 +67,9 @@ const Task = ({ task, handleEdit, handleDelete, completeTask, isLoading }) => {
             {isLoading ? (
               <Skeleton />
             ) : (
-              <Avatar src={task.plant_img || "../../Calathea_orbifolia.jpg"} />
+              <Avatar src={task.plant_img}>
+                <LocalFlorist/>
+              </Avatar>
             )}
             <div>
               <PlantName variant="h6">

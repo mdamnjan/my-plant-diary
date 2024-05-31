@@ -14,16 +14,19 @@ import AddButton from "../../common/AddButton";
 import PlantCard from "../PlantCard";
 import PlantForm from "../../Forms/PlantForm";
 
-import { fetchPlants, createPlant, deletePlant, updatePlant } from "../../../api";
+import {
+  fetchPlants,
+  createPlant,
+  deletePlant,
+  updatePlant,
+} from "../../../api";
 import { uploadFileToFirebase } from "../../../utils";
 
 import { useQuery, useQueryClient } from "react-query";
+import PlantList from "../PlantList";
 
 const PlantListPage = () => {
-  const {
-    data: plantList,
-    isLoading,
-  } = useQuery({
+  const { data: plantList, isLoading } = useQuery({
     queryKey: ["plants"],
     queryFn: () => fetchPlants(),
     initialData: [],
@@ -67,7 +70,6 @@ const PlantListPage = () => {
     }
   };
 
-
   const handleDelete = (plant) => {
     deletePlant(plant.id).then(() => queryClient.invalidateQueries(["plants"]));
   };
@@ -82,13 +84,13 @@ const PlantListPage = () => {
           sx={{
             marginTop: "0px",
             margin: "auto",
-            "& .MuiInputBase-root": { paddingRight: "10px !important" }
+            "& .MuiInputBase-root": { paddingRight: "10px !important" },
           }}
           options={plantList.map((plant) => plant.name)}
           renderInput={(params) => (
             <>
               <TextField
-              variant="filled"
+                variant="filled"
                 {...params}
                 placeholder="Search for a plant..."
                 InputProps={{
@@ -107,27 +109,14 @@ const PlantListPage = () => {
         />
       </Box>
       <Divider />
-      <Box className="plant-list">
-        {(!plantList || plantList.length===0 || isLoading) && (
-          <>
-            <PlantCard isLoading={true} />
-            <PlantCard isLoading={true} />
-            <PlantCard isLoading={true} />
-            <PlantCard isLoading={true} />
-            <PlantCard isLoading={true} />
-            <PlantCard isLoading={true} />
-          </>
+      <PlantList
+        plantList={plantList.filter((plant) =>
+          plant.name.toLowerCase().includes(filterTerm)
         )}
-        {plantList
-          .filter((plant) => plant.name.toLowerCase().includes(filterTerm))
-          .map((plant) => (
-            <PlantCard
-              plant={plant}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
-      </Box>
+        isLoading={isLoading}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
       <AddButton
         tooltipText="Add a plant"
         onClick={() => {

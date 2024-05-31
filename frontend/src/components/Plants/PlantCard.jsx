@@ -16,6 +16,7 @@ const PlantCard = ({ plant, isLoading }) => {
 
   return (
     <Card
+      className="plant-card"
       sx={{
         display: "flex",
         flexDirection: "column",
