@@ -3,8 +3,8 @@ import Task from "./Task";
 import { Box, Typography, styled } from "@mui/material";
 import { Task as MuiTaskIcon } from "@mui/icons-material";
 
-import { fetchTasks, updateTask, deleteTask } from "../../api";
-import { useQuery, useQueryClient } from "react-query";
+import { updateTask, deleteTask } from "../../api";
+import { useQueryClient } from "react-query";
 
 const StyledTaskList = styled(Box)(({ empty }) => ({
   width: "100%",

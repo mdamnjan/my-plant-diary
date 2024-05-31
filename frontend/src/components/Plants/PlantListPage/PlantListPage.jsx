@@ -11,7 +11,6 @@ import { Search } from "@mui/icons-material";
 
 import "../Plants.css";
 import AddButton from "../../common/AddButton";
-import PlantCard from "../PlantCard";
 import PlantForm from "../../Forms/PlantForm";
 
 import {

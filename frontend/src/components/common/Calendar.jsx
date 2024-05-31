@@ -4,9 +4,6 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { PickersDay } from "@mui/x-date-pickers";
 import { Badge } from "@mui/material";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import { fetchTasks } from "../../api";
-import { useQuery } from "react-query";
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
