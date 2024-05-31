@@ -20,7 +20,6 @@ export const performApiCall = async ({ method, url, body, params }) => {
       params: params,
     })
     .then((res) => {
-      console.log(url, method, res.data, body);
       return res.data;
     })
     .catch((error) => {
@@ -68,12 +67,19 @@ export const fetchNotes = (plant) => {
   return performApiCall({ method: "get", url: "/notes" });
 };
 
-export const fetchTasks = (plant, overdue = false, interval, completed) => {
+export const fetchTasks = ({
+  plant,
+  overdue = false,
+  interval,
+  completed,
+  date,
+}) => {
   const params = {
-    plant: plant,
-    overdue: overdue,
-    interval: interval,
-    completed: completed,
+    ...(plant && { plant: plant }),
+    ...(overdue && { overdue: overdue }),
+    ...(interval && { interval: interval }),
+    ...(completed && { completed: completed }),
+    ...(date && { month_of: date }),
   };
 
   return performApiCall({ method: "get", url: "/tasks/", params: params });
@@ -88,6 +94,7 @@ export const createNote = (body) => {
 };
 
 export const createTask = (body) => {
+  console.log("body", body)
   return performApiCall({ method: "post", url: "/tasks/", body: body });
 };
 
@@ -158,7 +165,7 @@ export const refreshToken = () => {
       withCredentials: true,
     })
     .catch((error) => {
-      localStorage.setItem("isLoggedIn", false)
+      localStorage.setItem("isLoggedIn", false);
       window.location = "/login";
     });
 };

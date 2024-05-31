@@ -15,7 +15,7 @@ import PlantSelectField from "./PlantSelectField";
 
 const TaskForm = ({ open, onClose, handleSubmit, isEditing, task }) => {
   const [plant, setPlant] = useState(null);
-  const [taskType, setTaskType] = useState(null);
+  const [taskType, setTaskType] = useState('water');
   const [taskDate, setTaskDate] = useState(null);
 
   const clearForm = () => {

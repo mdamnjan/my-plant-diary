@@ -21,14 +21,6 @@ const TaskIcon = styled(MuiTaskIcon)(() => ({
 }));
 
 const TaskList = (props) => {
-  const {
-    data: tasks,
-  } = useQuery({
-    queryKey: ["tasks", props.plant, props.interval, props.overdue],
-    queryFn: () =>
-      fetchTasks(props.plant, props.overdue, props.interval, false),
-    initialData: [],
-  });
 
   const queryClient = useQueryClient();
 
@@ -48,7 +40,7 @@ const TaskList = (props) => {
     );
   };
 
-  if (!tasks || tasks.length === 0) {
+  if (!props.tasks || props.tasks.length === 0) {
     return (
       <StyledTaskList empty>
         <TaskIcon />
@@ -57,7 +49,7 @@ const TaskList = (props) => {
     );
   }
 
-  return tasks.map((task) => (
+  return props.tasks.map((task) => (
     <StyledTaskList>
       <Task
         key={task.id}

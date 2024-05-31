@@ -4,12 +4,12 @@ import {
   CardMedia,
   Typography,
   Skeleton,
+  Badge,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // import StatusTag from "./StatusTag";
 import "./Plants.css";
-import TaskProgressBar from "../Tasks/TaskProgressBar";
 
 const PlantCard = ({ plant, isLoading }) => {
   let navigate = useNavigate();
@@ -18,55 +18,43 @@ const PlantCard = ({ plant, isLoading }) => {
     <Card
       className="plant-card"
       sx={{
-        display: "flex",
-        flexDirection: "column",
         margin: "0 !important",
-        position: "relative",
-        minHeight: "300px",
         minWidth: "250px",
-        maxHeight: "500px",
         maxWidth: "600px",
         borderRadius: "20px",
         border: "none",
-        flexShrink: 1,
+        position: "relative"
       }}
       variant="outlined"
       onClick={() =>
         navigate(`/plants/${plant.slug}/`, { replace: false, state: plant })
       }
     >
+      <Badge
+        aria-label={`${plant.task_count} tasks`}
+        color="primary"
+        badgeContent={plant.task_count}
+        sx={{ position: "absolute", top:"20px", right: "20px" }}
+      />
+
       {isLoading ? (
-        <Skeleton
-          sx={{ height: "70%" }}
-          animation="wave"
-          variant="rectangular"
-        />
+        <Skeleton animation="wave" variant="rectangular" />
       ) : (
         <CardMedia
-          sx={{ width: "100%", height: "70%", position: "relative" }}
-          component="div"
+          component="img"
+          sx={{ maxHeight: "300px" }}
           image={plant.img_url || "../../Calathea_orbifolia.jpg"}
           alt={plant.name}
         />
       )}
-      <CardContent sx={{ position: "relative" }}>
-        {isLoading ? (
-          <>
-            <Skeleton />
-          </>
-        ) : (
-          <TaskProgressBar resource={plant} />
-        )}
+      <CardContent sx={{ backgroundColor: "transparent" }}>
         <Typography
           noWrap
           sx={{
-            position: isLoading ? "relative" : "absolute",
-            top: isLoading? "unset": "70%",
             fontWeight: "bold",
             textOverflow: "ellipsis",
-            width: isLoading? "100%": "calc(88%)",
+            width: isLoading ? "100%" : "calc(88%)",
           }}
-          gutterBottom
           variant="h5"
           component="h5"
         >

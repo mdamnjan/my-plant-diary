@@ -1,6 +1,6 @@
 import { Typography, Box, Card } from "@mui/material";
 
-import { fetchPlants, fetchUser } from "../../api";
+import { fetchPlants, fetchTasks, fetchUser } from "../../api";
 import "./HomePage.css";
 import BaseWidget from "../common/BaseWidget";
 import TaskList from "../Tasks/TaskList";
@@ -8,8 +8,12 @@ import TaskProgressBar from "../Tasks/TaskProgressBar";
 import { useQuery } from "react-query";
 import Calendar from "../common/Calendar";
 import PlantList from "../Plants/PlantList";
+import dayjs from "dayjs";
+import { useState } from "react";
 
 const HomePage = () => {
+  const [date, setDate] = useState(dayjs());
+
   const { data: plants, isLoading: plantsLoading } = useQuery({
     queryKey: ["plants"],
     queryFn: () => fetchPlants(),
@@ -24,6 +28,20 @@ const HomePage = () => {
       overdue_task_count: 0,
     },
   });
+
+  const { data: tasks } = useQuery({
+    queryKey: ["tasks", date.month()],
+    queryFn: () => fetchTasks({ date: date.format("YYYY-MM-DD") }),
+    initialData: [],
+  });
+
+  const handleMonthChange = (date) => {
+    setDate(date);
+  };
+
+  const handleDateSelect = (date) => {
+    setDate(date);
+  };
 
   return (
     <div
@@ -67,11 +85,20 @@ const HomePage = () => {
             <TaskProgressBar resource={user} />
           </BaseWidget>
           <BaseWidget title="Calendar">
-            <Calendar />
+            <Calendar
+              highlightedDays={tasks.map((task) => task.date)}
+              handleMonthChange={handleMonthChange}
+              handleDateSelect={handleDateSelect}
+            />
           </BaseWidget>
         </Box>
-        <BaseWidget title="Today's Tasks">
-          <TaskList interval="today" />
+        <BaseWidget title={`Tasks (${date.format("YYYY-MM-DD")})`}>
+          <TaskList
+            date={date}
+            tasks={tasks.filter((task) => {
+              return task.date === date.format("YYYY-MM-DD");
+            })}
+          />
         </BaseWidget>
       </Box>
       <Card
@@ -80,7 +107,6 @@ const HomePage = () => {
           backgroundColor: "rgba(0, 0, 0, 0.11)",
           borderRadius: "20px",
           width: "100%",
-          marginTop: "20px",
         }}
       >
         <Typography

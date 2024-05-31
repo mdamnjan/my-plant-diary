@@ -5,9 +5,11 @@ import { PickersDay } from "@mui/x-date-pickers";
 import { Badge } from "@mui/material";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { fetchTasks } from "../../api";
+import { useQuery } from "react-query";
 
 function ServerDay(props) {
-  const { highlightedDays=[], day, outsideCurrentMonth, ...other } = props;
+  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
   const isSelected =
     !props.outsideCurrentMonth &&
@@ -17,7 +19,8 @@ function ServerDay(props) {
     <Badge
       key={props.day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? "🔵" : undefined}
+      color="primary"
+      badgeContent={isSelected ? " " : undefined}
     >
       <PickersDay
         {...other}
@@ -28,27 +31,18 @@ function ServerDay(props) {
   );
 }
 
-const Calendar = () => {
-  const [highlightedDays, setHighlightedDays] = useState([29]);
-
-  const fetchTasks = () => {
-    console.log("fetching tasks...")
-  }
-
-  useEffect(()=>{
-    fetchTasks()
-  }, [])
+const Calendar = (props) => {
+  const highlightedDays = props.highlightedDays.map((d) => dayjs(d).date());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
         slots={{ day: ServerDay }}
+        onMonthChange={props.handleMonthChange}
         slotProps={{
-          day: {
-            highlightedDays,
-          },
+          day: { highlightedDays },
         }}
-        // defaultValue={dayjs(new Date())}
+        onChange={props.handleDateSelect}        
       />
     </LocalizationProvider>
   );
