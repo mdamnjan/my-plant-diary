@@ -13,10 +13,13 @@ class TaskFilter(filters.FilterSet):
     completed = filters.BooleanFilter
     overdue = filters.BooleanFilter(method="filter_by_overdue")
 
-    date = filters.DateFilter('date')
+    month_of = filters.DateFilter(method="filter_by_month_of")
     INTERVAL_CHOICES = (('today', 'today'), ('week', 'week'),('2weeks', '2weeks'), ('month', 'month'))
     interval = filters.ChoiceFilter(method="filter_by_interval", choices=INTERVAL_CHOICES)
     plant = filters.CharFilter(field_name="plant", method="filter_by_plant")
+
+    def filter_by_month_of(self, queryset, name, value):
+        return queryset.filter(date__month=value.month, date__year=value.year)
 
     def filter_by_plant(self, queryset, name, value):
         return queryset.filter(plant__id=value)
@@ -42,7 +45,7 @@ class TaskFilter(filters.FilterSet):
         return queryset
     class Meta:
         model = Task
-        fields = ['completed', 'interval', 'overdue', 'plant', 'date']
+        fields = ['completed', 'interval', 'overdue', 'plant', 'month_of']
 
 
 class NoteFilter(filters.FilterSet):
