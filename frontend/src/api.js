@@ -69,16 +69,16 @@ export const fetchNotes = (plant) => {
 
 export const fetchTasks = ({
   plant,
-  overdue = false,
+  includeOverdue = false,
   interval,
-  completed,
+  includeCompleted = false,
   date,
 }) => {
   const params = {
     ...(plant && { plant: plant }),
-    ...(overdue && { overdue: overdue }),
+    ...({ overdue: includeOverdue }),
     ...(interval && { interval: interval }),
-    ...(completed && { completed: completed }),
+    ...{ completed: includeCompleted },
     ...(date && { month_of: date }),
   };
 
@@ -94,7 +94,6 @@ export const createNote = (body) => {
 };
 
 export const createTask = (body) => {
-  console.log("body", body)
   return performApiCall({ method: "post", url: "/tasks/", body: body });
 };
 
